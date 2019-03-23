@@ -46,3 +46,9 @@ code {
 .my-collapsible__content {
   overflow: hidden;
 }
+
+.scrollabel-container{
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}

@@ -4,7 +4,7 @@ import { Table } from 'reactstrap';
 class StudentsGrid extends Component {
     render() {
         return (
-            <div className=" mt-4">
+            <div className=" mt-4 scrollabel-container">
                 <Table hover>
                     <thead>
                         <tr>
