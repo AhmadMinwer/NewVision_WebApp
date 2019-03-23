@@ -30,8 +30,8 @@ class StudentsFilters extends Component {
                                     : <FaChevronDown className="filters-icon float-right my-collapsible__toggle" onClick={() => { onToggle(); this.toggleShowFilters(); }} />
                                 }
                             </div>
-                            <div className="container mb-4 py-4  bg-gray my-collapsible__content" ref={setCollapsibleElement}>
-                                <Form className="">
+                            <div className="container mb-4  bg-gray my-collapsible__content" ref={setCollapsibleElement}>
+                                <Form className="py-4">
                                     <div className="col-12  row mx-0 px-0">
                                         <div className="col-12 col-sm-12 col-lg-4 mb-2">
                                             <Input type="text" name="student_name" id="student_name" placeholder="Name" />
@@ -45,14 +45,6 @@ class StudentsFilters extends Component {
                                         <div className="col-12 col-sm-6 col-lg-4 mb-2">
                                             <Input type="text" name="student_tn" id="student_tn" placeholder="Phone" />
                                         </div>
-
-
-                                        <FormGroup className="col-12 col-lg-6  my-2 row ml-1">
-                                            <Label className="col-12 pl-0" for="exampleSelect">CPA Balance</Label>
-                                            <Input className="col-5  " type="text" name="select" id="exampleSelect" placeholder="From" />
-                                            <Label className="col-2  font-weight-bold text-center" for="exampleSelect">_</Label>
-                                            <Input className="col-5 " type="text" name="select" id="exampleSelect" placeholder="To" />
-                                        </FormGroup>
 
                                         <FormGroup className="col-6 col-lg-3 ml-lg-2 my-2  ">
                                             <Label for="exampleSelect">Status</Label>
@@ -69,15 +61,26 @@ class StudentsFilters extends Component {
                                                 <option>IT</option>
                                             </Input>
                                         </FormGroup>
+                                        
+                                        <FormGroup className="col-12 col-lg-6  my-2 row ml-1">
+                                            <Label className="col-12 pl-0" for="exampleSelect">CPA Balance</Label>
+                                            <Input className="col-5  " type="text" name="select" id="exampleSelect" placeholder="From" />
+                                            <Label className="col-2  font-weight-bold text-center" for="exampleSelect">_</Label>
+                                            <Input className="col-5 " type="text" name="select" id="exampleSelect" placeholder="To" />
+                                        </FormGroup>
 
-
-                                        <div className="col-12 col-sm-6 my-2 col-lg-3 ">
-                                            <Label for="exampleSelect">Sign up date</Label>
-                                            <Input type="date" name="student_tn" id="student_tn" />
+                                        <div className="col-12 col-lg-6 my-2 col-lg-3 row ml-1">
+                                            <Label className="col-12 pl-0" for="exampleSelect">Sign up date</Label>
+                                            <Input className="col-5" type="date" name="student_tn" id="student_tn" />
+                                            <Label className="col-2  font-weight-bold text-center" for="exampleSelect">_</Label>
+                                            <Input className="col-5" type="date" name="student_tn" id="student_tn" />
                                         </div>
-                                        <div className="col-12 my-2 col-sm-6 col-lg-3">
-                                            <Label for="exampleSelect">last date at <Badge className="newvision-color">NewVision</Badge></Label>
-                                            <Input type="date" name="student_tn" id="student_tn" />
+
+                                        <div className="col-12 col-lg-6 my-2 col-lg-3 row ml-1">
+                                            <Label className="col-12 pl-0" for="exampleSelect">last date at <Badge className="newvision-color">NewVision</Badge></Label> 
+                                            <Input className="col-5" type="date" name="student_tn" id="student_tn" />
+                                            <Label className="col-2  font-weight-bold text-center" for="exampleSelect">_</Label>
+                                            <Input className="col-5" type="date" name="student_tn" id="student_tn" />
                                         </div>
 
                                         <FormGroup className="col-12 col-sm-6 my-2 col-lg-3 ">
