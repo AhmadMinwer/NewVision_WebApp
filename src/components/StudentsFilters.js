@@ -32,29 +32,29 @@ class StudentsFilters extends Component {
                             </div>
                             <div className="container mb-4 py-4  bg-gray my-collapsible__content" ref={setCollapsibleElement}>
                                 <Form className="">
-                                    <div className="col-12  row">
-                                        <div className="col-12 mb-2">
+                                    <div className="col-12  row mx-0 px-0">
+                                        <div className="col-12 col-sm-12 col-lg-4 mb-2">
                                             <Input type="text" name="student_name" id="student_name" placeholder="Name" />
                                         </div>
-                                        <div className="col-6 mb-2">
+                                        <div className="col-6 col-sm-3 col-lg-2 mb-2">
                                             <Input type="text" name="student_id" id="student_id" placeholder="ID" />
                                         </div>
-                                        <div className="col-6 mb-2">
+                                        <div className="col-6 col-sm-3 col-lg-2 mb-2">
                                             <Input type="text" name="student_cpa" id="student_cpa" placeholder="CPA" />
                                         </div>
-                                        <div className="col-12 mb-2">
+                                        <div className="col-12 col-sm-6 col-lg-4 mb-2">
                                             <Input type="text" name="student_tn" id="student_tn" placeholder="Phone" />
                                         </div>
 
 
-                                        <FormGroup className="col-12  my-2 row ml-1">
-                                            <Label className="col-12" for="exampleSelect">CPA Balance</Label>
-                                            <Input className="col-5 " type="text" name="select" id="exampleSelect" placeholder="From" />
-                                            <Label className="col-2 font-weight-bold text-center" for="exampleSelect">_</Label>
-                                            <Input className="col-5" type="text" name="select" id="exampleSelect" placeholder="To" />
+                                        <FormGroup className="col-12 col-lg-6  my-2 row ml-1">
+                                            <Label className="col-12 pl-0" for="exampleSelect">CPA Balance</Label>
+                                            <Input className="col-5  " type="text" name="select" id="exampleSelect" placeholder="From" />
+                                            <Label className="col-2  font-weight-bold text-center" for="exampleSelect">_</Label>
+                                            <Input className="col-5 " type="text" name="select" id="exampleSelect" placeholder="To" />
                                         </FormGroup>
 
-                                        <FormGroup className="col-6 my-2  ">
+                                        <FormGroup className="col-6 col-lg-3 ml-lg-2 my-2  ">
                                             <Label for="exampleSelect">Status</Label>
                                             <Input type="select" name="select" id="exampleSelect">
                                                 <option>Active</option>
@@ -62,7 +62,7 @@ class StudentsFilters extends Component {
                                             </Input>
                                         </FormGroup>
 
-                                        <FormGroup className="col-6 my-2   ">
+                                        <FormGroup className="col-6 my-2 col-lg-3">
                                             <Label for="exampleSelect">Last level</Label>
                                             <Input type="select" name="select" id="exampleSelect">
                                                 <option>א </option>
@@ -71,16 +71,16 @@ class StudentsFilters extends Component {
                                         </FormGroup>
 
 
-                                        <div className="col-12 my-2 ">
+                                        <div className="col-12 col-sm-6 my-2 col-lg-3 ">
                                             <Label for="exampleSelect">Sign up date</Label>
                                             <Input type="date" name="student_tn" id="student_tn" />
                                         </div>
-                                        <div className="col-12 my-2 ">
+                                        <div className="col-12 my-2 col-sm-6 col-lg-3">
                                             <Label for="exampleSelect">last date at <Badge className="newvision-color">NewVision</Badge></Label>
                                             <Input type="date" name="student_tn" id="student_tn" />
                                         </div>
 
-                                        <FormGroup className="col-12 my-2 ">
+                                        <FormGroup className="col-12 col-sm-6 my-2 col-lg-3 ">
                                             <Label for="exampleSelect">specialty</Label>
                                             <Input type="select" name="select" id="exampleSelect">
                                                 <option>medicine</option>
@@ -88,17 +88,22 @@ class StudentsFilters extends Component {
                                             </Input>
                                         </FormGroup>
 
-                                        <FormGroup check className="col-12 my-2 ml-3 ">
-                                            <Label check>
-                                                <Input type="checkbox" />
-                                                Received the certificate
-                                            </Label>
+                                        <FormGroup className="col-12 col-sm-6 my-2 col-lg-3">
+                                            <Label for="exampleSelect">Certificate Status</Label>
+                                            <Input type="select" name="select" id="exampleSelect">
+                                                <option>Both Cases</option>
+                                                <option>received</option>
+                                                <option>Not yet</option>
+                                            </Input>
                                         </FormGroup>
+
+
                                     </div>
 
                                     <Button className="ml-3 mt-2">Submit</Button>
                                     <Button className="ml-3 mt-2">Save Query</Button>
                                     <Button className="ml-3 mt-2">Add to Saved Query</Button>
+                                    <Button className="ml-3 mt-2">Apply Query</Button>
                                     <Button className="ml-3 mt-2">Clear All</Button>
 
                                 </Form>

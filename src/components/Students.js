@@ -8,7 +8,7 @@ class Students extends Component {
         return (
             <div>
                 <StudentsFilters />
-                {/* <StudentsGrid /> */}
+                <StudentsGrid />
             </div>
         );
     }
