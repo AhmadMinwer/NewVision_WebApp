@@ -12,3 +12,37 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.vertical-center {
+  min-height: 90%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 90vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+
+.fs-8{
+  font-size: 5vw;
+}
+
+.bg-gray{
+  background-color: #F6F6F6;
+}
+
+.newvision-color{
+  background-color: #119897;
+  color: #823675;
+}
+
+.filters-header{
+  height: 50px;
+}
+
+.filters-icon{
+  height: 50px !important;
+  cursor: pointer;
+}
+
+.my-collapsible__content {
+  overflow: hidden;
+}
