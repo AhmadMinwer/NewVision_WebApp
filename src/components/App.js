@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import Students from './Students';
+import Groups from './Groups';
 import { BrowserRouter as Router } from 'react-router-dom';
 // import LoadingBar from 'react-redux-loading'
 import NewVisionNav from './NewVisionNav';
@@ -13,7 +13,7 @@ class App extends Component {
           {/* <LoadingBar /> */}
           <div className="App">
             <NewVisionNav />
-            <Students />
+            <Groups />
           </div>
         </Fragment>
       </Router>

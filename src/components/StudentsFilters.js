@@ -61,7 +61,7 @@ class StudentsFilters extends Component {
                                                 <option>IT</option>
                                             </Input>
                                         </FormGroup>
-                                        
+
                                         <FormGroup className="col-12 col-lg-6  my-2 row ml-1">
                                             <Label className="col-12 pl-0" for="exampleSelect">CPA Balance</Label>
                                             <Input className="col-5  " type="text" name="select" id="exampleSelect" placeholder="From" />
@@ -77,7 +77,7 @@ class StudentsFilters extends Component {
                                         </div>
 
                                         <div className="col-12 col-lg-6 my-2 col-lg-3 row ml-1">
-                                            <Label className="col-12 pl-0" for="exampleSelect">last date at <Badge className="newvision-color">NewVision</Badge></Label> 
+                                            <Label className="col-12 pl-0" for="exampleSelect">last date at <Badge className="newvision-color">NewVision</Badge></Label>
                                             <Input className="col-5" type="date" name="student_tn" id="student_tn" />
                                             <Label className="col-2  font-weight-bold text-center" for="exampleSelect">_</Label>
                                             <Input className="col-5" type="date" name="student_tn" id="student_tn" />
@@ -94,7 +94,24 @@ class StudentsFilters extends Component {
                                         <FormGroup className="col-12 col-sm-6 my-2 col-lg-3">
                                             <Label for="exampleSelect">Certificate Status</Label>
                                             <Input type="select" name="select" id="exampleSelect">
-                                                <option>Both Cases</option>
+                                                <option>all</option>
+                                                <option>received</option>
+                                                <option>Not yet</option>
+                                            </Input>
+                                        </FormGroup>
+
+                                        <FormGroup className="col-12 col-sm-6 my-2 col-lg-3">
+                                            <Label for="exampleSelect">Group name</Label>
+                                            <Input type="select" name="select" id="exampleSelect">
+                                                <option>all</option>
+                                                <option>received</option>
+                                                <option>Not yet</option>
+                                            </Input>
+                                        </FormGroup>
+                                        <FormGroup className="col-12 col-sm-6 my-2 col-lg-3">
+                                            <Label for="exampleSelect">Group Level</Label>
+                                            <Input type="select" name="select" id="exampleSelect">
+                                                <option>all</option>
                                                 <option>received</option>
                                                 <option>Not yet</option>
                                             </Input>
@@ -105,9 +122,9 @@ class StudentsFilters extends Component {
 
                                     <Button className="ml-3 mt-2">Submit</Button>
                                     <Button className="ml-3 mt-2">Save Query</Button>
-                                    <Button className="ml-3 mt-2">Add to Saved Query</Button>
                                     <Button className="ml-3 mt-2">Apply Query</Button>
-                                    <Button className="ml-3 mt-2">Clear All</Button>
+                                    <Button className="ml-3 mt-2">Query calculator</Button>
+                                    <Button className="ml-3 mt-2 ">Clear All</Button>
 
                                 </Form>
                             </div>
