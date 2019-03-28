@@ -2,11 +2,20 @@ import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
+import { connect } from 'react-redux'
 
 
 // import './App.css';
 
 class Login extends Component {
+    state = {
+        redirectToReferrer: false
+    }
+
+
+
+
+
     render() {
         return (
             <div className="Login row vertical-center">
@@ -33,4 +42,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default connect()(Login);

@@ -4,6 +4,8 @@ import Badge from 'react-bootstrap/Badge';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import SlideToggle from "react-slide-toggle";
 import { FaChevronDown, FaTimes } from "react-icons/fa";
+import { connect } from 'react-redux';
+
 
 class GroupFilters extends Component {
     state = {
@@ -114,4 +116,21 @@ class GroupFilters extends Component {
     }
 }
 
-export default GroupFilters;
+
+
+// function mapStateToProps({ }, { id }) {
+//     const question = questions[id]
+//     question['optionOneText'] = question.optionOne.text
+//     question['optionTwoText'] = question.optionTwo.text
+  
+//     return {
+//       id,
+//       questions,
+//       authedUser,
+//       users,
+//       question
+//     };
+//   }
+  
+  export default connect()(GroupFilters);
+  

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Table } from 'reactstrap';
+import { connect } from 'react-redux';
 
 class StudentsGrid extends Component {
     render() {
@@ -181,4 +182,4 @@ class StudentsGrid extends Component {
     }
 }
 
-export default StudentsGrid;
+export default connect()(StudentsGrid);

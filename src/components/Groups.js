@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import GroupsFilters from './GroupsFilters';
 import GroupsGrid from './GroupsGrid';
+import { connect } from 'react-redux';
+
 
 
 class Groups extends Component {
@@ -14,4 +16,4 @@ class Groups extends Component {
     }
 }
 
-export default Groups;
+export default connect()(Groups);

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Table } from 'reactstrap';
+import { connect } from 'react-redux';
+
 
 class GroupsGrid extends Component {
     render() {
@@ -46,4 +48,4 @@ class GroupsGrid extends Component {
     }
 }
 
-export default GroupsGrid;
+export default connect()(GroupsGrid);

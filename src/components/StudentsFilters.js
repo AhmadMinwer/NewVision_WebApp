@@ -4,6 +4,8 @@ import Badge from 'react-bootstrap/Badge';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import SlideToggle from "react-slide-toggle";
 import { FaChevronDown, FaTimes } from "react-icons/fa";
+import { connect } from 'react-redux';
+
 
 class StudentsFilters extends Component {
     state = {
@@ -135,4 +137,4 @@ class StudentsFilters extends Component {
     }
 }
 
-export default StudentsFilters;
+export default connect()(StudentsFilters);

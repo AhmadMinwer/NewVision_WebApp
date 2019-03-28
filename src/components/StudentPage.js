@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Badge from 'react-bootstrap/Badge';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { connect } from 'react-redux';
 
 class StudentPage extends Component {
     
@@ -97,4 +98,4 @@ class StudentPage extends Component {
     }
 }
 
-export default StudentPage;
+export default connect()(StudentPage);
