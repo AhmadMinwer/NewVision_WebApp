@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 class GroupsGrid extends Component {
     render() {
         return (
-            <div className=" px-4 mt-4 scrollabel-container">
+            <div className="shadow mx-4 mx-auto mt-4 scrollabel-container">
                 <Table hover>
                     <thead>
                         <tr>

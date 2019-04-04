@@ -6,6 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #F6F6F6 !important;
 }
 
 code {
@@ -51,4 +52,12 @@ code {
   width: 100%;
   overflow-x: auto;
   white-space: nowrap;
+}
+
+.container , .scrollabel-container{
+  background-color: white !important;
+}
+
+.gray{
+  color: darkgrey;
 }

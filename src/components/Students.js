@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import StudentsFilters from './StudentsFilters';
 import StudentsGrid from './StudentsGrid';
 import { connect } from 'react-redux';
-
+import NewVisionNav from './NewVisionNav'
 
 
 class Students extends Component {
@@ -10,6 +10,7 @@ class Students extends Component {
         return (
             <div>
                 <StudentsFilters />
+                <br />
                 <StudentsGrid />
             </div>
         );

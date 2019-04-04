@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 
 class StudentsFilters extends Component {
     state = {
-        showFilters: true,
+        showFilters: false,
     }
 
     toggleShowFilters = () => {
@@ -21,18 +21,18 @@ class StudentsFilters extends Component {
         return (
             <div>
 
-                <SlideToggle>
+                <SlideToggle collapsed>
                     {({ onToggle, setCollapsibleElement }) => (
                         // Add CSS: .my-collapsible__content { overflow: hidden;}
                         <div>
-                            <div className="container bg-info text-light mt-4 mb-0  filters-header my-collapsible">
+                            <div className=" shadow container bg-info text-light mt-4 mb-0  filters-header my-collapsible">
                                 <h3 className="py-2 mb-0 text-light float-left">Students Filters</h3>
 
                                 {this.state.showFilters ? <FaTimes className="filters-icon float-right my-collapsible__toggle" onClick={() => { onToggle(); this.toggleShowFilters(); }} />
                                     : <FaChevronDown className="filters-icon float-right my-collapsible__toggle" onClick={() => { onToggle(); this.toggleShowFilters(); }} />
                                 }
                             </div>
-                            <div className="container mb-4  bg-gray my-collapsible__content" ref={setCollapsibleElement}>
+                            <div className="shadow container mb-4  bg-gray my-collapsible__content" ref={setCollapsibleElement}>
                                 <Form className="py-4">
                                     <div className="col-12  row mx-0 px-0">
                                         <div className="col-12 col-sm-12 col-lg-4 mb-2">

@@ -3,7 +3,10 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
 import { connect } from 'react-redux'
-
+import { fakeAuth } from './fakeAuth'
+import { logout } from '../actions/authedUser' 
+import { setAuthedUser } from '../actions/authedUser'
+import { Redirect, withRouter } from 'react-router-dom'
 
 // import './App.css';
 
@@ -12,15 +15,32 @@ class Login extends Component {
         redirectToReferrer: false
     }
 
+    componentDidMount() {
+        this.props.dispatch(logout())
+        fakeAuth.signout()
+    }
 
-
-
+    handleLogin = (value) => {
+        this.props.dispatch(setAuthedUser(value.value))
+        fakeAuth.authenticate(() => {
+            this.setState(() => ({
+                redirectToReferrer: true
+            }))
+        })
+        
+    }
 
     render() {
+        const { from } = this.props.location.state || { from: { pathname: '/' } }
+        const { redirectToReferrer } = this.state
+
+        if (redirectToReferrer === true) {
+            return <Redirect to={from} />
+        }
         return (
-            <div className="Login row vertical-center">
-                <div className="container col-4">
-                    <h1 className="text-center fs-8 mb-4"><Badge variant="secondary">NewVision</Badge></h1>
+            <div className="Login  vertical-center">
+                <div className="p-4 shadow  container col-4">
+                    <h1 className="text-center fs-8 mb-4"><Badge className="newvision-color">NewVision</Badge></h1>
                     <Form>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Username</Form.Label>
@@ -31,8 +51,8 @@ class Login extends Component {
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" placeholder="Password" />
                         </Form.Group>
-                        
-                        <Button variant="primary" type="submit">
+
+                        <Button onClick={this.handleLogin} variant="primary" type="submit">
                             Login
                     </Button>
                     </Form>
@@ -42,4 +62,11 @@ class Login extends Component {
     }
 }
 
-export default connect()(Login);
+function mapStateToProps({ users, authedUser }) {
+    return {
+        users,
+        authedUser
+    };
+}
+
+export default withRouter(connect(mapStateToProps)(Login))
