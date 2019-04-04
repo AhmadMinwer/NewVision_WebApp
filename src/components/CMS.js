@@ -11,8 +11,8 @@ class CMS extends Component {
         return (
             <div className=''>
                 <StudentsSettings />
-                {/* <GroupsSettings/>
-                <QueriesSettings/> */}
+                <GroupsSettings/>
+                <QueriesSettings/>
             </div>
         );
     }

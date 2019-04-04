@@ -2,10 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 
-
-
-
-
 class StudentsSettings extends Component {
 
     render() {
