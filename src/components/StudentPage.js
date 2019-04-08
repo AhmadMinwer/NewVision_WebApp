@@ -11,17 +11,17 @@ class StudentPage extends Component {
                 <div className='row'>
                     <div className='col-2 mb-3'>ID</div>
                     <div className='col-6 mb-3'>Full Name</div>
-                    <div className='col-2 mb-3'>Phone 1</div>
-                    <div className='col-2 mb-3'>Phone 2</div>
+                    <div className='col-6 col-md-2 mb-3'>Phone 1</div>
+                    <div className='col-6 col-md-2 mb-3'>Phone 2</div>
                     <div className='col-12 mb-3'><span className='gray'>Status:</span> Active </div>
-                    <div className='col-2 mb-3'><span className='gray'>CPA ID: </span> 5214</div>
-                    <div className='col-3 mb-3'><span className='gray'>CPA Balance: </span>5000 </div>
-                    <div className='col-6 mb-3'></div>
-                    <div className='col-4 mb-3'><span className='gray'>sign up date: </span>12 April 2015 </div>
-                    <div className='col-4 mb-3'><span className='gray'>last date: </span>12 Augest 2015 </div>
+                    <div className='col-6 col-md-3 mb-3'><span className='gray'>CPA ID: </span> 5214</div>
+                    <div className='col-6 col-md-3 mb-3'><span className='gray'>CPA Balance: </span>5000 </div>
+                    <div className='col-0 col-md-6 mb-3'></div>
+                    <div className='col-6 mb-3'> <span className='gray'>sign up date: </span>12 April 2015 </div>
+                    <div className='col-6 mb-3'><span className='gray'>last date: </span>12 Augest 2015 </div>
 
 
-                    <div className='col-12 mt-4'>
+                    <div className='col-12 mt-4 scrollabel-container'>
                         <Table hover>
                             <thead>
                                 <tr>

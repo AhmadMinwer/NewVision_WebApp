@@ -6,8 +6,9 @@ class QueriesSettings extends Component {
 
     render() {
         return (
-            <div className='container row mx-auto mt-4 py-4 shadow'>
+            <div className='container row mx-auto my-4 py-4 shadow'>
                 <h3 className='col-12 '>Queries settings</h3>
+                <hr className=' col-11' />
                  <br />
             </div>
         );

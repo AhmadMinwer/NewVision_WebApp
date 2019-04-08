@@ -42,7 +42,7 @@ class NewVisionNav extends React.Component {
                 <NavLink href='/groups' >Groups</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href='/settings'>CMS</NavLink>
+                <NavLink href='/settings'>Settings</NavLink>
               </NavItem>
             </Nav>
           </Collapse>

@@ -9,11 +9,11 @@ class NewStudent extends Component {
         return (
             <div>
                 <div>
-                    <div className="container bg-success text-light mt-4 mb-0  filters-header ">
+                    <div className="shadow container bg-success text-light mt-4 mb-0  filters-header ">
                         <h3 className="py-2 mb-0 text-light float-left">Add Student</h3>
 
                     </div>
-                    <div className="container mb-4  bg-gray " >
+                    <div className="shadow container mb-4  bg-gray " >
                         <Form className="py-4">
                             <div className="col-12  row mx-0 px-0">
                                 <div className="col-12 col-sm-12 col-lg-4 mb-2">
