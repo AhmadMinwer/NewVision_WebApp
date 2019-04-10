@@ -12,6 +12,7 @@ import NotFound from './NotFound'
 import Login from './Login'
 import CMS from './CMS'
 import NewStudent from './NewStudent'
+import NewGroup from './NewGroup'
 
 
 class App extends Component {
@@ -31,11 +32,12 @@ class App extends Component {
                   <Route path='/students' exact  component={Students} />
                   <Route path='/students/id:id' component={StudentPage} />
                   <Route path='/students/add' component={NewStudent} />
-                  <Route path='/groups' component={Groups} />
-                  <Route path='/groups/:id' component={GroupPage} />
+                  <Route path='/groups' exact component={Groups} />
+                  <Route path='/groups/id:id' component={GroupPage} />
+                  <Route path='/groups/add' component={NewGroup} />
                   <Route path='/settings' exact component={CMS} />
 
-
+                  
                   <Route path='/login' component={Login} />
 
         </Fragment>

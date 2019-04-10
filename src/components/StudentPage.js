@@ -1,31 +1,44 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Table } from 'reactstrap';
+import { Input } from 'reactstrap';
+
 
 
 class StudentPage extends Component {
+    state={
+        default:'aas asf',
+    }
 
+    handleChange(e) {
+        this.setState({
+            default: e.target.value,
+        });
+      }
+    
     render() {
         return (
-            <div className='container my-4 py-4 shadow'>
+            <div className='student-page container my-4 py-4 shadow'>
                 <div className='row'>
-                    <div className='col-2 mb-3'>ID</div>
-                    <div className='col-6 mb-3'>Full Name</div>
+                    <div className='col-2 mb-3'>  ID</div>
+                    <div className='col-6 mb-3'><Input type="text" value={this.state.default}  onChange={(e) => this.handleChange(e)}/> </div>
                     <div className='col-6 col-md-2 mb-3'>Phone 1</div>
                     <div className='col-6 col-md-2 mb-3'>Phone 2</div>
                     <div className='col-12 mb-3'><span className='gray'>Status:</span> Active </div>
                     <div className='col-6 col-md-3 mb-3'><span className='gray'>CPA ID: </span> 5214</div>
                     <div className='col-6 col-md-3 mb-3'><span className='gray'>CPA Balance: </span>5000 </div>
                     <div className='col-0 col-md-6 mb-3'></div>
-                    <div className='col-6 mb-3'> <span className='gray'>sign up date: </span>12 April 2015 </div>
-                    <div className='col-6 mb-3'><span className='gray'>last date: </span>12 Augest 2015 </div>
+                    <div className='col-12 col-lg-3 mb-3'> <span className='gray'>sign up date: </span>12 April 2015 </div>
+                    <div className='col-12 col-lg-9 mb-3'><span className='gray'>last date: </span>12 Augest 2015 </div>
 
 
                     <div className='col-12 mt-4 scrollabel-container'>
+                        <h4>Groups</h4>
                         <Table hover>
                             <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>Name</th>
                                     <th>level</th>
                                     <th>date</th>
                                     <th>first test</th>
@@ -39,6 +52,7 @@ class StudentPage extends Component {
                             <tbody>
                                 <tr>
                                     <th scope="row">561</th>
+                                    <td>Group Name</td>
                                     <td>A</td>
                                     <td>2 April 2018</td>
                                     <td>82/100</td>
@@ -50,6 +64,7 @@ class StudentPage extends Component {
                                 </tr>
                                 <tr>
                                     <th scope="row">214</th>
+                                    <td>Group Name</td>
                                     <td>B</td>
                                     <td>2 April 2018</td>
                                     <td>82/100</td>

@@ -61,3 +61,12 @@ code {
 .gray{
   color: darkgrey;
 }
+
+.student-page input{
+  border: none;
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  padding: none;
+  
+}

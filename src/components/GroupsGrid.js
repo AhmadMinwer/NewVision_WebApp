@@ -2,14 +2,20 @@ import React, { Component } from 'react';
 import { Table } from 'reactstrap';
 import { connect } from 'react-redux';
 import Button from 'react-bootstrap/Button';
+import { withRouter  } from 'react-router-dom'
 
 
 
 class GroupsGrid extends Component {
+    redircetToAddGroup = () => {
+
+        this.props.history.push('/groups/add');
+    }
+
     render() {
         return (
             <div>
-                <Button className='mr-4 float-right my-4' onClick={this.redircetToAddStudent} variant="success"  >Add Group</Button>
+                <Button className='mr-4 float-right my-4' onClick={this.redircetToAddGroup} variant="success"  >Add Group</Button>
                 <div className="shadow mx-4 mx-auto mt-4 scrollabel-container">
 
                     <Table hover>
@@ -54,4 +60,4 @@ class GroupsGrid extends Component {
     }
 }
 
-export default connect()(GroupsGrid);
+export default connect()(withRouter(GroupsGrid));
