@@ -73,5 +73,5 @@ code {
 
 
 .newDay{
-  width:180px;
+  width:180px !important;
 }

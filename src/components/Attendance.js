@@ -137,7 +137,7 @@ class AttendancePage extends Component {
                                 <th scope="row">561</th>
                                 <td>Student Name</td>
                                 {this.state.NewDayForm ? <td className='bg-dark text-light'> <Button className='mx-0 my-0' onClick='' variant="light"  ><FontAwesomeIcon icon="thumbs-up" /></Button> <Button className='mx-0 my-0' onClick='' variant="light"  ><FontAwesomeIcon icon="thumbs-down" /></Button></td> : ''}
-                                {this.state.NewDayForm ? <td className='bg-dark text-light newDay'><Input type="text" value={this.state.default} onChange={(e) => this.handleChange(e)} /> </td> : ''}
+                                {this.state.NewDayForm ? <td className='bg-dark text-light '><Input type="text" value={this.state.default} onChange={(e) => this.handleChange(e)} /> </td> : ''}
                                 <td className='bg-success'></td>
                                 <td className='bg-danger'>was ill</td>
                                 <td className='bg-danger'>85/100</td>
@@ -149,7 +149,7 @@ class AttendancePage extends Component {
                                 <th scope="row">214</th>
                                 <td>Student Name</td>
                                 {this.state.NewDayForm ? <td className='bg-dark text-light'> <Button className='mx-0 my-0' onClick='' variant="light"  ><FontAwesomeIcon icon="thumbs-up" /></Button> <Button className='mx-0 my-0' onClick='' variant="light"  ><FontAwesomeIcon icon="thumbs-down" /></Button></td> : ''}
-                                {this.state.NewDayForm ? <td className='bg-dark text-light newDay'><Input type="text" value={this.state.default} onChange={(e) => this.handleChange(e)} /> </td> : ''}
+                                {this.state.NewDayForm ? <td className='bg-dark text-light '><Input className='newDay' type="text" value={this.state.default} onChange={(e) => this.handleChange(e)} /> </td> : ''}
                                 <td>82/100</td>
                                 <td>90/100</td>
                                 <td>85/100</td>
