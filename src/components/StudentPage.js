@@ -7,12 +7,19 @@ import { Input } from 'reactstrap';
 
 class StudentPage extends Component {
     state={
-        default:'aas asf',
+        name:'aas asf',
+        phone1:'',
+        phone2:'',
+        status:'',
+        CPAID:'',
+        CPABalance:'',
+        terms:'',
+        remarks:''
     }
 
     handleChange(e) {
         this.setState({
-            default: e.target.value,
+            name: e.target.value,
         });
       }
     
@@ -21,7 +28,7 @@ class StudentPage extends Component {
             <div className='student-page container my-4 py-4 shadow'>
                 <div className='row'>
                     <div className='col-2 mb-3'>  ID</div>
-                    <div className='col-6 mb-3'><Input type="text" value={this.state.default}  onChange={(e) => this.handleChange(e)}/> </div>
+                    <div className='col-6 mb-3'><Input type="text" value={this.state.name}  onChange={(e) => this.handleChange(e)}/> </div>
                     <div className='col-6 col-md-2 mb-3'>Phone 1</div>
                     <div className='col-6 col-md-2 mb-3'>Phone 2</div>
                     <div className='col-12 mb-3'><span className='gray'>Status:</span> Active </div>
