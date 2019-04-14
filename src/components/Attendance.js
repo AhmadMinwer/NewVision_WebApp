@@ -34,9 +34,10 @@ class AttendancePage extends Component {
     render() {
         return (
             <div>
-                <Button className='mr-4 float-right my-4' onClick={this.showNewDay} variant="success"  >
-                    {this.state.NewDayForm ? 'Cancel' : 'Add day'}
-                </Button>
+                {this.state.NewDayForm ?
+                 <Button className='mr-4 float-right my-4' onClick={this.showNewDay} variant="danger"  > cancel</Button> 
+                : <Button className='mr-4 float-right my-4' onClick={this.showNewDay} variant="success"  > Add day</Button>
+                }
                 <div className='col-12 my-4 scrollabel-container'>
 
                     <h4 className='my-4'>Id, Student Name, time</h4>
@@ -51,83 +52,8 @@ class AttendancePage extends Component {
                                 <th>20 june</th>
                                 <th>23 june</th>
                                 <th>24 june</th>
-                                <th>25 june</th>
-                                <th>26 june 2015</th>
-                                <th>20 june</th>
-                                <th>23 june</th>
                                 <th>24 june</th>
-                                <th>25 june</th>
-                                <th>26 june 2015</th>
-                                <th>20 june</th>
-                                <th>23 june</th>
-                                <th>24 june</th>
-                                <th>25 june</th>
-                                <th>26 june 2015</th>
-                                <th>20 june</th>
-                                <th>23 june</th>
-                                <th>24 june</th>
-                                <th>25 june</th>
-                                <th>26 june 2015</th>
-                                <th>20 june</th>
-                                <th>23 june</th>
-                                <th>24 june</th>
-                                <th>25 june</th>
-                                <th>26 june 2015</th>
-                                <th>20 june</th>
-                                <th>23 june</th>
-                                <th>24 june</th>
-                                <th>25 june</th>
-                                <th>26 june 2015</th>
-                                <th>20 june</th>
-                                <th>23 june</th>
-                                <th>24 june</th>
-                                <th>25 june</th>
-                                <th>26 june 2015</th>
-                                <th>20 june</th>
-                                <th>23 june</th>
-                                <th>24 june</th>
-                                <th>25 june</th>
-                                <th>26 june 2015</th>
-                                <th>20 june</th>
-                                <th>23 june</th>
-                                <th>24 june</th>
-                                <th>25 june</th>
-                                <th>26 june 2015</th>
-                                <th>20 june</th>
-                                <th>23 june</th>
-                                <th>24 june</th>
-                                <th>25 june</th>
-                                <th>26 june 2015</th>
-                                <th>20 june</th>
-                                <th>23 june</th>
-                                <th>24 june</th>
-                                <th>25 june</th>
-                                <th>26 june 2015</th>
-                                <th>20 june</th>
-                                <th>23 june</th>
-                                <th>24 june</th>
-                                <th>25 june</th>
-                                <th>26 june 2015</th>
-                                <th>20 june</th>
-                                <th>23 june</th>
-                                <th>24 june</th>
-                                <th>25 june</th>
-                                <th>26 june 2015</th>
-                                <th>20 june</th>
-                                <th>23 june</th>
-                                <th>24 june</th>
-                                <th>25 june</th>
-                                <th>26 june 2015</th>
-                                <th>20 june</th>
-                                <th>23 june</th>
-                                <th>24 june</th>
-                                <th>25 june</th>
-                                <th>26 june 2015</th>
-                                <th>20 june</th>
-                                <th>23 june</th>
-                                <th>24 june</th>
-                                <th>25 june</th>
-                                <th>26 june 2015</th>
+                             
 
 
                             </tr>
@@ -137,7 +63,7 @@ class AttendancePage extends Component {
                                 <th scope="row">561</th>
                                 <td>Student Name</td>
                                 {this.state.NewDayForm ? <td className='bg-dark text-light'> <Button className='mx-0 my-0' onClick='' variant="light"  ><FontAwesomeIcon icon="thumbs-up" /></Button> <Button className='mx-0 my-0' onClick='' variant="light"  ><FontAwesomeIcon icon="thumbs-down" /></Button></td> : ''}
-                                {this.state.NewDayForm ? <td className='bg-dark text-light '><Input type="text" value={this.state.default} onChange={(e) => this.handleChange(e)} /> </td> : ''}
+                                {this.state.NewDayForm ? <td className='bg-dark text-light '><Input className='newDay' type="text" value={this.state.default} onChange={(e) => this.handleChange(e)} /> </td> : ''}
                                 <td className='bg-success'></td>
                                 <td className='bg-danger'>was ill</td>
                                 <td className='bg-danger'>85/100</td>
@@ -148,7 +74,7 @@ class AttendancePage extends Component {
                             <tr>
                                 <th scope="row">214</th>
                                 <td>Student Name</td>
-                                {this.state.NewDayForm ? <td className='bg-dark text-light'> <Button className='mx-0 my-0' onClick='' variant="light"  ><FontAwesomeIcon icon="thumbs-up" /></Button> <Button className='mx-0 my-0' onClick='' variant="light"  ><FontAwesomeIcon icon="thumbs-down" /></Button></td> : ''}
+                                {this.state.NewDayForm ? <td className='bg-dark text-light'> <Button className='mx-0 my-0' onClick='' variant="light"  ><FontAwesomeIcon className='' icon="thumbs-up" /></Button> <Button className='mx-0 my-0 bg-primary rounded border-primary' onClick='' variant="light"  ><FontAwesomeIcon icon="thumbs-down" /></Button></td> : ''}
                                 {this.state.NewDayForm ? <td className='bg-dark text-light '><Input className='newDay' type="text" value={this.state.default} onChange={(e) => this.handleChange(e)} /> </td> : ''}
                                 <td>82/100</td>
                                 <td>90/100</td>
@@ -160,6 +86,9 @@ class AttendancePage extends Component {
                         </tbody>
                     </Table>
                 </div>
+                {this.state.NewDayForm ? <Button className='ml-4 float-left my-4' onClick={this.showNewExam} variant="success"> save</Button> 
+                : ''
+                }
             </div>
         )
     }

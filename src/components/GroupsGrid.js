@@ -31,7 +31,7 @@ class GroupsGrid extends Component {
                                 <th>start date</th>
                                 <th>finish date</th>
                                 <th>lessons</th>
-                                <th>actions</th>
+                                <th className='text-center'>actions</th>
 
                             </tr>
                         </thead>
@@ -47,7 +47,7 @@ class GroupsGrid extends Component {
                                 <td>Mark</td>
                                 <td>Otto</td>
                                 <td>@mdo</td>
-                                <td><Button>Attendence</Button><Button className='ml-1'>marks</Button></td>
+                                <td className='text-center'><Button>Attendence</Button><Button className='ml-1'>marks</Button></td>
                             </tr>
                             <tr>
                                 <th scope="row">561</th>
@@ -60,7 +60,7 @@ class GroupsGrid extends Component {
                                 <td>Mark</td>
                                 <td>Otto</td>
                                 <td>@mdo</td>
-                                <td><Button>Attendence</Button><Button className='ml-1'>marks</Button></td>
+                                <td className='text-center'><Button>Attendence</Button><Button className='ml-1'>marks</Button></td>                               
                             </tr>
                             <tr>
                                 <th scope="row">561</th>
@@ -73,7 +73,7 @@ class GroupsGrid extends Component {
                                 <td>Mark</td>
                                 <td>Otto</td>
                                 <td>@mdo</td>
-                                <td><Button>Attendence</Button><Button className='ml-1'>marks</Button></td>
+                                <td className='text-center'><Button>Attendence</Button><Button className='ml-1'>marks</Button></td>                                
                             </tr>
                         </tbody>
                     </Table>

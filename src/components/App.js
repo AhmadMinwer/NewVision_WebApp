@@ -13,6 +13,8 @@ import CMS from './CMS'
 import NewStudent from './NewStudent'
 import NewGroup from './NewGroup'
 import Attendance from './Attendance'
+import Marks from './Marks'
+
 
 
 class App extends Component {
@@ -37,6 +39,7 @@ class App extends Component {
                   <Route path='/groups/add' component={NewGroup} />
                   <Route path='/settings' exact component={CMS} />
                   <Route path='/groups/attendance/:id'  component={Attendance} />
+                  <Route path='/groups/marks/:id' component={Marks} />
 
 
                   

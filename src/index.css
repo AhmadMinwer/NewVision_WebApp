@@ -75,3 +75,11 @@ code {
 .newDay{
   width:180px !important;
 }
+
+.newMark{
+  width: 100px !important;
+}
+
+.border-3 {
+  border-width:3px !important;
+}
