@@ -83,3 +83,8 @@ code {
 .border-3 {
   border-width:3px !important;
 }
+
+.fit-content{
+  white-space: nowrap;
+  width: 1%;
+}

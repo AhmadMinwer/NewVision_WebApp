@@ -12,6 +12,13 @@ class GroupsGrid extends Component {
         this.props.history.push('/groups/add');
     }
 
+    redircetToAttendance = () =>{
+        this.props.history.push('/groups/attendance/1')
+    }
+    redircetToMarks = () =>{
+        this.props.history.push('/groups/marks/1')
+    }
+
     render() {
         return (
             <div>
@@ -47,7 +54,10 @@ class GroupsGrid extends Component {
                                 <td>Mark</td>
                                 <td>Otto</td>
                                 <td>@mdo</td>
-                                <td className='text-center'><Button>Attendence</Button><Button className='ml-1'>marks</Button></td>
+                                <td className='text-center'>
+                                    <Button onClick={this.redircetToAttendance}>Attendence</Button>
+                                    <Button onClick={this.redircetToMarks} className='ml-1'>marks</Button>
+                                </td>
                             </tr>
                             <tr>
                                 <th scope="row">561</th>
@@ -60,7 +70,10 @@ class GroupsGrid extends Component {
                                 <td>Mark</td>
                                 <td>Otto</td>
                                 <td>@mdo</td>
-                                <td className='text-center'><Button>Attendence</Button><Button className='ml-1'>marks</Button></td>                               
+                                <td className='text-center'>
+                                    <Button onClick={this.redircetToAttendance}>Attendence</Button>
+                                    <Button onClick={this.redircetToMarks} className='ml-1'>marks</Button>
+                                </td>
                             </tr>
                             <tr>
                                 <th scope="row">561</th>
@@ -73,7 +86,10 @@ class GroupsGrid extends Component {
                                 <td>Mark</td>
                                 <td>Otto</td>
                                 <td>@mdo</td>
-                                <td className='text-center'><Button>Attendence</Button><Button className='ml-1'>marks</Button></td>                                
+                                <td className='text-center'>
+                                    <Button onClick={this.redircetToAttendance}>Attendence</Button>
+                                    <Button onClick={this.redircetToMarks} className='ml-1'>marks</Button>
+                                </td>
                             </tr>
                         </tbody>
                     </Table>

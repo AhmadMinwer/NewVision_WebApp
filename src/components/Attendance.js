@@ -44,8 +44,8 @@ class AttendancePage extends Component {
                     <Table hover bordered>
                         <thead>
                             <tr>
-                                <th>id</th>
-                                <th>name</th>
+                                <th className='fit-content'>id</th>
+                                <th className='fit-content'>name</th>
 
                                 {this.state.NewDayForm ? <th className='bg-dark text-light text-center' colspan="2">new day- today class</th> : ''}
                                 <th>26 june 2015</th>

@@ -46,11 +46,11 @@ class Marks extends Component {
                     <Table hover bordered>
                         <thead>
                             <tr>
-                                <th>id</th>
-                                <th>name</th>
+                                <th className='fit-content'>id</th>
+                                <th className='fit-content'>name</th>
                                 {this.state.NewMarkForm ?<th className='bg-dark text-light text-center '>highest mark<Input className='newMark' type="text" value={this.state.default} onChange={(e) => this.handleChange(e)} /></th>: ''}
                                 {this.state.NewMarkForm ?<th className='bg-dark text-light text-center '>Notes</th>: ''}
-                                <th Style="width:  70%"></th>
+                                <th ></th>
                             </tr>
                         </thead>
                         <tbody>
