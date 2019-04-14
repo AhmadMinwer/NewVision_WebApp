@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Table } from 'reactstrap';
 import { connect } from 'react-redux';
 import Button from 'react-bootstrap/Button';
-import { withRouter  } from 'react-router-dom'
-
+import { withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 
 class StudentsGrid extends Component {
@@ -12,11 +12,13 @@ class StudentsGrid extends Component {
         this.props.history.push('/students/add');
     }
     render() {
+        const students = Object.values(this.props.students)
+
         return (
             <div>
                 <Button className='mr-4 float-right mb-4' onClick={this.redircetToAddStudent} variant="success"  >Add Student</Button>
                 <div className="shadow  mt-4 scrollabel-container">
-                    <Table hover>
+                    <Table className='text-center' hover>
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -29,162 +31,39 @@ class StudentsGrid extends Component {
                                 <th>Status</th>
                                 <th>Last level</th>
                                 <th>Last date</th>
-                                <th>Certificate Status</th>
                                 <th>Remarks</th>
                                 <th>Terms</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">561</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
+                            {
+                                students.map((student) => (
+                                    <tr key={student.id}>
+                                        <th scope='row'><Link to={'/students/id'+student.id}>{student.id}</Link></th>
+                                        <td>{student.CPA}</td>
+                                        <td>{student.name}</td>
+                                        <td>{student.CPABalance}</td>
+                                        <td>{student.phone}</td>
+                                        <td>{student.creationDate}</td>
+                                        <td>{student.specialty}</td>
+                                        <td>{student.status}</td>
+                                        <td>{student.lastLevel}</td>
+                                        <td>{student.lastDate}</td>
+                                        <td data-toggle="tooltip" title={student.remarks}>{
+                                            
+                                            student.remarks.length > 30 ?
+                                                student.remarks.substring(0, 29) + "..."
+                                                : student.remarks
+                                        }</td>
+                                        <td data-toggle="tooltip" title={student.terms}>{
+                                            student.terms.length > 30 ?
+                                                student.terms.substring(0, 29) + "..."
+                                                : student.terms
+                                        }</td>
+                                    </tr>
+                                ))
+                            }
+
                         </tbody>
                     </Table>
                 </div>
@@ -193,4 +72,12 @@ class StudentsGrid extends Component {
     }
 }
 
-export default connect()(withRouter(StudentsGrid));
+
+function mapStateToProps({ students }) {
+    return {
+        students,
+    }
+}
+
+
+export default connect(mapStateToProps)(withRouter(StudentsGrid));

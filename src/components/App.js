@@ -40,8 +40,6 @@ class App extends Component {
                   <Route path='/settings' exact component={CMS} />
                   <Route path='/groups/attendance/:id'  component={Attendance} />
                   <Route path='/groups/marks/:id' component={Marks} />
-
-
                   
                   <Route path='/login' component={Login} />
 

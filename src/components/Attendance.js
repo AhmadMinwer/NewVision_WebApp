@@ -53,6 +53,7 @@ class AttendancePage extends Component {
                                 <th>23 june</th>
                                 <th>24 june</th>
                                 <th>24 june</th>
+                                <th></th>
                              
 
 
@@ -69,6 +70,7 @@ class AttendancePage extends Component {
                                 <td className='bg-danger'>85/100</td>
                                 <td className='bg-danger'>given</td>
                                 <td>48/55</td>
+                                <td></td>
 
                             </tr>
                             <tr>
@@ -81,6 +83,7 @@ class AttendancePage extends Component {
                                 <td>85/100</td>
                                 <td>given</td>
                                 <td>48/55</td>
+                                <td></td>
 
                             </tr>
                         </tbody>

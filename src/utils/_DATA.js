@@ -23,13 +23,13 @@ let students = {
                 attendance: {
                     '01012015': {
                         date: '1 Jan 2015',
-                        duration: '1/2',
-                        excuse: 'NAN'
+                        notes: '1/2',
+                        attended: false,
                     },
                     '03012015':{
                         date: '7 Jan 2015',
-                        duration: '3/3',
-                        excuse: 'NAN'
+                        notes: '3/3',
+                        attended: false,
                     }
                 }
             },
@@ -42,13 +42,68 @@ let students = {
                 attendance: {
                     '01012015': {
                         date: '1 Jan 2015',
-                        duration: '1/2',
-                        excuse: 'NAN'
+                        notes: '1/2',
+                        attended: false,
                     },
                     '03012015':{
                         date: '7 Jan 2015',
-                        duration: '3/3',
-                        excuse: 'NAN'
+                        notes: '3/3',
+                        attended: false,
+                    }
+                }
+            }
+        }
+    },
+    '1':{
+        id:'1',
+        name: 'Tamer khader',
+        CPA: '353',
+        creationDate: '5 April 2017',
+        specialty: 'Doctor',
+        CPABalance: '0',
+        phone: '0543215896',
+        phone2: '',
+        status: 'active',
+        lastLevel: 'B',
+        lastDate: '15 Oct 2018',
+        terms: 'Aenean a nibh viverra, consectetur urna vitae, pharetra sem. Maecenas ornare elementum fermentum. Aliquam erat volutpat. Fusce imperdiet in risus eu feugiat. Etiam sit amet malesuada justo. Sed ac felis hendrerit, vestibulum nisi vitae, fringilla risus. Vivamus blandit tempus convallis. Maecenas rutrum semper pretium.',
+        remarks: 'Aenean a nibh viverra, consectetur urna vitae, pharetra sem. Maecenas ornare elementum fermentum. Aliquam erat volutpat. Fusce imperdiet in risus eu feugiat. Etiam sit amet malesuada justo. Sed ac felis hendrerit, vestibulum nisi vitae, fringilla risus. Vivamus blandit tempus convallis. Maecenas rutrum semper pretium.',
+        groups: {
+            '1' :{
+                id: '1',
+                exam1:'92/100',
+                exam2:'NAN',
+                exam3:'NAN',
+                certificationState: 'null',
+                attendance: {
+                    '01012015': {
+                        date: '1 Jan 2015',
+                        notes: '1/2',
+                        attended: false,
+                    },
+                    '03012015':{
+                        date: '7 Jan 2015',
+                        notes: '3/3',
+                        attended: false,
+                    }
+                }
+            },
+            '2' :{
+                id: '2',
+                exam1:'85/100',
+                exam2:'82/100',
+                exam3:'73/100',
+                certificationState: 'received',
+                attendance: {
+                    '01012015': {
+                        date: '1 Jan 2015',
+                        notes: '1/2',
+                        attended: false,
+                    },
+                    '03012015':{
+                        date: '7 Jan 2015',
+                        notes: '3/3',
+                        attended: false,
                     }
                 }
             }
@@ -88,3 +143,20 @@ let groups = {
         students : [ '0', '1', ],
     },
 }
+
+let settings = {
+    
+}
+
+
+export function _getStudents () {
+    return new Promise((res, rej) => {
+      setTimeout(() => res({...students}), 1000)
+    })
+  }
+  
+  export function _getGroups () {
+    return new Promise((res, rej) => {
+      setTimeout(() => res({...groups}), 1000)
+    })
+  }

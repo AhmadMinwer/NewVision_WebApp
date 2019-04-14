@@ -31,7 +31,7 @@ class NewVisionNav extends React.Component {
     return (
       <div>
         <Navbar className='shadow-sm' color="white" light expand="md">
-          <NavbarBrand href='/' exact className="py-0 my-0"><h1 className="my-0"><Badge className="newvision-color">NewVision</Badge></h1></NavbarBrand>
+          <NavbarBrand href='/' exact='true' className="py-0 my-0"><h1 className="my-0"><Badge className="newvision-color">NewVision</Badge></h1></NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="mr-auto" navbar>

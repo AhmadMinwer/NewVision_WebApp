@@ -15,10 +15,10 @@ export function addGroup(group) {
     }
 }
 
-export function receiveGroups(query) {
+export function receiveGroups(groups) {
     return {
         type: RECEIVE_GROUPS,
-        query,
+        groups,
     }
 }
 

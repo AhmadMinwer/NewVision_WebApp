@@ -62,7 +62,7 @@ code {
   color: darkgrey;
 }
 
-.student-page input{
+.student-page input, .student-page select, .student-page textarea  {
   border: none;
   display: inline;
   font-family: inherit;
@@ -87,4 +87,19 @@ code {
 .fit-content{
   white-space: nowrap;
   width: 1%;
+}
+
+.maxWidth-150{
+  max-width: 100px !important;
+  width: 100px !important;
+}
+
+.margin-top-7 span ,margin-top-7-me{
+  margin-top:3px !important;
+  float: left;
+}
+
+.margin-top-7 input, .margin-top-7 select{
+  width:auto !important;
+  margin-left:5px !important;
 }

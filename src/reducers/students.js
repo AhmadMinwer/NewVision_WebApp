@@ -12,18 +12,18 @@ export default function students(state = {}, action) {
         case RECEIVE_STUDENTS:
             return {
                 ...state,
-                ...action.users
+                ...action.students
             }
         case RECEIVE_STUDENT:
-        // TODO: modify it to return single student by his/her id
+            // TODO: modify it to return single student by his/her id
             return {
                 ...state,
-                ...action.users
+                ...action.students
             }
         case UPDATE_STUDENT:
             return {
                 ...state,
-                [action.student.id]:{
+                [action.student.id]: {
                     // TODO: modify it to edit changed values  
                 }
             }

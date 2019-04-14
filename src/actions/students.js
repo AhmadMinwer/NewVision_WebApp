@@ -15,11 +15,11 @@ export function addStudent(student) {
     }
 }
 
-
-export function receiveStudents(query) {
+//you need 2 action creators => you need one for fillters and one as default for active students
+export function receiveStudents(students) {
     return {
         type: RECEIVE_STUDENTS,
-        query,
+        students,
     }
 }
 export function receiveStudentId(id) {
