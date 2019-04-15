@@ -48,8 +48,8 @@ class Marks extends Component {
                             <tr>
                                 <th className='fit-content'>id</th>
                                 <th className='fit-content'>name</th>
-                                {this.state.NewMarkForm ?<th className='bg-dark text-light text-center '>highest mark<Input className='newMark' type="text" value={this.state.default} onChange={(e) => this.handleChange(e)} /></th>: ''}
-                                {this.state.NewMarkForm ?<th className='bg-dark text-light text-center '>Notes</th>: ''}
+                                {this.state.NewMarkForm ?<th className='bg-dark text-light text-center fit-content'><p className='newMark'>top mark</p><Input className='newMark' type="text" value={this.state.default} onChange={(e) => this.handleChange(e)} /></th>: ''}
+                                {this.state.NewMarkForm ?<th className='bg-dark text-light text-center fit-content'>Notes</th>: ''}
                                 <th ></th>
                             </tr>
                         </thead>

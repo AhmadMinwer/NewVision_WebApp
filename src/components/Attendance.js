@@ -47,13 +47,13 @@ class AttendancePage extends Component {
                                 <th className='fit-content'>id</th>
                                 <th className='fit-content'>name</th>
 
-                                {this.state.NewDayForm ? <th className='bg-dark text-light text-center' colspan="2">new day- today class</th> : ''}
-                                <th>26 june 2015</th>
-                                <th>20 june</th>
-                                <th>23 june</th>
-                                <th>24 june</th>
-                                <th>24 june</th>
-                                <th></th>
+                                {this.state.NewDayForm ? <th className='bg-dark text-light text-center fit-content' colspan="2">new day- today class</th> : ''}
+                                <th className='fit-content'>26 june 2015</th>
+                                <th className='fit-content'>20 june</th>
+                                <th className='fit-content'>23 june</th>
+                                <th className='fit-content'>24 june</th>
+                                <th className='fit-content'>24 june</th>
+                                <th ></th>
                              
 
 

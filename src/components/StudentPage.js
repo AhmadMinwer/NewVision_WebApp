@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Table } from 'reactstrap';
 import { Input } from 'reactstrap';
-
+import { Link } from 'react-router-dom';
 
 
 class StudentPage extends Component {
@@ -38,9 +38,12 @@ class StudentPage extends Component {
         console.log('student=', student)
         return (
             <div className='student-page container my-4 py-4 shadow'>
+                <h3 className='col-12 '>{student.name} </h3>
+                <hr className=' col-11' />
+                <br />
                 <div className='row margin-top-7 '>
                     <div className='col-2 mb-3 '><span className='gray'>ID: </span>  <span>{student.id}</span></div>
-                    <div className='col-10 mb-3'><span className='gray '>Name: </span><Input className='float-left form-control-sm' type="text" value={this.state.name} onChange={(e) => this.handleChange(e)} /> </div>
+                    <div className='col-10 mb-3'><span className='gray '>Name: </span><Input className='float-left form-control-sm' type="text" value={student.name} onChange={(e) => this.handleChange(e)} /> </div>
                     <div className='col-12 col-md-6  mb-3'><span className='gray '>Phone 1: </span><Input className='float-left form-control-sm' type="text" value={student.phone} onChange={(e) => this.handleChange(e)} /> </div>
                     <div className='col-12 col-md-6  mb-3'><span className='gray '>Phone 2: </span><Input className='float-left form-control-sm' type="text" value={student.phone2} onChange={(e) => this.handleChange(e)} /></div>
                     <div className='col-12 mb-3'>
@@ -58,13 +61,14 @@ class StudentPage extends Component {
 
                     <div className='col-12 mt-4 scrollabel-container'>
                         <h4>Groups</h4>
-                        <Table hover>
+                        <Table className='text-center' hover>
                             <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>level</th>
                                     <th>date</th>
+                                    <th>status</th>
                                     <th>first test</th>
                                     <th>second test</th>
                                     <th>final test</th>
@@ -76,17 +80,18 @@ class StudentPage extends Component {
                             <tbody>
 
                                 {
-                                    groups.map( (group) =>(
+                                    Object.values(this.props.studentGroups).map( (group) =>(
                                         <tr>
-                                            <th scope='row' key={group.id}>{group.id}</th>
-                                            <td>group name</td>
+                                            <th scope='row' key={group.id}> <Link to={'/groups/id'+group.id}>{group.id}</Link></th>
+                                            <td>{group.name}</td>
                                             <td>{group.level}</td>
                                             <td>{group.startDate}</td>
+                                            <td>{group.status}</td>
                                             <td>{group.exam1}</td>
                                             <td>{group.exam2}</td>
                                             <td>{group.exam3}</td>
                                             <td>{group.certificationState}</td>
-                                            <td>{}/{}</td>
+                                            <td> <Link to={'/groups/attendance/'+group.id}>  { Object.values(group.attendance).filter((day)=> day.attended).length  }/{group.accumulatedLessons? group.accumulatedLessons.length :'' }</Link></td>
 
                                         </tr>
                                     ))
@@ -118,12 +123,21 @@ class StudentPage extends Component {
 }
 
 
-function mapStateToProps({ students }, props) {
+function mapStateToProps({ students, groups }, props) {
     const id = props.match.params['id']
     const student = students[id]
+    let studentGroups = {}
+    if(student){
+        Object.values(student.groups).map((group) => (
+            studentGroups[group.id] = Object.assign({},groups[group.id],student.groups[group.id])
+        ))
+        
+        console.log('studentGroups = ', studentGroups)
+    }
     return {
         student,
         students,
+        studentGroups,
     }
 }
 

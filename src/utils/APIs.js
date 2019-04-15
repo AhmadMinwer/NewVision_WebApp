@@ -1,16 +1,22 @@
 import {
     _getStudents,
     _getGroups,
+    _getSettings,
+    _getQueries,
 } from './_DATA.js';
 
 export function getInitialData() {
     return Promise.all([
         _getStudents(),
         _getGroups(),
-    ]).then(function ([students, groups]) {
+        _getSettings(),
+        _getQueries(),
+    ]).then(function ([students, groups, settings, queries]) {
         return {
             students,
             groups,
+            settings,
+            queries,
         };
     });
 };
