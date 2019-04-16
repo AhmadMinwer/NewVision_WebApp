@@ -18,9 +18,11 @@ class StudentsFilters extends Component {
         });
     }
     render() {
+        const settings = this.props.settings
+        const groups = Object.values(this.props.groups)
         return (
             <div>
-
+                {console.log('this.props.settings.studentStatus= ', settings)}
                 <SlideToggle collapsed>
                     {({ onToggle, setCollapsibleElement }) => (
                         // Add CSS: .my-collapsible__content { overflow: hidden;}
@@ -51,16 +53,26 @@ class StudentsFilters extends Component {
                                         <FormGroup className="col-6 col-lg-3 ml-lg-2 my-2  ">
                                             <Label for="exampleSelect">Status</Label>
                                             <Input type="select" name="select" id="exampleSelect">
-                                                <option>Active</option>
-                                                <option>finish</option>
+                                                <option selected>Select...</option>
+                                                {
+                                                    settings.studentStatus ? settings.studentStatus.map((label) => (
+                                                        <option>{label}</option>
+                                                    ))
+                                                        : ''
+                                                }
                                             </Input>
                                         </FormGroup>
 
                                         <FormGroup className="col-6 my-2 col-lg-3">
                                             <Label for="exampleSelect">Last level</Label>
                                             <Input type="select" name="select" id="exampleSelect">
-                                                <option>א </option>
-                                                <option>IT</option>
+                                            <option selected>Select...</option>
+                                                {
+                                                    settings.groupLevel ? settings.groupLevel.map((label) => (
+                                                        <option>{label}</option>
+                                                    ))
+                                                        : ''
+                                                }
                                             </Input>
                                         </FormGroup>
 
@@ -88,34 +100,51 @@ class StudentsFilters extends Component {
                                         <FormGroup className="col-12 col-sm-6 my-2 col-lg-3 ">
                                             <Label for="exampleSelect">specialty</Label>
                                             <Input type="select" name="select" id="exampleSelect">
-                                                <option>medicine</option>
-                                                <option>IT</option>
+                                            <option selected>Select...</option>
+                                                {
+                                                    settings.studentSpecialty ? settings.studentSpecialty.map((label) => (
+                                                        <option>{label}</option>
+                                                    ))
+                                                        : ''
+                                                }
                                             </Input>
                                         </FormGroup>
 
                                         <FormGroup className="col-12 col-sm-6 my-2 col-lg-3">
                                             <Label for="exampleSelect">Certificate Status</Label>
                                             <Input type="select" name="select" id="exampleSelect">
-                                                <option>all</option>
-                                                <option>received</option>
-                                                <option>Not yet</option>
+                                            <option selected>Select...</option>
+                                                {
+                                                    settings.certificationStatus ? settings.certificationStatus.map((label) => (
+                                                        <option>{label}</option>
+                                                    ))
+                                                        : ''
+                                                }
                                             </Input>
                                         </FormGroup>
 
                                         <FormGroup className="col-12 col-sm-6 my-2 col-lg-3">
                                             <Label for="exampleSelect">Group name</Label>
                                             <Input type="select" name="select" id="exampleSelect">
-                                                <option>all</option>
-                                                <option>received</option>
-                                                <option>Not yet</option>
+                                            <option selected>Select...</option>
+                                                {
+                                                    groups ? groups.map((group) => (
+                                                        <option>{group.name}</option>
+                                                    ))
+                                                        : ''
+                                                }
                                             </Input>
                                         </FormGroup>
                                         <FormGroup className="col-12 col-sm-6 my-2 col-lg-3">
                                             <Label for="exampleSelect">Group Level</Label>
                                             <Input type="select" name="select" id="exampleSelect">
-                                                <option>all</option>
-                                                <option>received</option>
-                                                <option>Not yet</option>
+                                            <option selected>Select...</option>
+                                                {
+                                                    settings.groupLevel ? settings.groupLevel.map((label) => (
+                                                        <option>{label}</option>
+                                                    ))
+                                                        : ''
+                                                }
                                             </Input>
                                         </FormGroup>
 
@@ -137,4 +166,11 @@ class StudentsFilters extends Component {
     }
 }
 
-export default connect()(StudentsFilters);
+function mapStateToProps({ settings, groups }) {
+
+    return {
+        settings,
+        groups
+    }
+}
+export default connect(mapStateToProps)(StudentsFilters);

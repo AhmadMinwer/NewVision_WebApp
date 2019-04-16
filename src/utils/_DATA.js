@@ -19,7 +19,7 @@ let students = {
                 exam2: 'NAN',
                 exam3: 'NAN',
                 status: 'finished',
-                certificationState: 'null',
+                certificationState: '',
                 attendance: {
                     '01012015': {
                         date: '1 Jan 2015',
@@ -71,11 +71,11 @@ let students = {
         groups: {
             '0': {
                 id: '0',
-                exam1: '92/100',
-                exam2: 'NAN',
-                exam3: 'NAN',
+                exam1: '92',
+                exam2: '0',
+                exam3: '0',
                 status: 'finished',
-                certificationState: 'null',
+                certificationState: 'not yet',
                 attendance: {
                     '01012015': {
                         date: '1 Jan 2015',
@@ -118,14 +118,14 @@ let groups = {
         id: '0',
         name: 'hebrow class level A',
         level: 'A',
-        status: 'active',
-        teacher: 'shoshi',
-        teacher2: 'zeev',
+        status: 'Finish',
+        teacher: 'Shoshi',
+        teacher2: 'Zeev',
         startDate: '25 Nov 2016',
         endDate: '25 Mar 2017',
         time: 'noon',
         commitLessons: '50',
-        accumulatedLessons: '50',
+        accumulatedLessons: ['01012015', '03012015'],
         remarks: 'Aenean a nibh viverra, consectetur urna vitae, pharetra sem. Maecenas ornare elementum fermentum. Aliquam erat volutpat. Fusce imperdiet in risus eu feugiat. Etiam sit amet malesuada justo. Sed ac felis hendrerit, vestibulum nisi vitae, fringilla risus. Vivamus blandit tempus convallis. Maecenas rutrum semper pretium.',
         students: [1,],
     },
@@ -134,7 +134,7 @@ let groups = {
         name: 'hebrow class level B',
         level: 'B',
         status: 'active',
-        teacher: 'shoshi',
+        teacher: 'Shoshi',
         teacher2: '',
         startDate: '25 Nov 2017',
         endDate: '25 Mar 2018',
@@ -148,11 +148,12 @@ let groups = {
 
 let settings = {
     studentStatus: ['Active', 'Finish', 'Freez'],
-    certificationStatus: [],
+    studentSpecialty :['IT', 'Medicine', 'Journalism'],
+    certificationStatus: ['given', 'not yet',],
     groupStatus: ['Active', 'Finish',],
     groupLevel: ['א', 'ב', 'ג', 'ד'],
     groupTime: ['morning', 'noon', 'evening'],
-    groupTeacher: [],
+    groupTeacher: ['Shoshi', 'Mira', 'Zeev'],
 }
 
 let queries = {}

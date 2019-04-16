@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 class GroupsSettings extends Component {
 
     render() {
+        const settings = this.props.settings
         return (
             <div className='container row mx-auto mt-4 py-4 shadow'>
                 <h3 className='col-12 '>Groups settings</h3>
@@ -23,9 +24,12 @@ class GroupsSettings extends Component {
                     </div>
                     <div className='mt-4 col-12 row '>
                         <div className="list-group col-10 pr-0">
-                            <button type="button" className="list-group-item list-group-item-action" disabled>Active</button>
-                            <button type="button" className="list-group-item list-group-item-action" disabled>Finished</button>
-
+                            {
+                                settings.groupStatus ? settings.groupStatus.map((label) => (
+                                    <button type="button" className="list-group-item list-group-item-action">{label}</button>
+                                ))
+                                    : ''
+                            }
                         </div>
                         <div className='col-1 px-1 mt-2'>
                             <Button className='' onClick={this.DeleteStudentStatus} variant="danger"  >delete</Button>
@@ -44,9 +48,12 @@ class GroupsSettings extends Component {
                     </div>
                     <div className='mt-4 col-12 row'>
                         <div className="list-group col-10 pr-0">
-                            <button type="button" className="list-group-item list-group-item-action" disabled>Active</button>
-                            <button type="button" className="list-group-item list-group-item-action" disabled>Finished</button>
-
+                        {
+                                settings.groupLevel ? settings.groupLevel.map((label) => (
+                                    <button type="button" className="list-group-item list-group-item-action">{label}</button>
+                                ))
+                                    : ''
+                            }
                         </div>
                         <div className='col-1 px-1 mt-2'>
                             <Button className='' onClick={this.DeleteStudentStatus} variant="danger"  >delete</Button>
@@ -64,9 +71,12 @@ class GroupsSettings extends Component {
                     </div>
                     <div className='mt-4 col-12 row'>
                         <div className="list-group col-10 pr-0">
-                            <button type="button" className="list-group-item list-group-item-action" disabled>Active</button>
-                            <button type="button" className="list-group-item list-group-item-action" disabled>Finished</button>
-
+                        {
+                                settings.groupTime ? settings.groupTime.map((label) => (
+                                    <button type="button" className="list-group-item list-group-item-action">{label}</button>
+                                ))
+                                    : ''
+                            }
                         </div>
                         <div className='col-1 px-1 mt-2'>
                             <Button className='' onClick={this.DeleteStudentStatus} variant="danger"  >delete</Button>
@@ -84,9 +94,12 @@ class GroupsSettings extends Component {
                     </div>
                     <div className='mt-4 col-12 row'>
                         <div className="list-group col-10 pr-0">
-                            <button type="button" className="list-group-item list-group-item-action" disabled>Active</button>
-                            <button type="button" className="list-group-item list-group-item-action" disabled>Finished</button>
-
+                        {
+                                settings.groupTeacher ? settings.groupTeacher.map((label) => (
+                                    <button type="button" className="list-group-item list-group-item-action">{label}</button>
+                                ))
+                                    : ''
+                            }
                         </div>
                         <div className='col-1 px-1 mt-2'>
                             <Button className='' onClick={this.DeleteStudentStatus} variant="danger"  >delete</Button>
@@ -97,4 +110,11 @@ class GroupsSettings extends Component {
         );
     }
 }
-export default connect()(GroupsSettings);
+
+function mapStateToProps({ settings }) {
+
+    return {
+        settings,
+    }
+}
+export default connect(mapStateToProps)(GroupsSettings);

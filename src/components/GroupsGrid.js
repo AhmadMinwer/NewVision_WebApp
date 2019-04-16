@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Table } from 'reactstrap';
 import { connect } from 'react-redux';
 import Button from 'react-bootstrap/Button';
-import { withRouter  } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 
 
@@ -12,20 +13,22 @@ class GroupsGrid extends Component {
         this.props.history.push('/groups/add');
     }
 
-    redircetToAttendance = () =>{
+    redircetToAttendance = () => {
         this.props.history.push('/groups/attendance/1')
     }
-    redircetToMarks = () =>{
+    redircetToMarks = () => {
         this.props.history.push('/groups/marks/1')
     }
 
     render() {
+        const groups = Object.values(this.props.groups)
+
         return (
             <div>
                 <Button className='mr-4 float-right my-4' onClick={this.redircetToAddGroup} variant="success"  >Add Group</Button>
                 <div className="shadow mx-4 mx-auto mt-4 scrollabel-container">
 
-                    <Table hover>
+                    <Table className='text-center' hover>
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -38,59 +41,34 @@ class GroupsGrid extends Component {
                                 <th>start date</th>
                                 <th>finish date</th>
                                 <th>lessons</th>
+                                <th># Students</th>
                                 <th className='text-center'>actions</th>
 
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">561</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td className='text-center'>
-                                    <Button onClick={this.redircetToAttendance}>Attendence</Button>
-                                    <Button onClick={this.redircetToMarks} className='ml-1'>marks</Button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">561</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td className='text-center'>
-                                    <Button onClick={this.redircetToAttendance}>Attendence</Button>
-                                    <Button onClick={this.redircetToMarks} className='ml-1'>marks</Button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">561</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td className='text-center'>
-                                    <Button onClick={this.redircetToAttendance}>Attendence</Button>
-                                    <Button onClick={this.redircetToMarks} className='ml-1'>marks</Button>
-                                </td>
-                            </tr>
+
+                            {
+                                groups.map((group) => (
+                                    <tr key={group.id}>
+                                        <th scope="row"><Link to={'/groups/id'+group.id}>{group.id}</Link></th>
+                                        <td>{group.name}</td>
+                                        <td>{group.level}</td>
+                                        <td>{group.time}</td>
+                                        <td>{group.status}</td>
+                                        <td>{group.teacher}</td>
+                                        <td>{group.teacher2}</td>
+                                        <td>{group.startDate}</td>
+                                        <td>{group.endDate}</td>
+                                        <td>{group.accumulatedLessons.length}/{group.commitLessons}</td>
+                                        <td>{group.students.length}</td>
+                                        <td className='text-center'>
+                                            <Button onClick={this.redircetToAttendance}>Attendence</Button>
+                                            <Button onClick={this.redircetToMarks} className='ml-1'>marks</Button>
+                                        </td>
+                                    </tr>
+                        ))
+                    }
                         </tbody>
                     </Table>
                 </div>
@@ -99,4 +77,12 @@ class GroupsGrid extends Component {
     }
 }
 
-export default connect()(withRouter(GroupsGrid));
+
+function mapStateToProps({ students, groups }) {
+    return {
+        students,
+        groups,
+    }
+}
+
+export default connect(mapStateToProps)(withRouter(GroupsGrid));

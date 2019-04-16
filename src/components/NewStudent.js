@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 class NewStudent extends Component {
 
     render() {
+        const settings = this.props.settings
         return (
             <div>
                 <div>
@@ -39,8 +40,13 @@ class NewStudent extends Component {
                                 <FormGroup className="col-6 col-lg-3 my-2 col-lg-3 ">
                                     <Label >specialty</Label>
                                     <Input type="select" name="select">
-                                        <option>medicine</option>
-                                        <option>IT</option>
+                                        <option selected>Select...</option>
+                                        {
+                                            settings.studentSpecialty ? settings.studentSpecialty.map((label) => (
+                                                <option>{label}</option>
+                                            ))
+                                                : ''
+                                        }
                                     </Input>
                                 </FormGroup>
 
@@ -48,7 +54,7 @@ class NewStudent extends Component {
                                     <FormGroup className="col-12 col-md-6  my-2">
                                         <Label >Remarks</Label>
                                         <Input type="textarea" name="select" />
-                                        
+
                                     </FormGroup>
                                 </div>
 
@@ -56,7 +62,7 @@ class NewStudent extends Component {
                                     <FormGroup className="col-12 col-md-6  my-2">
                                         <Label >Terms</Label>
                                         <Input type="textarea" name="select" />
-                                        
+
                                     </FormGroup>
                                 </div>
 
@@ -72,4 +78,11 @@ class NewStudent extends Component {
     }
 }
 
-export default connect()(NewStudent);
+function mapStateToProps({ settings }) {
+
+    return {
+        settings,
+    }
+}
+
+export default connect(mapStateToProps)(NewStudent);

@@ -18,6 +18,8 @@ class GroupFilters extends Component {
         });
     }
     render() {
+        const settings = this.props.settings
+        const groups = Object.values(this.props.groups)
         return (
             <div>
 
@@ -49,40 +51,51 @@ class GroupFilters extends Component {
                                         <FormGroup className="col-6 col-lg-2  ">
                                             <Label for="exampleSelect">Status</Label>
                                             <Input type="select" name="select" id="exampleSelect">
-                                                <option>Active</option>
-                                                <option>finish</option>
+                                            <option selected>Select...</option>
+                                                {
+                                                    settings.groupStatus ? settings.groupStatus.map((label) => (
+                                                        <option>{label}</option>
+                                                    ))
+                                                        : ''
+                                                }
                                             </Input>
                                         </FormGroup>
 
                                         <FormGroup className="col-6 col-lg-2">
                                             <Label for="exampleSelect">level</Label>
                                             <Input type="select" name="select" id="exampleSelect">
-                                                <option>א </option>
-                                                <option>IT</option>
+                                            <option selected>Select...</option>
+                                                {
+                                                    settings.groupLevel ? settings.groupLevel.map((label) => (
+                                                        <option>{label}</option>
+                                                    ))
+                                                        : ''
+                                                }
                                             </Input>
                                         </FormGroup>
                                         <FormGroup className="col-12 col-sm-4 my-2 ">
                                             <Label for="exampleSelect">timing</Label>
                                             <Input type="select" name="select" id="exampleSelect">
-                                                <option>morning</option>
-                                                <option>noon</option>
+                                            <option selected>Select...</option>
+                                                {
+                                                    settings.groupTime ? settings.groupTime.map((label) => (
+                                                        <option>{label}</option>
+                                                    ))
+                                                        : ''
+                                                }
                                             </Input>
                                         </FormGroup>
 
                                         <FormGroup className="col-12 col-sm-4 my-2 ">
-                                            <Label for="exampleSelect">Group Level</Label>
-                                            <Input type="select" name="select" id="exampleSelect">
-                                                <option>all</option>
-                                                <option>received</option>
-                                                <option>Not yet</option>
-                                            </Input>
-                                        </FormGroup>
-                                        <FormGroup className="col-12 col-sm-4 my-2 ">
                                             <Label for="exampleSelect">Teacher</Label>
                                             <Input type="select" name="select" id="exampleSelect">
-                                                <option>all</option>
-                                                <option>received</option>
-                                                <option>Not yet</option>
+                                            <option selected>Select...</option>
+                                                {
+                                                    settings.groupTeacher ? settings.groupTeacher.map((label) => (
+                                                        <option>{label}</option>
+                                                    ))
+                                                        : ''
+                                                }
                                             </Input>
                                         </FormGroup>
 
@@ -119,18 +132,12 @@ class GroupFilters extends Component {
 
 
 
-// function mapStateToProps({ }, { id }) {
-//     const question = questions[id]
-//     question['optionOneText'] = question.optionOne.text
-//     question['optionTwoText'] = question.optionTwo.text
+function mapStateToProps({ settings, groups }) {
 
-//     return {
-//       id,
-//       questions,
-//       authedUser,
-//       users,
-//       question
-//     };
-//   }
+    return {
+        settings,
+        groups
+    }
+}
 
-export default connect()(GroupFilters);
+export default connect(mapStateToProps)(GroupFilters);

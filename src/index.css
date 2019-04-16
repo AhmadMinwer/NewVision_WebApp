@@ -62,7 +62,8 @@ code {
   color: darkgrey;
 }
 
-.student-page input, .student-page select, .student-page textarea  {
+.student-page input, .student-page select, .student-page textarea ,
+.group-page input, .group-page select, .group-page textarea   {
   border: none;
   display: inline;
   font-family: inherit;

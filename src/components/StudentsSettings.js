@@ -6,6 +6,8 @@ import Button from 'react-bootstrap/Button';
 class StudentsSettings extends Component {
 
     render() {
+        const settings = this.props.settings
+
         return (
             <div className='container row mx-auto mt-4 py-4 shadow'>
                 <h3 className='col-12 '>Students settings</h3>
@@ -22,9 +24,12 @@ class StudentsSettings extends Component {
                     </div>
                     <div className='mt-4 col-12 row'>
                         <div className="list-group col-10 pr-0">
-                            <button type="button" className="list-group-item list-group-item-action" disabled>Active</button>
-                            <button type="button" className="list-group-item list-group-item-action" disabled>Finished</button>
-
+                            {
+                                settings.studentStatus ? settings.studentStatus.map((label) => (
+                                    <button type="button" className="list-group-item list-group-item-action">{label}</button>
+                                ))
+                                    : ''
+                            }
                         </div>
                         <div className='col-1 px-1 mt-2'>
                             <Button className='' onClick={this.DeleteStudentStatus} variant="danger"  >delete</Button>
@@ -43,9 +48,12 @@ class StudentsSettings extends Component {
                     </div>
                     <div className='mt-4 col-12 row'>
                         <div className="list-group col-10 pr-0">
-                            <button type="button" className="list-group-item list-group-item-action" disabled>Active</button>
-                            <button type="button" className="list-group-item list-group-item-action" disabled>Finished</button>
-
+                            {
+                                settings.certificationStatus ? settings.certificationStatus.map((label) => (
+                                    <button type="button" className="list-group-item list-group-item-action">{label}</button>
+                                ))
+                                    : ''
+                            }
                         </div>
                         <div className='col-1 px-1 mt-2'>
                             <Button className='' onClick={this.DeleteStudentStatus} variant="danger"  >delete</Button>
@@ -53,9 +61,17 @@ class StudentsSettings extends Component {
                     </div>
                 </div>
 
-                
+
             </div>
         );
     }
 }
-export default connect()(StudentsSettings);
+
+
+function mapStateToProps({ settings }) {
+
+    return {
+        settings,
+    }
+}
+export default connect(mapStateToProps)(StudentsSettings);

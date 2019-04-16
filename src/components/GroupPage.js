@@ -1,20 +1,61 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Table } from 'reactstrap';
+import { Input } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 
 class GroupPage extends Component {
 
+    getAvgMarks = (mark1, mark2, mark3) => {
+        
+    }
+
     render() {
+        let group
+        let students
+        const settings = this.props.settings
+
+        if (this.props.group) {
+            group = this.props.group
+            students = this.props.groupStudents
+        } else {
+            group = {}
+            students = {}
+        }
         return (
-            <div className='container my-4 py-4 shadow'>
-                <div className='row'>
-                    <div className='col-2 mb-3'>ID</div>
-                    <div className='col-10 mb-3'>Name</div>
-                    <div className='col-3 mb-3'><span className='gray'>Level:</span> A </div>
-                    <div className='col-9 col-md-3 mb-3'><span className='gray'>time:</span> Morning </div>
-                    <div className='col-4 mb-3'><span className='gray'>Status:</span> Active </div>
-                    <div className='col-12 mb-3'><span className='gray'>Teachers:</span> Teacher 1 </div>
+            <div className='group-page container my-4 py-4 shadow'>
+                <h3 className='col-12 '>{group.name} </h3>
+                <hr className=' col-11' />
+                <br />
+                <div className='row row margin-top-7'>
+                    <div className='col-2 mb-3'><span className='gray'>ID: </span>  <span>{group.id}</span></div>
+                    <div className='col-10 mb-3'><span className='gray '>Name: </span><Input className='float-left form-control-sm' type="text" value={group.name} onChange={(e) => this.handleChange(e)} /></div>
+                    <div className='col-3 mb-3'><span className='gray '>Level: </span><Input className='float-left form-control-sm' type="text" value={group.level} onChange={(e) => this.handleChange(e)} /></div>
+                    <div className='col-9 col-md-3 mb-3'><span className='gray '>Time: </span><Input className='float-left form-control-sm' type="text" value={group.time} onChange={(e) => this.handleChange(e)} /></div>
+                    <div className='col-4 mb-3'>
+                        <span className='gray'>Status:</span>
+                        <Input className='form-control-sm' type="select" name="select" id="exampleSelect">
+                            {
+                                settings.groupStatus ? settings.groupStatus.map((label) => (
+                                    group.status == label ? <option selected>{label}</option> : <option>{label}</option>
+
+                                ))
+                                    : ''
+                            }
+                        </Input>
+                    </div>
+                    <div className='col-12 mb-3'>
+                        <span className='gray'>Teachers:</span>
+                        <Input type="select" name="select" multiple >
+                            {
+                                settings.groupTeacher ? settings.groupTeacher.map((label) => (
+                                    group.teacher == label || group.teacher2 == label ? <option selected>{label}</option> : <option>{label}</option>
+                                ))
+                                    : ''
+                            }
+                        </Input>
+                    </div>
                     <div className='col-12 col-md-3 mb-3'> <span className='gray'>Starting date: </span>12 April 2015 </div>
                     <div className='col-12 col-md-9 mb-3'><span className='gray'>Finishing date: </span>12 Augest 2015 </div>
                     <div className='col-6 mb-3'><span className='gray'>Lessons: </span>20/55</div>
@@ -30,39 +71,26 @@ class GroupPage extends Component {
                                     <th>Name</th>
                                     <th>Status</th>
                                     <th>date</th>
-                                    <th>first test</th>
-                                    <th>second test</th>
-                                    <th>final test</th>
+                                    <th>AVG marks</th>
                                     <th>certification</th>
                                     <th>Attendence</th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">561</th>
-                                    <td>Rae'd Majed Mahfouz</td> 
-                                    <td>Active</td>
-                                    <td>2 April 2018</td>
-                                    <td>82/100</td>
-                                    <td>90/100</td>
-                                    <td>85/100</td>
-                                    <td>not yet</td>
-                                    <td>48/55</td>
 
-                                </tr>
-                                <tr>
-                                    <th scope="row">214</th>
-                                    <td>Tareq Mahoud Abu Nada</td> 
-                                    <td>Quit</td>
-                                    <td>2 April 2018</td>
-                                    <td>82/100</td>
-                                    <td>90/100</td>
-                                    <td>85/100</td>
-                                    <td>not yet</td>
-                                    <td>48/55</td>
-
-                                </tr>
+                                {
+                                    Object.values(students).map( (student) =>(
+                                        <tr>
+                                            <th scope='row' key={student.id}> <Link to={'/students/id'+student.id}>{student.id}</Link></th>
+                                            <td>{student.name}</td>
+                                            <td>{student.groups[group.id].status}</td>
+                                            <td>date</td>
+                                            <td>{ this.getAvgMarks(student.groups[group.id].mark1 , student.groups[group.id].mark2 , student.groups[group.id].mark3 ) }</td>
+                                            <td>{student.groups[group.id].certificationState}</td>
+                                        </tr>
+                                    ))
+                                }
                             </tbody>
                         </Table>
                     </div>
@@ -82,4 +110,24 @@ class GroupPage extends Component {
     }
 }
 
-export default connect()(GroupPage);
+
+function mapStateToProps({ students, groups, settings }, props) {
+    const id = props.match.params['id']
+    const group = groups[id]
+    let groupStudents = {}
+    if (group) {
+        group.students.map((studentId) => (
+            groupStudents[studentId] = students[studentId]
+        ))
+
+        console.log('groupStudents = ', groupStudents)
+    }
+    return {
+        group,
+        groupStudents,
+        settings,
+    }
+}
+
+
+export default connect(mapStateToProps)(GroupPage);

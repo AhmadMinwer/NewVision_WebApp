@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 class NewGroup extends Component {
 
     render() {
+        const settings = this.props.settings
         return (
             <div>
                 <div>
@@ -36,22 +37,25 @@ class NewGroup extends Component {
                                 <FormGroup className="col-12 col-md-4 mt-3">
                                     <Label >Teachers</Label>
                                     <Input type="select" name="select" multiple >
-                                        <option>Teacher 1</option>
-                                        <option>Teacher 2</option>
-                                        <option>Teacher 1</option>
-                                        <option>Teacher 2</option>
-                                        <option>Teacher 1</option>
-                                        <option>Teacher 2</option>
-                                        <option>Teacher 1</option>
-                                        <option>Teacher 2</option>
+                                        {
+                                            settings.groupTeacher ? settings.groupTeacher.map((label) => (
+                                                <option>{label}</option>
+                                            ))
+                                                : ''
+                                        }
                                     </Input>
                                 </FormGroup>
 
                                  <FormGroup className="col-6 col-md-4 mt-3">
                                     <Label >Level</Label>
                                     <Input type="select" name="select">
-                                        <option>A</option>
-                                        <option>B</option>
+                                    <option selected>Select...</option>
+                                        {
+                                            settings.groupLevel ? settings.groupLevel.map((label) => (
+                                                <option>{label}</option>
+                                            ))
+                                                : ''
+                                        }
                                     </Input>
                                 </FormGroup>
 
@@ -83,4 +87,10 @@ class NewGroup extends Component {
     }
 }
 
-export default connect()(NewGroup);
+function mapStateToProps({ settings }) {
+
+    return {
+        settings,
+    }
+}
+export default connect(mapStateToProps)(NewGroup);
