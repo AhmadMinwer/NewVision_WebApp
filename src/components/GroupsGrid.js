@@ -13,11 +13,11 @@ class GroupsGrid extends Component {
         this.props.history.push('/groups/add');
     }
 
-    redircetToAttendance = () => {
-        this.props.history.push('/groups/attendance/1')
+    redircetToAttendance = (id) => {
+        this.props.history.push('/groups/attendance/'+id)
     }
-    redircetToMarks = () => {
-        this.props.history.push('/groups/marks/1')
+    redircetToMarks = (id) => {
+        this.props.history.push('/groups/marks/'+id)
     }
 
     render() {
@@ -60,11 +60,11 @@ class GroupsGrid extends Component {
                                         <td>{group.teacher2}</td>
                                         <td>{group.startDate}</td>
                                         <td>{group.endDate}</td>
-                                        <td>{group.accumulatedLessons.length}/{group.commitLessons}</td>
+                                        <td>{Object.values(group.accumulatedLessons).length}/{group.commitLessons}</td>
                                         <td>{group.students.length}</td>
                                         <td className='text-center'>
-                                            <Button onClick={this.redircetToAttendance}>Attendence</Button>
-                                            <Button onClick={this.redircetToMarks} className='ml-1'>marks</Button>
+                                            <Button onClick={() => (this.redircetToAttendance(group.id))}>Attendence</Button>
+                                            <Button onClick={() => (this.redircetToMarks(group.id)) } className='ml-1'>marks</Button>
                                         </td>
                                     </tr>
                         ))

@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import { Table } from 'reactstrap';
 import Button from 'react-bootstrap/Button';
 import { Input } from 'reactstrap';
-
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faThumbsUp)

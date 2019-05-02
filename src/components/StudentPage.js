@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Table } from 'reactstrap';
 import { Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 
 class StudentPage extends Component {
@@ -23,9 +24,25 @@ class StudentPage extends Component {
         });
     }
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            modal: false
+        };
+
+        this.toggle = this.toggle.bind(this);
+    }
+
+    toggle() {
+        this.setState(prevState => ({
+            modal: !prevState.modal
+        }));
+    }
+
     render() {
+        const activeGroups = this.props.activeGroups
         let student;
-        let groups=[]
+        let groups = []
         if (this.props.student) {
             student = this.props.student
             groups = Object.values(student.groups)
@@ -61,6 +78,29 @@ class StudentPage extends Component {
 
                     <div className='col-12 mt-4 scrollabel-container'>
                         <h4>Groups</h4>
+                        <Button className='float-right mr-1 mb-2' color="danger" onClick={this.toggle}>Sign up to a new group</Button>
+                        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                            <ModalHeader toggle={this.toggle}>Sign up to a new group</ModalHeader>
+                            <ModalBody>
+                                <div className=' '>
+                                    <h4>Current Groups</h4>
+                                    <div className=''>
+                                        <div className="list-group ">
+                                            {
+                                                activeGroups ? activeGroups.map((group) => (
+                                                    <button type="button" className="list-group-item list-group-item-action">{group.name}</button>
+                                                ))
+                                                    : ''
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button color="primary" onClick={this.toggle}>sign up the student</Button>{' '}
+                                <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                            </ModalFooter>
+                        </Modal>
                         <Table className='text-center' hover>
                             <thead>
                                 <tr>
@@ -80,9 +120,9 @@ class StudentPage extends Component {
                             <tbody>
 
                                 {
-                                    Object.values(this.props.studentGroups).map( (group) =>(
+                                    Object.values(this.props.studentGroups).map((group) => (
                                         <tr>
-                                            <th scope='row' key={group.id}> <Link to={'/groups/id'+group.id}>{group.id}</Link></th>
+                                            <th scope='row' key={group.id}> <Link to={'/groups/id' + group.id}>{group.id}</Link></th>
                                             <td>{group.name}</td>
                                             <td>{group.level}</td>
                                             <td>{group.startDate}</td>
@@ -91,7 +131,7 @@ class StudentPage extends Component {
                                             <td>{group.exam2}</td>
                                             <td>{group.exam3}</td>
                                             <td>{group.certificationState}</td>
-                                            <td> <Link to={'/groups/attendance/'+group.id}>  { Object.values(group.attendance).filter((day)=> day.attended).length  }/{group.accumulatedLessons? group.accumulatedLessons.length :'' }</Link></td>
+                                            <td> <Link to={'/groups/attendance/' + group.id}>  {Object.values(group.attendance).filter((day) => day.attended).length}/{group.accumulatedLessons ? group.accumulatedLessons.length : ''}</Link></td>
 
                                         </tr>
                                     ))
@@ -103,13 +143,13 @@ class StudentPage extends Component {
                     <div className='col-12'>
                         <span className='gray mt-4'> Terms</span>
                         <br />
-                        <Input type="textarea" rows='5' value={student.terms}  className='float-left' onChange={(e) => this.handleChange(e)}/>
+                        <Input type="textarea" rows='5' value={student.terms} className='float-left' onChange={(e) => this.handleChange(e)} />
                     </div>
 
                     <div className='col-12'>
                         <span className='gray'> Remarks</span>
                         <br />
-                        <Input type="textarea" rows='5' value={student.remarks}  className='float-left' onChange={(e) => this.handleChange(e)}/>
+                        <Input type="textarea" rows='5' value={student.remarks} className='float-left' onChange={(e) => this.handleChange(e)} />
                     </div>
 
                 </div>
@@ -124,20 +164,22 @@ class StudentPage extends Component {
 
 
 function mapStateToProps({ students, groups }, props) {
+    const activeGroups  = Object.values(groups).filter( (group)=> (group.state != 'Finish'))
     const id = props.match.params['id']
     const student = students[id]
     let studentGroups = {}
-    if(student){
+    if (student) {
         Object.values(student.groups).map((group) => (
-            studentGroups[group.id] = Object.assign({},groups[group.id],student.groups[group.id])
+            studentGroups[group.id] = Object.assign({}, groups[group.id], student.groups[group.id])
         ))
-        
+
         console.log('studentGroups = ', studentGroups)
     }
     return {
         student,
         students,
         studentGroups,
+        activeGroups ,
     }
 }
 

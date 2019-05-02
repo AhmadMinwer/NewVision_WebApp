@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 
 
 class NewStudent extends Component {
-
+    // (todayDate+"").substring(4,15).replace(/ /g, "-")
     render() {
         const settings = this.props.settings
+        const todayDate = new Date()
         return (
             <div>
                 <div>
@@ -31,10 +32,10 @@ class NewStudent extends Component {
                                     <Input className="col-5" type="text" name="student_tn" id="student_tn" placeholder="Phone" />
                                     <Input className="col-5 ml-2" type="text" name="student_tn" id="student_tn" placeholder="Phone 2" />
                                 </div>
-
+                                
                                 <div className="col-6 col-lg-3 my-2 col-lg-3 row ml-1">
                                     <Label className="col-12 pl-0" >Sign up date</Label>
-                                    <Input className="col-12" type="date" name="student_tn" id="student_tn" disabled />
+                                    <span className='bg-gray p-2'>{(todayDate+"").substring(4,15).replace(/ /g, "-")}</span>
                                 </div>
 
                                 <FormGroup className="col-6 col-lg-3 my-2 col-lg-3 ">

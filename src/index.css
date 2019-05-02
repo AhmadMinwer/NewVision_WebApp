@@ -104,3 +104,7 @@ code {
   width:auto !important;
   margin-left:5px !important;
 }
+
+.cursor-pointer{
+  cursor: pointer;
+}
