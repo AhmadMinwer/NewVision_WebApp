@@ -26,6 +26,19 @@ class GroupPage extends Component {
         this.state = {
             groupNameModal: false,
             groupLevelModal: false,
+            groupTimeModal: false,
+            groupStatusModal: false,
+            groupTeachersModal: false,
+            groupEndDateModal: false,
+            groupStartDateModal: false,
+            groupLessonsModal: false,
+            groupRemarksModal: false,
+            groupEditSudentModal: false,
+            groupRemoveModal: false,
+            itemOnActionId: -1,
+
+
+
         };
 
         this.toggleGroupNameModal = this.toggleGroupNameModal.bind(this)
@@ -108,6 +121,12 @@ class GroupPage extends Component {
         this.setState(prevState => ({
             removeModal: !prevState.removeModal
         }));
+    }
+
+    setItemOnActionId(id){
+        this.setState({
+            itemOnActionId :id,
+        })
     }
 
     //end of modals functions
@@ -198,8 +217,8 @@ class GroupPage extends Component {
                                             <td>{student.groups[group.id].certificationState}</td>
                                             <td>{Object.values(student.groups[group.id].attendance).filter((day) => day.attended).length}/{group.accumulatedLessons ? Object.values(group.accumulatedLessons).length : ''}</td>
                                             <td>
-                                                <Button className='bg-primary' onClick={this.toggleEditStudentModal} >Edit</Button>
-                                                <Button className='ml-1 bg-danger' onClick={this.toggleRemoveModal} >Remove</Button>
+                                                <Button className='bg-primary' onClick={(event)=> { this.setItemOnActionId(student.id) ;this.toggleEditStudentModal();}} >Edit</Button>
+                                                <Button className='ml-1 bg-danger' onClick={(event)=>{this.setItemOnActionId(student.id); this.toggleRemoveModal();}} >Remove</Button>
                                             </td>
                                         </tr>
                                     ))
@@ -384,9 +403,11 @@ class GroupPage extends Component {
                             <Label >Student Status</Label>
                             <Input type="select" name="select">
                                 <option selected>Select...</option>
+                                {/* {  this.state.itemOnActionId != -1 ? console.log('[id]',Object.values(Object.values(students)[this.state.itemOnActionId].groups[group.id])) :'' } */}
                                 {
-                                    settings.studentStatus ? settings.studentStatus.map((label) => (
-                                        <option>{label}</option>
+                                    
+                                    settings.studentStatus && this.state.itemOnActionId != -1 ? settings.studentStatus.map((label) => (
+                                        Object.values(Object.values(students)[this.state.itemOnActionId].groups[group.id])[4] === label ? <option selected>{label}</option> : <option>{label}</option>
                                     ))
                                         : ''
                                 }
@@ -396,8 +417,8 @@ class GroupPage extends Component {
                             <Input type="select" name="select">
                                 <option selected>Select...</option>
                                 {
-                                    settings.certificationStatus ? settings.certificationStatus.map((label) => (
-                                        <option>{label}</option>
+                                    settings.certificationStatus && this.state.itemOnActionId != -1 ? settings.certificationStatus.map((label) => (
+                                        Object.values(Object.values(students)[this.state.itemOnActionId].groups[group.id])[5] === label ? <option selected>{label}</option> : <option>{label}</option>
                                     ))
                                         : ''
                                 }

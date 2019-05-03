@@ -18,8 +18,8 @@ let students = {
                 exam1: '92',
                 exam2: '-',
                 exam3: '-',
-                status: 'finished',
-                certificationState: '',
+                status: 'Finish',
+                certificationState: 'not yet',
                 attendance: {
                     '01012015': {
                         date: '1 Jan 2015',
@@ -38,8 +38,8 @@ let students = {
                 exam1: '85',
                 exam2: '82',
                 exam3: '73',
-                status: 'finished',
-                certificationState: 'received',
+                status: 'Finish',
+                certificationState: 'not yet',
                 attendance: {
                     '01012015': {
                         date: '1 Jan 2015',
@@ -74,7 +74,7 @@ let students = {
                 exam1: '92',
                 exam2: '-',
                 exam3: '-',
-                status: 'finished',
+                status: 'Finish',
                 certificationState: 'not yet',
                 attendance: {
                     '01012015': {
@@ -94,8 +94,8 @@ let students = {
                 exam1: '85',
                 exam2: '82',
                 exam3: '73',
-                status: 'finished',
-                certificationState: 'received',
+                status: 'Finish',
+                certificationState: 'not yet',
                 attendance: {
                     '01012015': {
                         date: '1 Jan 2015',
@@ -130,7 +130,7 @@ let students = {
                 exam1: '92',
                 exam2: '-',
                 exam3: '-',
-                status: 'finished',
+                status: 'Finish',
                 certificationState: 'not yet',
                 attendance: {
                     '01012015': {
@@ -155,8 +155,8 @@ let students = {
                 exam1: '85',
                 exam2: '82',
                 exam3: '73',
-                status: 'finished',
-                certificationState: 'received',
+                status: 'Finish',
+                certificationState: 'not yet',
                 attendance: {
                     '01012015': {
                         date: '1 Jan 2015',
