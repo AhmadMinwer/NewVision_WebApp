@@ -5,8 +5,8 @@ export default function students(state = {}, action) {
         case ADD_STUDENT:
             return {
                 ...state,
-                [action.sutdent.id]: {
-                    ...state[action.sutdent],
+                [action.student.id]: {
+                    ...state[action.student],
                 }
             }
         case RECEIVE_STUDENTS:

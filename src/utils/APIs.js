@@ -9,7 +9,9 @@ export function getInitialData() {
     return Promise.all([
         _getStudents(),
         _getGroups(),
-        _getSettings(),
+        fetch("http://localhost:9000/settings") //fetch settings
+            .then(res => res.json())
+            .then(json => json),
         _getQueries(),
     ]).then(function ([students, groups, settings, queries]) {
         return {
@@ -22,6 +24,34 @@ export function getInitialData() {
 };
 
 
+export function addStudentAPI(student) {
+    console.log('addStudentApi', student)
+    return fetch('http://localhost:9000/students/api/v1/students/add', {
+        method: 'POST',
+        headers: {
+            // 'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            student,
+        })
+    })
+}
+
+
+export function addGroupAPI(group) {
+    console.log('addGroupApi', group)
+    return fetch('http://localhost:9000/groups/api/v1/groups/add', {
+        method: 'POST',
+        headers: {
+            // 'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            group,
+        })
+    })
+}
 
 
 

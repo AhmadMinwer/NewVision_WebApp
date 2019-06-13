@@ -20,16 +20,33 @@ import Marks from './Marks'
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData())
-    
   }
+
+
+//////
+constructor(props) {
+  super(props);
+  this.state = { apiResponse: "" };
+}
+callAPI() {
+  fetch("http://localhost:9000/settings")
+      .then(res => res.json())
+      .then(json => this.setState({ apiResponse: json }));
+}
+componentWillMount() {
+  this.callAPI();
+}
+
+//////
+
   render() {
 
     return (
       <Router>
+        {/* <p className="App-intro">here some text{this.state.apiResponse}</p> */}
         <Fragment>
           <LoadingBar />
                 <NewVisionNav />
-
                   <Route path='/' exact component={Students} />
                   <Route path='/students' exact  component={Students} />
                   <Route path='/students/id:id' component={StudentPage} />

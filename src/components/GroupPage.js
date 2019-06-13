@@ -405,7 +405,6 @@ class GroupPage extends Component {
                                 <option selected>Select...</option>
                                 {/* {  this.state.itemOnActionId != -1 ? console.log('[id]',Object.values(Object.values(students)[this.state.itemOnActionId].groups[group.id])) :'' } */}
                                 {
-                                    
                                     settings.studentStatus && this.state.itemOnActionId != -1 ? settings.studentStatus.map((label) => (
                                         Object.values(Object.values(students)[this.state.itemOnActionId].groups[group.id])[4] === label ? <option selected>{label}</option> : <option>{label}</option>
                                     ))
