@@ -10,6 +10,8 @@ class NewGroup extends Component {
         startingDate:'',
         finishingDate: '',
         level: '',
+        time: '',
+        status:'potential',
         numberOfLessons: '',
         remarks: '',
         teacher1: '',
@@ -37,6 +39,12 @@ class NewGroup extends Component {
     onLevelChange(e) {
         this.setState({
             level: e.target.value,
+        });
+    }
+
+    onTimeChange(e) {
+        this.setState({
+            time: e.target.value,
         });
     }
 
@@ -68,16 +76,17 @@ class NewGroup extends Component {
     handleSubmit = (e) => {
         e.preventDefault()
 
-        const { name, startingDate, finishingDate, level, numberOfLessons, remarks, teacher1, teacher2} = this.state
+        const { name, startingDate, finishingDate, level, time, status, numberOfLessons, remarks, teacher1, teacher2} = this.state
         const { dispatch } = this.props
 
-        dispatch(handleAddGroup({  name, startingDate, finishingDate, level, numberOfLessons, remarks, teacher1, teacher2 }))
+        dispatch(handleAddGroup({  name, startingDate, finishingDate, level, time, status, numberOfLessons, remarks, teacher1, teacher2 }))
 
         this.setState(() => ({
             name: '',
             startingDate:'',
             finishingDate: '',
             level: '',
+            time: '',
             numberOfLessons: '',
             remarks: '',
             teacher1: '',
@@ -120,7 +129,7 @@ class NewGroup extends Component {
                                     <Input type="select" name="select" value={this.state.teacher1} onChange={(e) => {this.onTeacher1Change(e)}}>
                                         <option key='0' value=''> select...</option>
                                         {
-                                            settings.groupTeacher ? settings.groupTeacher.map((label) => (
+                                            settings.groupTeacher ? settings.groupTeacher.filter(teacher => teacher !== this.state.teacher2).map((label) => (
                                                 <option key={label}>{label}</option>
                                             ))
                                                 : ''
@@ -129,7 +138,7 @@ class NewGroup extends Component {
                                     <Input type="select" className='mt-3' name="select" value={this.state.teacher2} onChange={(e) => {this.onTeacher2Change(e)}}>
                                         <option key='0' value=''> select...</option> 
                                         {
-                                            settings.groupTeacher ? settings.groupTeacher.map((label) => (
+                                            settings.groupTeacher ? settings.groupTeacher.filter(teacher => teacher !== this.state.teacher1).map((label) => (
                                                 <option key={label}>{label}</option>
                                             ))
                                                 : ''
@@ -150,11 +159,24 @@ class NewGroup extends Component {
                                     </Input>
                                 </FormGroup>
 
+
+                                <FormGroup className="col-6 col-md-4 mt-3">
+                                    <Label >Time</Label>
+                                    <Input type="select" name="select" value={this.state.time} onChange={(e) => {this.onTimeChange(e)}}>
+                                    <option defaultValue>Select...</option>
+                                        {
+                                            settings.groupTime ? settings.groupTime.map((label) => (
+                                                <option key={label}>{label}</option>
+                                            ))
+                                                : ''
+                                        }
+                                    </Input>
+                                </FormGroup>
+
                                 <div className="col-6 col-md-4 mt-3">
                                     <Label >Number of lessons</Label>
                                     <Input type="number" name="lessonsNumber" placeholder="Number Of Lessons" value={this.state.numberOfLessons} onChange={(e) => {this.onNumberOfLessonsChange(e)}} />
                                 </div>
-
                                 
 
                                 <div className="col-12  mb-2 row ">

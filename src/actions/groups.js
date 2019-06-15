@@ -26,6 +26,8 @@ export function handleAddGroup(group) {
             startingDate: group.startingDate,
             finishingDate: group.finishingDate,
             level: group.level,
+            time: group.time,
+            status: group.status,
             numberOfLessons: group.numberOfLessons,
             remarks: group.remarks,
             teacher1: group.teacher1,
