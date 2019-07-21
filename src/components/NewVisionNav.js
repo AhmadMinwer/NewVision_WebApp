@@ -4,10 +4,7 @@ import {
   Navbar,
   NavbarToggler,
   NavbarBrand,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem } from 'reactstrap';
+  } from 'reactstrap';
 import Badge from 'react-bootstrap/Badge';
 import { connect } from 'react-redux'
 import { Nav, NavItem, NavLink } from 'reactstrap';

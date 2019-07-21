@@ -1,5 +1,5 @@
 import { showLoading, hideLoading } from 'react-redux-loading'
-import { addStudentAPI } from '../utils/APIs'
+import { addStudentAPI, fetchStudentAPI } from '../utils/APIs'
 
 export const ADD_STUDENT = 'ADD_STUDENT'
 export const UPDATE_STUDENT = 'UPDATE_STUDENT'
@@ -51,10 +51,21 @@ export function handleAddStudent(student) {
         }
         return addStudentAPI(formatedStudent)
             .then((student) => dispatch(addStudent(student)))
-            .then(() => dispatch(hideLoading()))
+            .then((action) => {
+                dispatch(hideLoading())
+                return action.student
+            })
     }
 }
 
+export function handleFetchStudents(filters){
+    return () => {
+        return fetchStudentAPI(filters)
+        .then((results)=> {
+            return results
+        })
+    }
+}
 
 //you need 2 action creators => you need one for fillters and one as default for active students
 export function receiveStudents(students) {

@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import { Table } from 'reactstrap';
 import { connect } from 'react-redux';
 import Button from 'react-bootstrap/Button';
-import { withRouter } from 'react-router-dom'
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom'
 
 
 
 class GroupsGrid extends Component {
     redircetToAddGroup = () => {
-
         this.props.history.push('/groups/add');
     }
 
@@ -60,8 +58,10 @@ class GroupsGrid extends Component {
                                         <td>{group.teacher2}</td>
                                         <td>{group.startDate}</td>
                                         <td>{group.endDate}</td>
-                                        <td>{Object.values(group.accumulatedLessons).length}/{group.commitLessons}</td>
-                                        <td>{group.students.length}</td>
+                                        {/* <td>{Object.values(group.accumulatedLessons).length}/{group.commitLessons}</td> */}
+                                        {/* <td>{group.students.length}</td> */}
+                                        <td></td>
+                                        <td></td>
                                         <td className='text-center'>
                                             <Button onClick={() => (this.redircetToAttendance(group.id))}>Attendence</Button>
                                             <Button onClick={() => (this.redircetToMarks(group.id)) } className='ml-1'>marks</Button>

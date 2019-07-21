@@ -187,21 +187,21 @@ let groups = {
         time: 'noon',
         commitLessons: '50',
         accumulatedLessons: {
-            '01012015':{
-                id : '01012015',
-                date : '1 Jan 2015',
+            '01012015': {
+                id: '01012015',
+                date: '1 Jan 2015',
             },
-            '03012015':{
-                id : '03012015',
-                date : '3 Jan 2015 '
+            '03012015': {
+                id: '03012015',
+                date: '3 Jan 2015 '
             },
-            '07012015':{
-                id : '07012015',
-                date : '7 Jan 2015 '
+            '07012015': {
+                id: '07012015',
+                date: '7 Jan 2015 '
             }
         },
         remarks: 'Aenean a nibh viverra, consectetur urna vitae, pharetra sem. Maecenas ornare elementum fermentum. Aliquam erat volutpat. Fusce imperdiet in risus eu feugiat. Etiam sit amet malesuada justo. Sed ac felis hendrerit, vestibulum nisi vitae, fringilla risus. Vivamus blandit tempus convallis. Maecenas rutrum semper pretium.',
-        students: ['0','1','2'],
+        students: ['0', '1', '2'],
     },
     '1': {
         id: '1',
@@ -215,13 +215,13 @@ let groups = {
         time: 'morning',
         commitLessons: '50',
         accumulatedLessons: {
-            '01012015':{
-                id : '01012015',
-                date : '1 Jan 2015',
+            '01012015': {
+                id: '01012015',
+                date: '1 Jan 2015',
             },
-            '03012015':{
-                id : '03012015',
-                date : '7 Jan 2015 '
+            '03012015': {
+                id: '03012015',
+                date: '7 Jan 2015 '
             }
             ,
         },
@@ -230,9 +230,36 @@ let groups = {
     },
 }
 
+let studentsGroups = {
+    '0': {
+        studentId: '',
+        groupId: '',
+        exam1: '85',
+        exam2: '82',
+        exam3: '73',
+        status: 'Finish',
+        certificationState: 'not yet',
+        // attendance: {
+        //     '01012015': {
+        //         date: '1 Jan 2015',
+        //         notes: '1/2',
+        //         attended: false,
+        //     },
+        //     '03012015': {
+        //         date: '7 Jan 2015',
+        //         notes: '3/3',
+        //         attended: false,
+        //     }
+        // }
+    },
+
+
+
+}
+
 let settings = {
     studentStatus: ['Active', 'Finish', 'Freez'],
-    studentSpecialty :['IT', 'Medicine', 'Journalism'],
+    studentSpecialty: ['IT', 'Medicine', 'Journalism'],
     certificationStatus: ['given', 'not yet',],
     groupStatus: ['Active', 'Finish',],
     groupLevel: ['א', 'ב', 'ג', 'ד'],

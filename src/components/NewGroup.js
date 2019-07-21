@@ -73,13 +73,13 @@ class NewGroup extends Component {
     }
 
     
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault()
 
         const { name, startingDate, finishingDate, level, time, status, numberOfLessons, remarks, teacher1, teacher2} = this.state
         const { dispatch } = this.props
 
-        dispatch(handleAddGroup({  name, startingDate, finishingDate, level, time, status, numberOfLessons, remarks, teacher1, teacher2 }))
+        const group = await dispatch(handleAddGroup({  name, startingDate, finishingDate, level, time, status, numberOfLessons, remarks, teacher1, teacher2 }))
 
         this.setState(() => ({
             name: '',
@@ -92,6 +92,9 @@ class NewGroup extends Component {
             teacher1: '',
             teacher2: '',
         }))
+
+        console.log('group from handleAddGroupAPI return', group)
+        this.props.history.push('/groups/id'+group.id)
     }
 
 

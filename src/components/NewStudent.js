@@ -39,7 +39,7 @@ class NewStudent extends Component {
 
     onPhoneChange(e) {
         const value = e.target.value
-        if ((!isNaN(parseInt(value.charAt(value.length - 1), 10)) && value.length<=10) || value == '')
+        if ((!isNaN(parseInt(value.charAt(value.length - 1), 10)) && value.length<=10) || value === '')
             this.setState({
                 phone: e.target.value,
             });
@@ -47,7 +47,7 @@ class NewStudent extends Component {
 
     onPhone2Change(e) {
         const value = e.target.value
-        if ((!isNaN(parseInt(value.charAt(value.length - 1), 10)) && value.length<=10) || value == '')
+        if ((!isNaN(parseInt(value.charAt(value.length - 1), 10)) && value.length<=10) || value === '')
             this.setState({
                 phone2: e.target.value,
             });
@@ -71,14 +71,14 @@ class NewStudent extends Component {
         });
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault()
 
         const { name, CPAID, phone, phone2, specialty, remarks, terms, creationDate } = this.state
         const { dispatch } = this.props
 
-        dispatch(handleAddStudent({ name, CPAID, phone, phone2, specialty, remarks, terms, creationDate }))
-
+        const student = await dispatch(handleAddStudent({ name, CPAID, phone, phone2, specialty, remarks, terms, creationDate }))
+        
         this.setState(() => ({
             name: '',
             CPAID: '',
@@ -88,6 +88,8 @@ class NewStudent extends Component {
             remarks: '',
             terms: '',
         }))
+
+        this.props.history.push('/students/id'+student.id)
     }
 
 

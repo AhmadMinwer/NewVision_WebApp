@@ -42,10 +42,10 @@ class StudentPage extends Component {
     render() {
         const activeGroups = this.props.activeGroups
         let student;
-        let groups = []
+        // let groups = []
         if (this.props.student) {
             student = this.props.student
-            groups = Object.values(student.groups)
+            // groups = Object.values(student.groups)
         } else {
             student = {}
         }
@@ -67,10 +67,10 @@ class StudentPage extends Component {
                         <span className='gray'>Status:</span>
                         <Input className='form-control-sm' type="select" name="select" id="exampleSelect">
                             <option>Active</option>
-                            <option selected>finish</option>
+                            <option defaultValue>finish</option>
                         </Input>
                     </div>
-                    <div className='col-12 col-md-2 mb-3'><span className='gray '>CPA:</span><Input className='float-left form-control-sm' Style='width: 50px !important;' type="text" value={student.CPA} onChange={(e) => this.handleChange(e)} /></div>
+                    <div className='col-12 col-md-2 mb-3'><span className='gray '>CPA:</span><Input className='float-left form-control-sm' type="text" value={student.CPA} onChange={(e) => this.handleChange(e)} /></div>
                     <div className='col-12 col-md-8 mb-3'><span className='gray'>CPA Balance: </span><Input className='float-left form-control-sm' type="text" value={student.CPABalance} onChange={(e) => this.handleChange(e)} /></div>
                     <div className='col-12 col-lg-3 mb-3'> <span className='gray'>sign up date: </span> <span>{student.creationDate}</span></div>
                     <div className='col-12 col-lg-9 mb-3'><span className='gray'>last date: </span> <span>{student.lastDate}</span></div>
@@ -88,7 +88,7 @@ class StudentPage extends Component {
                                         <div className="list-group ">
                                             {
                                                 activeGroups ? activeGroups.map((group) => (
-                                                    <button type="button" className="list-group-item list-group-item-action">{group.name}</button>
+                                                    <button type="button" key={group.name} className="list-group-item list-group-item-action">{group.name}</button>
                                                 ))
                                                     : ''
                                             }
@@ -121,7 +121,7 @@ class StudentPage extends Component {
 
                                 {
                                     Object.values(this.props.studentGroups).map((group) => (
-                                        <tr>
+                                        <tr key={group.id}>
                                             <th scope='row' key={group.id}> <Link to={'/groups/id' + group.id}>{group.id}</Link></th>
                                             <td>{group.name}</td>
                                             <td>{group.level}</td>
@@ -131,7 +131,7 @@ class StudentPage extends Component {
                                             <td>{group.exam2}</td>
                                             <td>{group.exam3}</td>
                                             <td>{group.certificationState}</td>
-                                            <td> <Link to={'/groups/attendance/' + group.id}>  {Object.values(group.attendance).filter((day) => day.attended).length}/{group.accumulatedLessons ? group.accumulatedLessons.length : ''}</Link></td>
+                                            {/* <td> <Link to={'/groups/attendance/' + group.id}>  {Object.values(group.attendance).filter((day) => day.attended).length}/{group.accumulatedLessons ? group.accumulatedLessons.length : ''}</Link></td> */}
 
                                         </tr>
                                     ))
@@ -163,23 +163,26 @@ class StudentPage extends Component {
 }
 
 
-function mapStateToProps({ students, groups }, props) {
-    const activeGroups  = Object.values(groups).filter( (group)=> (group.state != 'Finish'))
+function mapStateToProps({ students, groups, studentsGroups }, props) {
+    const activeGroups = Object.values(groups).filter((group) => (group.state !== 'Finish'))
     const id = props.match.params['id']
-    const student = students[id]
-    let studentGroups = {}
-    if (student) {
-        Object.values(student.groups).map((group) => (
-            studentGroups[group.id] = Object.assign({}, groups[group.id], student.groups[group.id])
-        ))
+    const student = Object.values(students).filter((student) => (student.id == id))[0]
 
-        console.log('studentGroups = ', studentGroups)
-    }
+    let studentGroups = Object.values(studentsGroups).filter((link) => ( link.studentId == student.id))
+
+    studentGroups = studentGroups.map((group)=>{
+        return {
+            ...group,
+            ...Object.values(groups).filter((groupInfo)=>(group.groupId == groupInfo.id))[0]
+        }
+    })
+
+    console.log('studentGroups filters',studentGroups)
     return {
         student,
         students,
         studentGroups,
-        activeGroups ,
+        activeGroups,
     }
 }
 

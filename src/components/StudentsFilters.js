@@ -53,7 +53,7 @@ class StudentsFilters extends Component {
                                         <FormGroup className="col-6 col-lg-3 ml-lg-2 my-2  ">
                                             <Label for="exampleSelect">Status</Label>
                                             <Input type="select" name="select" id="exampleSelect">
-                                                <option selected>Select...</option>
+                                                <option defaultValue>Select...</option>
                                                 {
                                                     settings.studentStatus ? settings.studentStatus.map((label) => (
                                                         <option>{label}</option>
@@ -66,7 +66,7 @@ class StudentsFilters extends Component {
                                         <FormGroup className="col-6 my-2 col-lg-3">
                                             <Label for="exampleSelect">Last level</Label>
                                             <Input type="select" name="select" id="exampleSelect">
-                                            <option selected>Select...</option>
+                                            <option defaultValue>Select...</option>
                                                 {
                                                     settings.groupLevel ? settings.groupLevel.map((label) => (
                                                         <option>{label}</option>
@@ -100,7 +100,7 @@ class StudentsFilters extends Component {
                                         <FormGroup className="col-12 col-sm-6 my-2 col-lg-3 ">
                                             <Label for="exampleSelect">specialty</Label>
                                             <Input type="select" name="select" id="exampleSelect">
-                                            <option selected>Select...</option>
+                                            <option defaultValue>Select...</option>
                                                 {
                                                     settings.studentSpecialty ? settings.studentSpecialty.map((label) => (
                                                         <option>{label}</option>
@@ -113,7 +113,7 @@ class StudentsFilters extends Component {
                                         <FormGroup className="col-12 col-sm-6 my-2 col-lg-3">
                                             <Label for="exampleSelect">Certificate Status</Label>
                                             <Input type="select" name="select" id="exampleSelect">
-                                            <option selected>Select...</option>
+                                            <option defaultValue>Select...</option>
                                                 {
                                                     settings.certificationStatus ? settings.certificationStatus.map((label) => (
                                                         <option>{label}</option>
@@ -126,7 +126,7 @@ class StudentsFilters extends Component {
                                         <FormGroup className="col-12 col-sm-6 my-2 col-lg-3">
                                             <Label for="exampleSelect">Group name</Label>
                                             <Input type="select" name="select" id="exampleSelect">
-                                            <option selected>Select...</option>
+                                            <option defaultValue>Select...</option>
                                                 {
                                                     groups ? groups.map((group) => (
                                                         <option>{group.name}</option>
@@ -138,7 +138,7 @@ class StudentsFilters extends Component {
                                         <FormGroup className="col-12 col-sm-6 my-2 col-lg-3">
                                             <Label for="exampleSelect">Group Level</Label>
                                             <Input type="select" name="select" id="exampleSelect">
-                                            <option selected>Select...</option>
+                                            <option defaultValue>Select...</option>
                                                 {
                                                     settings.groupLevel ? settings.groupLevel.map((label) => (
                                                         <option>{label}</option>

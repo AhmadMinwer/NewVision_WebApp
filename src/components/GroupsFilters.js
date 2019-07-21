@@ -51,10 +51,10 @@ class GroupFilters extends Component {
                                         <FormGroup className="col-6 col-lg-2  ">
                                             <Label for="exampleSelect">Status</Label>
                                             <Input type="select" name="select" id="exampleSelect">
-                                            <option selected>Select...</option>
+                                            <option defaultValue>Select...</option>
                                                 {
                                                     settings.groupStatus ? settings.groupStatus.map((label) => (
-                                                        <option>{label}</option>
+                                                        <option key={label}>{label}</option>
                                                     ))
                                                         : ''
                                                 }
@@ -64,10 +64,10 @@ class GroupFilters extends Component {
                                         <FormGroup className="col-6 col-lg-2">
                                             <Label for="exampleSelect">level</Label>
                                             <Input type="select" name="select" id="exampleSelect">
-                                            <option selected>Select...</option>
+                                            <option defaultValue>Select...</option>
                                                 {
                                                     settings.groupLevel ? settings.groupLevel.map((label) => (
-                                                        <option>{label}</option>
+                                                        <option key={label}>{label}</option>
                                                     ))
                                                         : ''
                                                 }
@@ -76,10 +76,10 @@ class GroupFilters extends Component {
                                         <FormGroup className="col-12 col-sm-4 my-2 ">
                                             <Label for="exampleSelect">timing</Label>
                                             <Input type="select" name="select" id="exampleSelect">
-                                            <option selected>Select...</option>
+                                            <option defaultValue>Select...</option>
                                                 {
                                                     settings.groupTime ? settings.groupTime.map((label) => (
-                                                        <option>{label}</option>
+                                                        <option key={label}>{label}</option>
                                                     ))
                                                         : ''
                                                 }
@@ -89,10 +89,10 @@ class GroupFilters extends Component {
                                         <FormGroup className="col-12 col-sm-4 my-2 ">
                                             <Label for="exampleSelect">Teacher</Label>
                                             <Input type="select" name="select" id="exampleSelect">
-                                            <option selected>Select...</option>
+                                            <option defaultValue>Select...</option>
                                                 {
                                                     settings.groupTeacher ? settings.groupTeacher.map((label) => (
-                                                        <option>{label}</option>
+                                                        <option key={label}>{label}</option>
                                                     ))
                                                         : ''
                                                 }

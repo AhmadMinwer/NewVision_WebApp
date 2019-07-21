@@ -22,28 +22,10 @@ class App extends Component {
     this.props.dispatch(handleInitialData())
   }
 
-
-//////
-constructor(props) {
-  super(props);
-  this.state = { apiResponse: "" };
-}
-callAPI() {
-  fetch("http://localhost:9000/settings")
-      .then(res => res.json())
-      .then(json => this.setState({ apiResponse: json }));
-}
-componentWillMount() {
-  this.callAPI();
-}
-
-//////
-
   render() {
 
     return (
       <Router>
-        {/* <p className="App-intro">here some text{this.state.apiResponse}</p> */}
         <Fragment>
           <LoadingBar />
                 <NewVisionNav />

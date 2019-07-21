@@ -4,14 +4,113 @@ import { Table } from 'reactstrap';
 import { Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Label } from 'reactstrap';
+import { handleFetchStudents } from '../actions/students'
+import { handleAddStudentGroup, handleRemoveStudentGroup } from '../actions/studentsGroups'
+
 
 
 
 class GroupPage extends Component {
 
-    getAvgMarks = (mark1, mark2, mark3) => {
+    state = {
+
+        addStudentFiltersResults: [],
+
+        filtersId: '',
+        filtersName: '',
+        filtersPhone: '',
+        filtersDate: '',
+        itemOnActionId: -1,
+    }
+
+    componentDidMount() {
+
+        this.setState({
+            addStudentFiltersResults: [],
+            filtersId: '',
+            filtersName: '',
+            filtersPhone: '',
+            filtersDate: '',
+            itemOnActionId:-1,
+        })
+    }
+    
+    setItemOnActionId(id) {
+        this.setState({
+            itemOnActionId: id,
+        })
+    }
+
+
+    handleAddStudent(studentId) {
+
+        const data = {
+            groupId: this.props.group.id,
+            studentId,
+            status: this.props.group.status,
+            mark1: '',
+            mark2: '',
+            mark3: '',
+            certification: '',
+        }
+
+        this.props.dispatch(handleAddStudentGroup(data))
+    }
+
+    submitRemoveStudentGroup(id){
+        const data = {
+            studentId: this.state.itemOnActionId,
+            groupId: this.props.group.id,
+        }
+        this.props.dispatch(handleRemoveStudentGroup(data))
+        this.setState({ itemOnActionId: -1})
+    }
+
+
+    onFiltersIdChange(e) {
+        this.setState({
+            filtersId: e.target.value,
+        });
+    }
+
+    onFiltersNameChange(e) {
+        this.setState({
+            filtersName: e.target.value,
+        })
+    }
+
+
+    onFiltersPhoneChange(e) {
+        const value = e.target.value
+        if ((!isNaN(parseInt(value.charAt(value.length - 1), 10)) && value.length <= 10) || value === '')
+            this.setState({
+                filtersPhone: e.target.value,
+            });
+    }
+
+    onFiltersDateChange(e) {
+        this.setState({
+            filtersDate: e.target.value,
+        });
+    }
+
+    submitFilters = async (e) => {
+        e.preventDefault()
+
+        console.log('filters state', this.state)
+
+        const { filtersId, filtersName, filtersPhone, filtersDate } = this.state
+        const { dispatch } = this.props
+
+        const results = await dispatch(handleFetchStudents({ filtersId, filtersName, filtersPhone, filtersDate, filtersGroupId: this.props.group.id }))
+
+        this.setState({
+            addStudentFiltersResults: results
+        })
 
     }
+
+
 
     redircetToAttendance = (id) => {
         this.props.history.push('/groups/attendance/' + id)
@@ -34,11 +133,10 @@ class GroupPage extends Component {
             groupLessonsModal: false,
             groupRemarksModal: false,
             groupEditSudentModal: false,
+            groupAddStudentModal: false,
             groupRemoveModal: false,
-            itemOnActionId: -1,
-
-
-
+            // itemOnActionId: -1,
+            addStudentFiltersResults: [],
         };
 
         this.toggleGroupNameModal = this.toggleGroupNameModal.bind(this)
@@ -51,7 +149,8 @@ class GroupPage extends Component {
         this.toggleGroupLessonsModal = this.toggleGroupLessonsModal.bind(this)
         this.toggleGroupRemarksModal = this.toggleGroupRemarksModal.bind(this)
         this.toggleEditStudentModal = this.toggleEditStudentModal.bind(this)
-        this.toggleRemoveModal = this.toggleRemoveModal.bind(this)
+        this.toggleAddStudentModal = this.toggleAddStudentModal.bind(this)
+        this.toggleGroupRemoveModal = this.toggleGroupRemoveModal.bind(this)
 
 
 
@@ -111,22 +210,35 @@ class GroupPage extends Component {
         }));
     }
 
-    toggleEditStudentModal() {
+    toggleEditStudentModal(id) {
+        console.log('in toggleEditStudentModal and no id')
+
         this.setState(prevState => ({
-            groupEditStudentModal: !prevState.groupEditStudentModal
+            groupEditStudentModal: !prevState.groupEditStudentModal,
+            // itemOnActionId: id,
         }));
     }
 
-    toggleRemoveModal() {
+
+
+    toggleGroupRemoveModal(id) {
+        console.log('in toggleGroupRemoveModal and id ==== ', id)
         this.setState(prevState => ({
-            removeModal: !prevState.removeModal
+            groupRemoveModal: !prevState.groupRemoveModal,
+            // itemOnActionId: id,
         }));
     }
 
-    setItemOnActionId(id){
-        this.setState({
-            itemOnActionId :id,
-        })
+
+    toggleAddStudentModal() {
+
+        this.setState(prevState => ({
+            groupAddStudentModal: !prevState.groupAddStudentModal,
+            filtersName: '',
+            filtersId: '',
+            filtersDate: '',
+            filtersPhone: '',
+        }));
     }
 
     //end of modals functions
@@ -139,6 +251,7 @@ class GroupPage extends Component {
         if (this.props.group) {
             group = this.props.group
             students = this.props.groupStudents
+            console.log('students within group! => ', students)
         } else {
             group = {}
             students = {}
@@ -208,23 +321,28 @@ class GroupPage extends Component {
 
                                 {
                                     Object.values(students).map((student) => (
-                                        <tr>
+                                        <tr key={student.id}>
                                             <th scope='row' key={student.id}> <Link to={'/students/id' + student.id}>{student.id}</Link></th>
                                             <td>{student.name}</td>
-                                            <td>{student.groups[group.id].status}</td>
+                                            <td>{student.status}</td>
                                             {/* <td>date</td> */}
-                                            {/* <td>{this.getAvgMarks(student.groups[group.id].mark1, student.groups[group.id].mark2, student.groups[group.id].mark3)}</td> */}
-                                            <td>{student.groups[group.id].certificationState}</td>
-                                            <td>{Object.values(student.groups[group.id].attendance).filter((day) => day.attended).length}/{group.accumulatedLessons ? Object.values(group.accumulatedLessons).length : ''}</td>
+                                            {/* <td>{this.getAvgMarks(student.mark1, student.mark2, student.mark3)}</td> */}
+                                            <td>{student.certificationState}</td>
+                                            <td></td>
+                                            {/* <td>{Object.values(student.attendance).filter((day) => day.attended).length}/{group.accumulatedLessons ? Object.values(group.accumulatedLessons).length : ''}</td> */}
                                             <td>
-                                                <Button className='bg-primary' onClick={(event)=> { this.setItemOnActionId(student.id) ;this.toggleEditStudentModal();}} >Edit</Button>
-                                                <Button className='ml-1 bg-danger' onClick={(event)=>{this.setItemOnActionId(student.id); this.toggleRemoveModal();}} >Remove</Button>
+                                                <Button className='bg-primary' onClick={(event) => { this.setItemOnActionId(student.id); this.toggleEditStudentModal(student.id); }} >Edit</Button>
+                                                <Button className='ml-1 bg-danger' onClick={(event) => {this.setItemOnActionId(student.id); this.toggleGroupRemoveModal(student.id); }} >Remove</Button>
                                             </td>
                                         </tr>
                                     ))
                                 }
                             </tbody>
                         </Table>
+                    </div>
+
+                    <div className='col-6'>
+                        <Button className='float-right bg-success' onClick={(event) => { this.toggleAddStudentModal(); }}>add Student</Button>
                     </div>
                     <div className='col-12 mt-4'>
                         <span className='gray cursor-pointer' onClick={this.toggleGroupRemarksModal}> Remarks</span>
@@ -260,7 +378,7 @@ class GroupPage extends Component {
                         <div className=''>
                             {
                                 settings.groupLevel ? settings.groupLevel.map((label) => (
-                                    <button type="button" className="list-group-item list-group-item-action">{label}</button>
+                                    <button key={label} type="select" className="list-group-item list-group-item-action">{label}</button>
                                 ))
                                     : ''
                             }
@@ -280,7 +398,7 @@ class GroupPage extends Component {
                         <div className=''>
                             {
                                 settings.groupTime ? settings.groupTime.map((label) => (
-                                    <button type="button" className="list-group-item list-group-item-action">{label}</button>
+                                    <button key={label} type="button" className="list-group-item list-group-item-action">{label}</button>
                                 ))
                                     : ''
                             }
@@ -300,7 +418,7 @@ class GroupPage extends Component {
                         <div className=''>
                             {
                                 settings.groupStatus ? settings.groupStatus.map((label) => (
-                                    <button type="button" className="list-group-item list-group-item-action">{label}</button>
+                                    <button key={label} type="button" className="list-group-item list-group-item-action">{label}</button>
                                 ))
                                     : ''
                             }
@@ -321,7 +439,7 @@ class GroupPage extends Component {
                             <Input type="select" name="select" multiple >
                                 {
                                     settings.groupTeacher ? settings.groupTeacher.map((label) => (
-                                        <option>{label}</option>
+                                        <option key={label} >{label}</option>
                                     ))
                                         : ''
                                 }
@@ -385,7 +503,7 @@ class GroupPage extends Component {
                     <ModalHeader toggle={this.toggleGroupRemarksModal}>update group Remarks</ModalHeader>
                     <ModalBody>
                         <div className=''>
-                            <Input className='' type="textarea" rows='5' name="student_tn" id="student_tn" placeholder="new group Remarks"  />
+                            <Input className='' type="textarea" rows='5' name="student_tn" id="student_tn" placeholder="new group Remarks" />
                         </div>
                     </ModalBody>
                     <ModalFooter>
@@ -395,31 +513,51 @@ class GroupPage extends Component {
                 </Modal>
 
 
+                {/* update group Remove student modal */}
+                <Modal isOpen={this.state.groupRemoveModal} toggle={this.toggleGroupRemoveModal} className={this.props.className}>
+                    {console.log('inside groupRemoveModal')}
+                    <ModalHeader toggle={this.toggleGroupRemoveModal}>Remove Student</ModalHeader>
+                    <ModalBody>
+                        <div className=''>
+                            <p>Do you really want to remove this student from the current group?</p>
+                        </div>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={()=>{  this.toggleGroupRemoveModal(); this.submitRemoveStudentGroup(); }}>Remove</Button>{' '}
+                        <Button color="secondary" onClick={this.toggleGroupRemoveModal}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
+
+
+
+
                 {/* update group Edit Student modal */}
                 <Modal isOpen={this.state.groupEditStudentModal} toggle={this.toggleEditStudentModal} className={this.props.className}>
+                {console.log('inside edit group modal!!!!              111')}
                     <ModalHeader toggle={this.toggleEditStudentModal}>update group EditStudent</ModalHeader>
                     <ModalBody>
                         <div className=''>
                             <Label >Student Status</Label>
                             <Input type="select" name="select">
-                                <option selected>Select...</option>
-                                {/* {  this.state.itemOnActionId != -1 ? console.log('[id]',Object.values(Object.values(students)[this.state.itemOnActionId].groups[group.id])) :'' } */}
+                                <option defaultValue>Select...</option>
+                                {   console.log('inside studentGroup edit modal & itemOnActionId=', this.state.itemOnActionId)   }
                                 {
-                                    settings.studentStatus && this.state.itemOnActionId != -1 ? settings.studentStatus.map((label) => (
-                                        Object.values(Object.values(students)[this.state.itemOnActionId].groups[group.id])[4] === label ? <option selected>{label}</option> : <option>{label}</option>
+                                    // studentStatus = 
+                                    settings.studentStatus && this.state.itemOnActionId && this.state.itemOnActionId !== -1 && settings.studentStatus.map((label) => (
+                                        Object.values(this.props.groupStudents).filter((link)=> link.studentId === this.state.itemOnActionId)[0].status === label.toLowerCase() ? <option defaultValue>{label}</option> : <option>{label}</option>
                                     ))
-                                        : ''
+                                        
                                 }
                             </Input>
 
                             <Label className='mt-4'>Certification Status</Label>
                             <Input type="select" name="select">
-                                <option selected>Select...</option>
+                                <option defaultValue>Select...</option>
                                 {
-                                    settings.certificationStatus && this.state.itemOnActionId != -1 ? settings.certificationStatus.map((label) => (
-                                        Object.values(Object.values(students)[this.state.itemOnActionId].groups[group.id])[5] === label ? <option selected>{label}</option> : <option>{label}</option>
-                                    ))
-                                        : ''
+                                    // settings.certificationStatus && this.state.itemOnActionId !== -1 && settings.certificationStatus.map((label) => (
+                                    //     Object.values(Object.values(students)[this.state.itemOnActionId].groups[group.id])[5] === label ? <option defaultValue>{label}</option> : <option>{label}</option>
+                                    // ))
+                                        
                                 }
                             </Input>
                         </div>
@@ -432,18 +570,66 @@ class GroupPage extends Component {
 
 
 
-                {/* update group Remove modal */}
-                <Modal isOpen={this.state.removeModal} toggle={this.toggleRemoveModal} className={this.props.className}>
-                    <ModalHeader toggle={this.toggleRemoveModal}>Remove Student</ModalHeader>
+
+
+                {/* update group Add Student modal */}
+                <Modal isOpen={this.state.groupAddStudentModal} toggle={this.toggleAddStudentModal} className={this.props.className + ' modal-lg'}>
+                    <ModalHeader toggle={this.toggleAddStudentModal}>sign up new student</ModalHeader>
                     <ModalBody>
                         <div className=''>
-                            <p>Do you really want to remove this student from the current group?</p>
+                            <div className="col-12  row mx-0 px-0">
+                                <div className="col-6 col-md-2 mb-2">
+                                    <Input type="text" name="student_id" id="student_id" placeholder="ID" value={this.state.filtersId} onChange={(e) => { this.onFiltersIdChange(e) }} />
+                                </div>
+
+                                <div className="col-6 col-md-3 mb-2">
+                                    <Input type="text" name="student_name" id="student_name" placeholder="Name" value={this.state.filtersName} onChange={(e) => { this.onFiltersNameChange(e) }} />
+                                </div>
+
+                                <div className="col-6 col-md-3 mb-2">
+                                    <Input type="text" name="student_tn" id="student_tn" placeholder="Phone" value={this.state.filtersPhone} onChange={(e) => { this.onFiltersPhoneChange(e) }} />
+                                </div>
+
+                                <div className="col-6 col-md-4 mb-2">
+                                    <Input type="date" name="student_cpa" id="student_cpa" placeholder="CPA" value={this.state.filtersDate} onChange={(e) => { this.onFiltersDateChange(e) }} />
+                                </div>
+
+                            </div>
+
+                            <Button className=' col-2 center' color="success" onClick={this.submitFilters}>search</Button>
+                            <p>select student who wants to sing up for the current group?</p>
+
+                            <Table className='text-center' hover>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>phone</th>
+                                        <th>signup date</th>
+                                        <th></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+                                    {
+                                        this.state.addStudentFiltersResults && this.state.addStudentFiltersResults.length && this.state.addStudentFiltersResults.map((student) => (
+                                            <tr key={student.id}>
+                                                <th scope='row' key={student.id}> <Link to={'/students/id' + student.id}>{student.id}</Link></th>
+                                                <td>{student.name}</td>
+                                                <td>{student.phone}</td>
+                                                <td>{student.creationDate}</td>
+                                                <td> <Button color="success" onClick={() => { this.toggleAddStudentModal(); this.handleAddStudent(student.id) }}  >Add</Button></td>
+                                            </tr>
+                                        ))
+
+                                    }
+                                </tbody>
+
+                            </Table>
                         </div>
                     </ModalBody>
-                    <ModalFooter>
-                        <Button color="primary" onClick={this.toggleRemoveModal}>Remove</Button>{' '}
-                        <Button color="secondary" onClick={this.toggleRemoveModal}>Cancel</Button>
-                    </ModalFooter>
                 </Modal>
 
 
@@ -453,17 +639,26 @@ class GroupPage extends Component {
 }
 
 
-function mapStateToProps({ students, groups, settings }, props) {
-    const id = props.match.params['id']
-    const group = groups[id]
-    let groupStudents = {}
-    if (group) {
-        group.students.map((studentId) => (
-            groupStudents[studentId] = students[studentId]
-        ))
+function mapStateToProps({ students, groups, settings, studentsGroups }, props) {
 
-        console.log('groupStudents = ', groupStudents)
-    }
+    const id = props.match.params['id']
+    const group = Object.values(groups).filter((group) => (group.id == id))[0]
+
+    let groupStudents = Object.values(studentsGroups).filter((student) => (student.groupId === group.id))
+
+
+    groupStudents = groupStudents.map((student) => {
+
+        const studentInfo = Object.values(students).filter((std) => (student.studentId == std.id))[0]
+
+        return {
+            ...studentInfo,
+            ...student
+        }
+    })
+
+
+
     return {
         group,
         groupStudents,

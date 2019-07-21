@@ -35,7 +35,10 @@ export function handleAddGroup(group) {
         }
         return addGroupAPI(formatedGroup)
             .then((group) => dispatch(addGroup(group)))
-            .then(() => dispatch(hideLoading()))
+            .then((action)=> {
+                dispatch(hideLoading())
+                return action.group
+            })
     }
 }
 
