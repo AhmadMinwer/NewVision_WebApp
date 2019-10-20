@@ -252,9 +252,15 @@ let studentsGroups = {
         //     }
         // }
     },
+}
 
-
-
+let attendance={
+    '0' : {
+        groupId:'',
+        studentId:'',
+        date:'',
+        notes:'',
+    }
 }
 
 let settings = {
