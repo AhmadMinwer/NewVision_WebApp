@@ -52,7 +52,7 @@ class StudentPage extends Component {
 
 
 
-        console.log('student=', student)
+        // console.log('student=', student)
         return (
             <div className='student-page container my-4 py-4 shadow'>
                 <h3 className='col-12 '>{student.name} </h3>
@@ -177,7 +177,7 @@ function mapStateToProps({ students, groups, studentsGroups }, props) {
         }
     })
 
-    console.log('studentGroups filters',studentGroups)
+    // console.log('studentGroups filters',studentGroups)
     return {
         student,
         students,

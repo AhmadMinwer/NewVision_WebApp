@@ -7,13 +7,8 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Label } from 'react
 import { handleFetchStudents } from '../actions/students'
 import { handleAddStudentGroup, handleRemoveStudentGroup } from '../actions/studentsGroups'
 
-
-
-
 class GroupPage extends Component {
-
     state = {
-
         addStudentFiltersResults: [],
 
         filtersId: '',
@@ -24,7 +19,6 @@ class GroupPage extends Component {
     }
 
     componentDidMount() {
-
         this.setState({
             addStudentFiltersResults: [],
             filtersId: '',
@@ -96,8 +90,6 @@ class GroupPage extends Component {
 
     submitFilters = async (e) => {
         e.preventDefault()
-
-        console.log('filters state', this.state)
 
         const { filtersId, filtersName, filtersPhone, filtersDate } = this.state
         const { dispatch } = this.props
@@ -211,8 +203,6 @@ class GroupPage extends Component {
     }
 
     toggleEditStudentModal(id) {
-        console.log('in toggleEditStudentModal and no id')
-
         this.setState(prevState => ({
             groupEditStudentModal: !prevState.groupEditStudentModal,
             // itemOnActionId: id,
@@ -222,7 +212,6 @@ class GroupPage extends Component {
 
 
     toggleGroupRemoveModal(id) {
-        console.log('in toggleGroupRemoveModal and id ==== ', id)
         this.setState(prevState => ({
             groupRemoveModal: !prevState.groupRemoveModal,
             // itemOnActionId: id,
@@ -251,7 +240,6 @@ class GroupPage extends Component {
         if (this.props.group) {
             group = this.props.group
             students = this.props.groupStudents
-            console.log('students within group! => ', students)
         } else {
             group = {}
             students = {}
@@ -365,7 +353,7 @@ class GroupPage extends Component {
                         </div>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.toggleGroupNameModal}>Updatet</Button>{' '}
+                        <Button color="primary" onClick={this.toggleGroupNameModal}>Update</Button>{' '}
                         <Button color="secondary" onClick={this.toggleGroupNameModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
@@ -515,7 +503,6 @@ class GroupPage extends Component {
 
                 {/* update group Remove student modal */}
                 <Modal isOpen={this.state.groupRemoveModal} toggle={this.toggleGroupRemoveModal} className={this.props.className}>
-                    {console.log('inside groupRemoveModal')}
                     <ModalHeader toggle={this.toggleGroupRemoveModal}>Remove Student</ModalHeader>
                     <ModalBody>
                         <div className=''>
@@ -533,14 +520,12 @@ class GroupPage extends Component {
 
                 {/* update group Edit Student modal */}
                 <Modal isOpen={this.state.groupEditStudentModal} toggle={this.toggleEditStudentModal} className={this.props.className}>
-                {console.log('inside edit group modal!!!!              111')}
                     <ModalHeader toggle={this.toggleEditStudentModal}>update group EditStudent</ModalHeader>
                     <ModalBody>
                         <div className=''>
                             <Label >Student Status</Label>
                             <Input type="select" name="select">
                                 <option defaultValue>Select...</option>
-                                {   console.log('inside studentGroup edit modal & itemOnActionId=', this.state.itemOnActionId)   }
                                 {
                                     // studentStatus = 
                                     settings.studentStatus && this.state.itemOnActionId && this.state.itemOnActionId !== -1 && settings.studentStatus.map((label) => (

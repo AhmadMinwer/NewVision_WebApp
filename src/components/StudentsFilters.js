@@ -10,6 +10,24 @@ import { connect } from 'react-redux';
 class StudentsFilters extends Component {
     state = {
         showFilters: false,
+        searchFilter : {
+            name: '',
+            id: '',
+            cpa: '',
+            phone: '',
+            status: '',
+            lastLevel: '',
+            cpaBalanceFrom: '',
+            cpaBalanceTo: '',
+            signupFrom: '',
+            signupTo: '',
+            lastDateFrom: '',
+            lastDateTo: '',
+            specialty: '',
+            cStatus: '',
+            groupName: '',
+            groupLevel: ''
+        }
     }
 
     toggleShowFilters = () => {
@@ -17,12 +35,52 @@ class StudentsFilters extends Component {
             return { showFilters: !state.showFilters };
         });
     }
+
+    search = () => {
+        console.log(this.state.searchFilter);
+    }
+
+    clear = () => {
+        const searchFilter = {
+            name: '',
+            id: '',
+            cpa: '',
+            phone: '',
+            status: '',
+            lastLevel: '',
+            cpaBalanceFrom: '',
+            cpaBalanceTo: '',
+            signupFrom: '',
+            signupTo: '',
+            lastDateFrom: '',
+            lastDateTo: '',
+            specialty: '',
+            cStatus: '',
+            groupName: '',
+            groupLevel: ''
+        };
+
+        this.setState({ searchFilter });
+    }
+
+    handleChange = (event) => {
+        const field = event.target.id;
+        const value = event.target.value;
+
+        let newFilter = this.state.searchFilter;
+        newFilter[field] = value; 
+
+        this.setState({
+            searchFilter: newFilter
+        });
+    }
+
     render() {
         const settings = this.props.settings
         const groups = Object.values(this.props.groups)
         return (
             <div>
-                {console.log('this.props.settings.studentStatus= ', settings)}
+                {/* {console.log('this.props.settings.studentStatus= ', settings)} */}
                 <SlideToggle collapsed>
                     {({ onToggle, setCollapsibleElement }) => (
                         // Add CSS: .my-collapsible__content { overflow: hidden;}
@@ -38,21 +96,21 @@ class StudentsFilters extends Component {
                                 <Form className="py-4">
                                     <div className="col-12  row mx-0 px-0">
                                         <div className="col-12 col-sm-12 col-lg-4 mb-2">
-                                            <Input type="text" name="student_name" id="student_name" placeholder="Name" />
+                                            <Input type="text" name="name" id="name" placeholder="Name"  value={ this.state.searchFilter.name } onChange={ this.handleChange }/>
                                         </div>
                                         <div className="col-6 col-sm-3 col-lg-2 mb-2">
-                                            <Input type="text" name="student_id" id="student_id" placeholder="ID" />
+                                            <Input type="text" name="id" id="id" placeholder="ID" value={ this.state.searchFilter.id } onChange={ this.handleChange }/>
                                         </div>
                                         <div className="col-6 col-sm-3 col-lg-2 mb-2">
-                                            <Input type="text" name="student_cpa" id="student_cpa" placeholder="CPA" />
+                                            <Input type="text" name="cpa" id="cpa" placeholder="CPA" value={ this.state.searchFilter.cpa } onChange={ this.handleChange }/>
                                         </div>
                                         <div className="col-12 col-sm-6 col-lg-4 mb-2">
-                                            <Input type="text" name="student_tn" id="student_tn" placeholder="Phone" />
+                                            <Input type="text" name="phone" id="phone" placeholder="Phone" value={ this.state.searchFilter.phone } onChange={ this.handleChange }/>
                                         </div>
 
                                         <FormGroup className="col-6 col-lg-3 ml-lg-2 my-2  ">
                                             <Label for="exampleSelect">Status</Label>
-                                            <Input type="select" name="select" id="exampleSelect">
+                                            <Input type="select" name="status" id="status" value={ this.state.searchFilter.status } onChange={ this.handleChange }>
                                                 <option defaultValue>Select...</option>
                                                 {
                                                     settings.studentStatus ? settings.studentStatus.map((label) => (
@@ -65,7 +123,7 @@ class StudentsFilters extends Component {
 
                                         <FormGroup className="col-6 my-2 col-lg-3">
                                             <Label for="exampleSelect">Last level</Label>
-                                            <Input type="select" name="select" id="exampleSelect">
+                                            <Input type="select" name="lastLevel" id="lastLevel" value={ this.state.searchFilter.lastLevel } onChange={ this.handleChange }>
                                             <option defaultValue>Select...</option>
                                                 {
                                                     settings.groupLevel ? settings.groupLevel.map((label) => (
@@ -78,28 +136,28 @@ class StudentsFilters extends Component {
 
                                         <FormGroup className="col-12 col-lg-6  my-2 row ml-1">
                                             <Label className="col-12 pl-0" for="exampleSelect">CPA Balance</Label>
-                                            <Input className="col-5  " type="text" name="select" id="exampleSelect" placeholder="From" />
+                                            <Input className="col-5  " type="text" name="cpaBalanceFrom" id="cpaBalanceFrom" placeholder="From" value={ this.state.searchFilter.cpaBalanceFrom } onChange={ this.handleChange }/>
                                             <Label className="col-2  font-weight-bold text-center" for="exampleSelect">_</Label>
-                                            <Input className="col-5 " type="text" name="select" id="exampleSelect" placeholder="To" />
+                                            <Input className="col-5 " type="text" name="cpaBalanceTo" id="cpaBalanceTo" placeholder="To" value={ this.state.searchFilter.cpaBalanceTo } onChange={ this.handleChange }/>
                                         </FormGroup>
 
                                         <div className="col-12 col-lg-6 my-2 col-lg-3 row ml-1">
                                             <Label className="col-12 pl-0" for="exampleSelect">Sign up date</Label>
-                                            <Input className="col-5" type="date" name="student_tn" id="student_tn" />
+                                            <Input className="col-5" type="date" name="signupFrom" id="signupFrom" value={ this.state.searchFilter.signupFrom } onChange={ this.handleChange }/>
                                             <Label className="col-2  font-weight-bold text-center" for="exampleSelect">_</Label>
-                                            <Input className="col-5" type="date" name="student_tn" id="student_tn" />
+                                            <Input className="col-5" type="date" name="signupTo" id="signupTo" value={ this.state.searchFilter.signupTo } onChange={ this.handleChange }/>
                                         </div>
 
                                         <div className="col-12 col-lg-6 my-2 col-lg-3 row ml-1">
                                             <Label className="col-12 pl-0" for="exampleSelect">last date at <Badge className="newvision-color">NewVision</Badge></Label>
-                                            <Input className="col-5" type="date" name="student_tn" id="student_tn" />
+                                            <Input className="col-5" type="date" name="lastDateFrom" id="lastDateFrom" value={ this.state.searchFilter.lastDateFrom } onChange={ this.handleChange }/>
                                             <Label className="col-2  font-weight-bold text-center" for="exampleSelect">_</Label>
-                                            <Input className="col-5" type="date" name="student_tn" id="student_tn" />
+                                            <Input className="col-5" type="date" name="lastDateTo" id="lastDateTo" value={ this.state.searchFilter.lastDateTo } onChange={ this.handleChange }/>
                                         </div>
 
                                         <FormGroup className="col-12 col-sm-6 my-2 col-lg-3 ">
                                             <Label for="exampleSelect">specialty</Label>
-                                            <Input type="select" name="select" id="exampleSelect">
+                                            <Input type="select" name="specialty" id="specialty" value={ this.state.searchFilter.specialty } onChange={ this.handleChange }>
                                             <option defaultValue>Select...</option>
                                                 {
                                                     settings.studentSpecialty ? settings.studentSpecialty.map((label) => (
@@ -112,7 +170,7 @@ class StudentsFilters extends Component {
 
                                         <FormGroup className="col-12 col-sm-6 my-2 col-lg-3">
                                             <Label for="exampleSelect">Certificate Status</Label>
-                                            <Input type="select" name="select" id="exampleSelect">
+                                            <Input type="select" name="cStatus" id="cStatus" value={ this.state.searchFilter.cStatus } onChange={ this.handleChange }>
                                             <option defaultValue>Select...</option>
                                                 {
                                                     settings.certificationStatus ? settings.certificationStatus.map((label) => (
@@ -125,7 +183,7 @@ class StudentsFilters extends Component {
 
                                         <FormGroup className="col-12 col-sm-6 my-2 col-lg-3">
                                             <Label for="exampleSelect">Group name</Label>
-                                            <Input type="select" name="select" id="exampleSelect">
+                                            <Input type="select" name="groupName" id="groupName" value={ this.state.searchFilter.groupName } onChange={ this.handleChange }>
                                             <option defaultValue>Select...</option>
                                                 {
                                                     groups ? groups.map((group) => (
@@ -137,7 +195,7 @@ class StudentsFilters extends Component {
                                         </FormGroup>
                                         <FormGroup className="col-12 col-sm-6 my-2 col-lg-3">
                                             <Label for="exampleSelect">Group Level</Label>
-                                            <Input type="select" name="select" id="exampleSelect">
+                                            <Input type="select" name="groupLevel" id="groupLevel" value={ this.state.searchFilter.groupLevel } onChange={ this.handleChange }>
                                             <option defaultValue>Select...</option>
                                                 {
                                                     settings.groupLevel ? settings.groupLevel.map((label) => (
@@ -147,15 +205,9 @@ class StudentsFilters extends Component {
                                                 }
                                             </Input>
                                         </FormGroup>
-
-
                                     </div>
-
-                                    <Button className="ml-3 mt-2">Submit</Button>
-                                    <Button className="ml-3 mt-2">Save Query</Button>
-                                    <Button className="ml-3 mt-2">Apply Query</Button>
-                                    <Button className="ml-3 mt-2">Query calculator</Button>
-                                    <Button className="ml-3 mt-2 ">Clear All</Button>
+                                    <Button className="ml-3 mt-2" onClick={ this.search }>Submit</Button>
+                                    <Button className="ml-3 mt-2 " onClick={ this.clear }>Clear All</Button>
 
                                 </Form>
                             </div>

@@ -43,6 +43,7 @@ class AttendancePage extends Component {
             group = {}
             students = {}
         }
+
         return (
             <div>
                 {this.state.NewDayForm ?
@@ -113,14 +114,19 @@ class AttendancePage extends Component {
 
 function mapStateToProps({ students, groups, settings }, props) {
     const id = props.match.params['id']
-    const group = groups[id]
+    let group;
+
+    for (var key in groups) {
+        if (groups[key].id == id) {
+            group = groups[key];
+        }
+    }
+
     let groupStudents = {}
     if (group) {
-        group.students.map((studentId) => (
+        group.students && group.students.map((studentId) => (
             groupStudents[studentId] = students[studentId]
         ))
-
-        console.log('groupStudents = ', groupStudents)
     }
     return {
         group,

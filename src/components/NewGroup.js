@@ -93,7 +93,7 @@ class NewGroup extends Component {
             teacher2: '',
         }))
 
-        console.log('group from handleAddGroupAPI return', group)
+        // console.log('group from handleAddGroupAPI return', group)
         this.props.history.push('/groups/id'+group.id)
     }
 

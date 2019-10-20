@@ -13,10 +13,18 @@ library.add(faThumbsDown)
 
 
 class Marks extends Component {
-    state = {
-        name: 'aas asf',
-        NewMarkForm: false,
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            name: 'aas asf',
+            NewMarkForm: false,
+            groupDetails: null,
+            groupId: props.match.params.id
+        }
     }
+    
     handleChange(e) {
         this.setState({
             name: e.target.value,
@@ -28,8 +36,22 @@ class Marks extends Component {
         })
     }
 
+    getGroupDetails = (groups) => {
+        if (this.state.groupDetails) return
+        for (var key in groups) {
+            if (groups.hasOwnProperty(key)) {
+                if (groups[key].id == this.state.groupId) {
+                    this.setState({
+                        groupDetails: groups[key]
+                    })
+                }
+            }
+        }
+    }
 
     render() {
+         Object.keys(this.props.groups).length && this.getGroupDetails(this.props.groups);
+
         return (
             <div>
                 
@@ -40,7 +62,17 @@ class Marks extends Component {
                 }
                 <div className='col-12 mt-4 mb-1 scrollabel-container'>
 
-                    <h4 className='my-4'>Id, Group Name, time</h4>
+                {
+                    this.state.groupDetails && 
+                    (
+                        <div>
+                            <h4 className="my-4">Id: <span style={{ fontWeight: 400 }}>{this.state.groupDetails.id}</span></h4>
+                            <h4 className="my-4">Group Name: <span style={{ fontWeight: 400 }}>{this.state.groupDetails.name}</span></h4>
+                            <h4 className="my-4">Time: <span style={{ fontWeight: 400 }}>{this.state.groupDetails.time}</span></h4>
+                        </div>
+                    )
+                }
+                    
                     <Table hover bordered>
                         <thead>
                             <tr>
@@ -79,6 +111,12 @@ class Marks extends Component {
     }
 }
 
-export default connect()(Marks);
+const mapStateToProps = (state) => {
+    return {
+        groups: state.groups
+    }
+}
+
+export default connect(mapStateToProps)(Marks);
 
 
