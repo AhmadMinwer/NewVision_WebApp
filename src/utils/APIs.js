@@ -53,16 +53,20 @@ export function addStudentAPI(student) {
         .then(body => body.student)
 }
 
-export function addStudentGroupAPI(ids) {
+export function addStudentGroupAPI(link) {
     return fetch('http://localhost:9000/studentsGroups/api/v1/add',{
         method: 'POST',
         headers:{
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            ids,
+            link,
         })
-    }).then(response => response.json())
+    }).then(response => {
+        
+        console.log('blabla', response)
+        return response.json()
+    })
         .then(body => body.link)
 }
 
@@ -80,6 +84,39 @@ export function removeStudentGroupAPI(ids){
             return json.ids
         })
 }
+
+// 
+export function updateStudentGroupAPI(data){  
+    return fetch('http://localhost:9000/studentsGroups/api/v1/update',{
+        method: 'POST',
+        headers:{
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            data,
+        })
+    }).then(response => response.json())
+        .then(json => {
+            return json.data
+        })
+}
+
+
+export function updateGroupAPI(data){
+    return fetch('http://localhost:9000/groups/api/v1/update',{
+        method: 'POST',
+        headers:{
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            data,
+        })
+    }).then(response => response.json())
+        .then(json => {
+            return json.data
+        })
+}
+
 
 export function fetchStudentAPI(filters) {
     return fetch('http://localhost:9000/students/api/v1/students/fetch', {

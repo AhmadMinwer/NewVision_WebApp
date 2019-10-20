@@ -1,5 +1,5 @@
 import { showLoading, hideLoading } from 'react-redux-loading'
-import { addStudentGroupAPI, removeStudentGroupAPI } from '../utils/APIs'
+import { addStudentGroupAPI, removeStudentGroupAPI, updateStudentGroupAPI } from '../utils/APIs'
 
 export const ADD_STUDENT_GROUP_LINK = 'ADD_STUDENT_GROUP'
 export const REMOVE_STUDENT_GROUP = 'REMOVE_STUDENT_GROUP'
@@ -36,6 +36,26 @@ export function removeStudentGroup(ids){
     return {
         type: REMOVE_STUDENT_GROUP,
         ids,
+    }
+}
+
+export function updateStudentGroup(data){
+    return{
+        type: UPDATE_STUDENT_GROUP_LINK,
+        data,
+    }
+}
+
+export function handleUpdateStudentGroup(data) {
+    return (dispatch) => {
+        dispatch(showLoading())
+
+        return updateStudentGroupAPI(data)
+            .then((data) => dispatch(updateStudentGroup(data)))
+            .then((action) => {
+                dispatch(hideLoading())
+                return action.data
+            })
     }
 }
 

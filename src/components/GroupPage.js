@@ -5,7 +5,8 @@ import { Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Label } from 'reactstrap';
 import { handleFetchStudents } from '../actions/students'
-import { handleAddStudentGroup, handleRemoveStudentGroup } from '../actions/studentsGroups'
+import { handleUpdateGroup } from '../actions/groups'
+import { handleAddStudentGroup, handleRemoveStudentGroup, handleUpdateStudentGroup } from '../actions/studentsGroups'
 
 
 
@@ -21,20 +22,91 @@ class GroupPage extends Component {
         filtersPhone: '',
         filtersDate: '',
         itemOnActionId: -1,
+
+
+        // update modals values
+        newGroupRemarks: '',
+        newGroupStartDate: '',
+        newGroupEndDate: '',
+        newGroupName: '',
+        newGroupStatus: '',
+        newGroupTime: '',
+        newGroupLevel: '',
     }
 
     componentDidMount() {
 
+        console.log('i am componentDidMount and groups =', this.props)
+        if (this.groups)
+            this.setState({
+                addStudentFiltersResults: [],
+                filtersId: '',
+                filtersName: '',
+                filtersPhone: '',
+                filtersDate: '',
+                itemOnActionId: -1,
+
+
+                // update modals values
+                newGroupRemarks: this.props.group.remarks,
+                newGroupStartDate: this.props.group.startDate,
+                newGroupEndDate: this.props.group.endDate,
+                newGroupName: this.props.group.name,
+                newGroupStatus: this.props.group.status,
+                newGroupTime: this.props.group.Time,
+                newGroupLevel: this.props.group.level
+            })
+    }
+
+    // modal new values handler functions
+    handleNewGroupRemarks(e) {
         this.setState({
-            addStudentFiltersResults: [],
-            filtersId: '',
-            filtersName: '',
-            filtersPhone: '',
-            filtersDate: '',
-            itemOnActionId:-1,
+            newGroupRemarks: e.target.value
         })
     }
-    
+
+    handleNewGroupStartDate(e) {
+        this.setState({
+            newGroupStartDate: e.target.value
+        })
+    }
+
+    handleNewGroupEndDate(e) {
+        this.setState({
+            newGroupEndDate: e.target.value
+        })
+    }
+
+    handleNewGroupName(e) {
+        this.setState({
+            newGroupName: e.target.value,
+        })
+    }
+
+    handleNewGroupStatus(e) {
+        this.setState({
+            newGroupStatus: e.target.value,
+        })
+    }
+
+    handleNewGroupTime(e){
+        this.setState({
+            newGroupTime: e.target.value,
+        })
+    }
+
+    handleNewGroupLevel(e){
+        this.setState({
+            newGroupLevel: e.target.value,
+        })
+    }
+
+    // end modal new values handler functions
+
+
+
+
+
     setItemOnActionId(id) {
         this.setState({
             itemOnActionId: id,
@@ -57,13 +129,39 @@ class GroupPage extends Component {
         this.props.dispatch(handleAddStudentGroup(data))
     }
 
-    submitRemoveStudentGroup(id){
+
+    //update groupStudent Link information
+    handleUpdateStudentGroupValue(studentId, groupId, type, value) {
+        const data = {
+            studentId,
+            groupId,
+            type,
+            value,
+        }
+
+        this.props.dispatch(handleUpdateStudentGroup(data))
+    }
+
+
+    //update group information
+    handleUpdateGroupValue(groupId, type, value) {
+        const data = {
+            groupId,
+            type,
+            value,
+        }
+
+        this.props.dispatch(handleUpdateGroup(data))
+    }
+
+
+    submitRemoveStudentGroup(id) {
         const data = {
             studentId: this.state.itemOnActionId,
             groupId: this.props.group.id,
         }
         this.props.dispatch(handleRemoveStudentGroup(data))
-        this.setState({ itemOnActionId: -1})
+        this.setState({ itemOnActionId: -1 })
     }
 
 
@@ -238,6 +336,7 @@ class GroupPage extends Component {
             filtersId: '',
             filtersDate: '',
             filtersPhone: '',
+            addStudentFiltersResults : [],
         }));
     }
 
@@ -295,7 +394,7 @@ class GroupPage extends Component {
                             }
                         </Input> */}
                     </div>
-                    <div className='col-12 col-md-3'> <span className='gray cursor-pointer' onClick={this.toggleGroupStartDateModal}>Starting date: </span>12 April 2015 </div>
+                    <div className='col-12 col-md-3'> <span className='gray cursor-pointer' onClick={this.toggleGroupStartDateModal}>Starting date: </span>{group.startDate}</div>
                     <div className='col-12 col-md-9'><span className='gray cursor-pointer' onClick={this.toggleGroupEndDateModal}>Finishing date: </span>{group.endDate}</div>
                     <div className='col-6'><span className='gray' onClick={this.toggleGroupLessonsModal}>Lessons: </span> <span className='ml-1'>{group.accumulatedLessons ? Object.values(group.accumulatedLessons).length : ''}/{group.commitLessons}</span></div>
 
@@ -332,7 +431,7 @@ class GroupPage extends Component {
                                             {/* <td>{Object.values(student.attendance).filter((day) => day.attended).length}/{group.accumulatedLessons ? Object.values(group.accumulatedLessons).length : ''}</td> */}
                                             <td>
                                                 <Button className='bg-primary' onClick={(event) => { this.setItemOnActionId(student.id); this.toggleEditStudentModal(student.id); }} >Edit</Button>
-                                                <Button className='ml-1 bg-danger' onClick={(event) => {this.setItemOnActionId(student.id); this.toggleGroupRemoveModal(student.id); }} >Remove</Button>
+                                                <Button className='ml-1 bg-danger' onClick={(event) => { this.setItemOnActionId(student.id); this.toggleGroupRemoveModal(student.id); }} >Remove</Button>
                                             </td>
                                         </tr>
                                     ))
@@ -361,11 +460,11 @@ class GroupPage extends Component {
                     <ModalHeader toggle={this.toggleGroupNameModal}>update group name</ModalHeader>
                     <ModalBody>
                         <div className=''>
-                            <Input className='' type="text" name="student_tn" id="student_tn" placeholder="new group name" />
+                            <Input className='' onChange={(e) => { this.handleNewGroupName(e) }} type="text" name="student_tn" id="student_tn" placeholder="new group name" />
                         </div>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.toggleGroupNameModal}>Updatet</Button>{' '}
+                        <Button color="primary" onClick={(event) => { this.toggleGroupNameModal(event); this.handleUpdateGroupValue(group.id, 'name', this.state.newGroupName) }}>Updatet</Button>{' '}
                         <Button color="secondary" onClick={this.toggleGroupNameModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
@@ -376,16 +475,17 @@ class GroupPage extends Component {
                     <ModalHeader toggle={this.toggleGroupLevelModal}>update group level</ModalHeader>
                     <ModalBody>
                         <div className=''>
-                            {
-                                settings.groupLevel ? settings.groupLevel.map((label) => (
-                                    <button key={label} type="select" className="list-group-item list-group-item-action">{label}</button>
-                                ))
-                                    : ''
-                            }
+                        <Input type="select" onChange={(e) => { this.handleNewGroupLevel(e) }} name="select" >
+                                {
+                                    settings.groupLevel && settings.groupLevel.map((label) => (
+                                        <option key={label} type="option" className="list-group-item list-group-item-action">{label}</option>
+                                    ))
+                                }
+                            </Input>
                         </div>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.toggleGroupLevelModal}>Updatet</Button>{' '}
+                        <Button color="primary" onClick={(event) => { this.toggleGroupLevelModal(event); this.handleUpdateGroupValue(group.id, 'level', this.state.newGroupLevel) }}>Updatet</Button>{' '}
                         <Button color="secondary" onClick={this.toggleGroupLevelModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
@@ -396,17 +496,18 @@ class GroupPage extends Component {
                     <ModalHeader toggle={this.toggleGroupTimeModal}>update group Time</ModalHeader>
                     <ModalBody>
                         <div className=''>
-                            {
-                                settings.groupTime ? settings.groupTime.map((label) => (
-                                    <button key={label} type="button" className="list-group-item list-group-item-action">{label}</button>
-                                ))
-                                    : ''
-                            }
+                            <Input type="select" onChange={(e) => { this.handleNewGroupTime(e) }} name="select" >
+                                {
+                                    settings.groupTime && settings.groupTime.map((label) => (
+                                        <option key={label} type="option" className="list-group-item list-group-item-action">{label}</option>
+                                    ))
+                                }
+                            </Input>
                         </div>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.toggleGroupTimeModal}>Updatet</Button>{' '}
-                        <Button color="secondary" onClick={this.toggleGroupTimeModal}>Cancel</Button>
+                        <Button color="primary" onClick={(event) => { this.toggleGroupTimeModal(event); this.handleUpdateGroupValue(group.id, 'time', this.state.newGroupTime) }}>Updatet</Button>{' '}
+                        <Button color="secondary" onClick={this.toggleGroupTimeModal} >Cancel</Button>
                     </ModalFooter>
                 </Modal>
 
@@ -415,17 +516,18 @@ class GroupPage extends Component {
                 <Modal isOpen={this.state.groupStatusModal} toggle={this.toggleGroupStatusModal} className={this.props.className}>
                     <ModalHeader toggle={this.toggleGroupStatusModal}>update group Status</ModalHeader>
                     <ModalBody>
-                        <div className=''>
+
+                        <Input type="select" onChange={(e) => { this.handleNewGroupStatus(e) }} name="select" >
                             {
-                                settings.groupStatus ? settings.groupStatus.map((label) => (
-                                    <button key={label} type="button" className="list-group-item list-group-item-action">{label}</button>
+                                settings.groupStatus && settings.groupStatus.map((label) => (
+                                    <option key={label} type="option" className="list-group-item list-group-item-action">{label}</option>
                                 ))
-                                    : ''
                             }
-                        </div>
+                        </Input>
+
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.toggleGroupStatusModal}>Updatet</Button>{' '}
+                        <Button color="primary" onClick={(event) => { this.toggleGroupStatusModal(event); this.handleUpdateGroupValue(group.id, 'status', this.state.newGroupStatus) }}>Updatet</Button>{' '}
                         <Button color="secondary" onClick={this.toggleGroupStatusModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
@@ -436,7 +538,7 @@ class GroupPage extends Component {
                     <ModalHeader toggle={this.toggleGroupTeachersModal}>update group Teachers</ModalHeader>
                     <ModalBody>
                         <div className=''>
-                            <Input type="select" name="select" multiple >
+                            <Input onChange={(e) => { this.handleNewGroupTeachers(e) }} type="select" name="select" multiple >
                                 {
                                     settings.groupTeacher ? settings.groupTeacher.map((label) => (
                                         <option key={label} >{label}</option>
@@ -447,7 +549,7 @@ class GroupPage extends Component {
                         </div>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.toggleGroupTeachersModal}>Updatet</Button>{' '}
+                        <Button color="primary" onClick={(event) => { this.toggleGroupTeachersModal(event); this.handleUpdateGroupValue(group.id, 'teachers', this.state.newGroupTeachers) }} >Updatet</Button>{' '}
                         <Button color="secondary" onClick={this.toggleGroupTeachersModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
@@ -458,11 +560,11 @@ class GroupPage extends Component {
                     <ModalHeader toggle={this.toggleGroupEndDateModal}>update group EndDate</ModalHeader>
                     <ModalBody>
                         <div className=''>
-                            <Input className="col-12" type="date" name="student_tn" id="student_tn" />
+                            <Input onChange={(e) => { this.handleNewGroupEndDate(e) }} className="col-12" type="date" name="student_tn" id="student_tn" />
                         </div>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.toggleGroupEndDateModal}>Updatet</Button>{' '}
+                        <Button color="primary" onClick={(event) => { this.toggleGroupEndDateModal(event); this.handleUpdateGroupValue(group.id, 'endDate', this.state.newGroupEndDate) }}>Updatet</Button>{' '}
                         <Button color="secondary" onClick={this.toggleGroupEndDateModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
@@ -473,11 +575,11 @@ class GroupPage extends Component {
                     <ModalHeader toggle={this.toggleGroupStartDateModal}>update group StartDate</ModalHeader>
                     <ModalBody>
                         <div className=''>
-                            <Input className="col-12" type="date" name="student_tn" id="student_tn" />
+                            <Input onChange={(e) => { this.handleNewGroupStartDate(e) }} className="col-12" type="date" name="student_tn" id="student_tn" />
                         </div>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.toggleGroupStartDateModal}>Updatet</Button>{' '}
+                        <Button color="primary" onClick={(event) => { this.toggleGroupStartDateModal(event); this.handleUpdateGroupValue(group.id, 'startDate', this.state.newGroupStartDate) }}>Updatet</Button>{' '}
                         <Button color="secondary" onClick={this.toggleGroupStartDateModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
@@ -503,11 +605,11 @@ class GroupPage extends Component {
                     <ModalHeader toggle={this.toggleGroupRemarksModal}>update group Remarks</ModalHeader>
                     <ModalBody>
                         <div className=''>
-                            <Input className='' type="textarea" rows='5' name="student_tn" id="student_tn" placeholder="new group Remarks" />
+                            <Input className='' onChange={(e) => { this.handleNewGroupRemarks(e) }} value={this.state.newGroupRemarks} type="textarea" rows='5' name="student_tn" id="student_tn" placeholder="new group Remarks" />
                         </div>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.toggleGroupRemarksModal}>Updatet</Button>{' '}
+                        <Button color="primary" onClick={(event) => { this.toggleGroupRemarksModal(event); this.handleUpdateGroupValue(group.id, 'remarks', this.state.newGroupRemarks) }}>Updatet</Button>{' '}
                         <Button color="secondary" onClick={this.toggleGroupRemarksModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
@@ -523,7 +625,7 @@ class GroupPage extends Component {
                         </div>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={()=>{  this.toggleGroupRemoveModal(); this.submitRemoveStudentGroup(); }}>Remove</Button>{' '}
+                        <Button color="primary" onClick={() => { this.toggleGroupRemoveModal(); this.submitRemoveStudentGroup(); }}>Remove</Button>{' '}
                         <Button color="secondary" onClick={this.toggleGroupRemoveModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
@@ -533,20 +635,20 @@ class GroupPage extends Component {
 
                 {/* update group Edit Student modal */}
                 <Modal isOpen={this.state.groupEditStudentModal} toggle={this.toggleEditStudentModal} className={this.props.className}>
-                {console.log('inside edit group modal!!!!              111')}
+                    {console.log('inside edit group modal!!!!              111')}
                     <ModalHeader toggle={this.toggleEditStudentModal}>update group EditStudent</ModalHeader>
                     <ModalBody>
                         <div className=''>
                             <Label >Student Status</Label>
                             <Input type="select" name="select">
                                 <option defaultValue>Select...</option>
-                                {   console.log('inside studentGroup edit modal & itemOnActionId=', this.state.itemOnActionId)   }
+                                {console.log('inside studentGroup edit modal & itemOnActionId=', this.state.itemOnActionId)}
                                 {
                                     // studentStatus = 
                                     settings.studentStatus && this.state.itemOnActionId && this.state.itemOnActionId !== -1 && settings.studentStatus.map((label) => (
-                                        Object.values(this.props.groupStudents).filter((link)=> link.studentId === this.state.itemOnActionId)[0].status === label.toLowerCase() ? <option defaultValue>{label}</option> : <option>{label}</option>
+                                        Object.values(this.props.groupStudents).filter((link) => link.studentId === this.state.itemOnActionId)[0].status === label.toLowerCase() ? <option defaultValue>{label}</option> : <option>{label}</option>
                                     ))
-                                        
+
                                 }
                             </Input>
 
@@ -557,7 +659,7 @@ class GroupPage extends Component {
                                     // settings.certificationStatus && this.state.itemOnActionId !== -1 && settings.certificationStatus.map((label) => (
                                     //     Object.values(Object.values(students)[this.state.itemOnActionId].groups[group.id])[5] === label ? <option defaultValue>{label}</option> : <option>{label}</option>
                                     // ))
-                                        
+
                                 }
                             </Input>
                         </div>

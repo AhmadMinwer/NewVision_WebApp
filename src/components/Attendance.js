@@ -82,14 +82,14 @@ class AttendancePage extends Component {
                                         {this.state.NewDayForm ? <td className='bg-dark text-light'> <Button className='mx-0 my-0' onClick='' variant="light"  ><FontAwesomeIcon icon="thumbs-up" /></Button> <Button className='mx-0 my-0' onClick='' variant="light"  ><FontAwesomeIcon icon="thumbs-down" /></Button></td> : ''}
                                         {this.state.NewDayForm ? <td className='bg-dark text-light '><Input className='newDay' type="text" value={this.state.default} onChange={(e) => this.handleChange(e)} /> </td> : ''}
 
-                                        {Object.values(student.groups[group.id].attendance).map((date) => (
+                                        {/* {Object.values(student.groups[group.id].attendance).map((date) => (
                                             <td className={date.attended ? 'bg-success' : 'bg-danger'} data-toggle='tooltip' title={date.notes} > {
                                             
                                                 date.notes.length > 20 ?
                                                     date.notes.substring(0, 19) + "..."
                                                     : date.notes
                                             } </td>
-                                        ))}
+                                        ))} */}
                                         <td></td>
                                     </tr>
                                 ))
@@ -111,18 +111,28 @@ class AttendancePage extends Component {
 }
 
 
-function mapStateToProps({ students, groups, settings }, props) {
-    const id = props.match.params['id']
-    const group = groups[id]
-    let groupStudents = {}
-    if (group) {
-        group.students.map((studentId) => (
-            groupStudents[studentId] = students[studentId]
-        ))
+function mapStateToProps({ students, groups, settings, studentsGroups }, props) {
 
-        console.log('groupStudents = ', groupStudents)
-    }
+    const id = props.match.params['id']
+    const group = Object.values(groups).filter((group) => (group.id == id))[0]
+
+    let groupStudents = Object.values(studentsGroups).filter((student) => (student.groupId === group.id))
+
+
+    groupStudents = groupStudents.map((student) => {
+
+        const studentInfo = Object.values(students).filter((std) => (student.studentId == std.id))[0]
+
+        return {
+            ...studentInfo,
+            ...student
+        }
+    })
+
+
+
     return {
+        groups,
         group,
         groupStudents,
         settings,

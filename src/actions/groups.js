@@ -1,5 +1,5 @@
 import { showLoading, hideLoading } from 'react-redux-loading'
-import { addGroupAPI } from '../utils/APIs'
+import { addGroupAPI, updateGroupAPI } from '../utils/APIs'
 
 export const ADD_GROUP = 'ADD_GROUP'
 export const UPDATE_GROUP = 'UPDATE_GROUP'
@@ -55,35 +55,25 @@ export function receiveGroupId(id) {
         id,
     }
 }
-//group  => {}
-// export function handleAddGroup(group) {
-//     return (dispatch) => {
-//         dispatch(showLoading())
-
-//         //update group here and generate id
-//         return saveGroup(group)
-//             .then((group) => dispatch(addGroup(group)))
-//             .then(() => dispatch(hideLoading()))
-//     }
-// }
 
 
-export function updateGroup(group) {
-    return {
+export function updateGroup(data){
+    console.log('updateGroup groups actions data = ',data)
+    return{
         type: UPDATE_GROUP,
-        group
+        data,
     }
 }
 
-// export function handleUpdateGroup(info) {
-//     return (dispatch) => {
-//         dispatch(updateGroup(info))
+export function handleUpdateGroup(data) {
+    return (dispatch) => {
+        dispatch(showLoading())
 
-//         return updateGroupAPI(info)
-//             .catch((e) => {
-//                 console.warn('Error in updating a Group: ', e)
-//                 dispatch(updateGroup(info))
-//                 alert('There was an error in updating a Group. Try again.')
-//             })
-//     }
-// }
+        return updateGroupAPI(data)
+            .then((data) => dispatch(updateGroup(data)))
+            .then((action) => {
+                dispatch(hideLoading())
+                return action.data
+            })
+    }
+}

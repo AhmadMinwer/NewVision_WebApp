@@ -9,9 +9,9 @@ export default function studentsGroups(state = {}, action) {
         }
         
         case REMOVE_STUDENT_GROUP:
-            const fire = Object.assign({},Object.values(state).filter((link)=> ((link.studentId !== action.ids.studentId) || (link.groupId !== action.ids.groupId)))) 
+            const filteredObject = Object.assign({},Object.values(state).filter((link)=> ((link.studentId !== action.ids.studentId) || (link.groupId !== action.ids.groupId)))) 
             return {
-                ...fire     
+                ...filteredObject     
             }
 
         case UPDATE_STUDENT_GROUP_LINK:
