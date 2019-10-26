@@ -61,7 +61,7 @@ class GroupsGrid extends Component {
                                         <td>{group.endDate}</td>
                                         {/* <td>{Object.values(group.accumulatedLessons).length}/{group.commitLessons}</td> */}
                                         {/* <td>{group.students.length}</td> */}
-                                        <td></td>
+                                        <td>{group.commitLessons}</td>
                                         <td></td>
                                         <td className='text-center'>
                                             <Button onClick={() => (this.redircetToAttendance(group.id))}>Attendence</Button>
