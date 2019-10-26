@@ -19,7 +19,8 @@ class GroupsGrid extends Component {
     }
 
     render() {
-        const groups = Object.values(this.props.groups)
+        const groups = Object.values(this.props.groups);
+        let data = groups[0];
 
         return (
             <div>
@@ -47,7 +48,7 @@ class GroupsGrid extends Component {
                         <tbody>
 
                             {
-                                groups.map((group) => (
+                                data && data.map((group) => (
                                     <tr key={group.id}>
                                         <th scope="row"><Link to={'/groups/id'+group.id}>{group.id}</Link></th>
                                         <td>{group.name}</td>

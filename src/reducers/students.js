@@ -10,7 +10,7 @@ export default function students(state = {}, action) {
         case RECEIVE_STUDENTS:
             return {
                 ...state,
-                ...action.students
+                students: action.students
             }
         case RECEIVE_STUDENT:
             // TODO: modify it to return single student by his/her id

@@ -5,6 +5,8 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import SlideToggle from "react-slide-toggle";
 import { FaChevronDown, FaTimes } from "react-icons/fa";
 import { connect } from 'react-redux';
+import axios from 'axios';
+import { receiveStudents } from '../actions/students';
 
 
 class StudentsFilters extends Component {
@@ -37,7 +39,7 @@ class StudentsFilters extends Component {
     }
 
     search = () => {
-        console.log(this.state.searchFilter);
+        this.getData();
     }
 
     clear = () => {
@@ -60,7 +62,34 @@ class StudentsFilters extends Component {
             groupLevel: ''
         };
 
-        this.setState({ searchFilter });
+        this.setState({ searchFilter }, () => this.getData());
+    }
+
+    getData = () => {
+
+        const searchFilter = this.state.searchFilter;
+
+        axios.post('http://localhost:9000/students/api/v1/students/filter', {
+            "filters": {
+                "studentName": searchFilter.name,
+                "id": searchFilter.id ? Number(searchFilter.id) : "",
+                "cpa": searchFilter.cpa,
+                "status": searchFilter.status,
+                "lastLevel": searchFilter.lastLevel,
+                "signUpFrom": searchFilter.signupFrom,
+                "signUpTo": searchFilter.signupTo,
+                "lastAtFrom": searchFilter.lastDateFrom,
+                "lastAtTo": searchFilter.lastDateTo,
+                "specialty": searchFilter.specialty,
+                "Certificate": searchFilter.cStatus,
+                "groupName": searchFilter.groupName,
+                "groupLevel": searchFilter.groupLevel,
+                "balanceFrom": searchFilter.cpaBalanceFrom,
+                "balanceTo": searchFilter.cpaBalanceTo
+            }
+        })
+        .then(res =>  this.props.receiveStudents(res.data.results) )
+        .catch(error => console.log(error))
     }
 
     handleChange = (event) => {
@@ -219,10 +248,16 @@ class StudentsFilters extends Component {
 }
 
 function mapStateToProps({ settings, groups }) {
-
     return {
         settings,
         groups
     }
 }
-export default connect(mapStateToProps)(StudentsFilters);
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        receiveStudents: (students) => { dispatch(receiveStudents(students)) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StudentsFilters);

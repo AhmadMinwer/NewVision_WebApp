@@ -23,7 +23,7 @@ export default function groups(state = {}, action) {
         case RECEIVE_GROUPS:
             return {
                 ...state,
-                ...action.groups
+                groups: action.groups
             }
         default:
             return state

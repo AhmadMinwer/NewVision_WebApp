@@ -5,7 +5,8 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import SlideToggle from "react-slide-toggle";
 import { FaChevronDown, FaTimes } from "react-icons/fa";
 import { connect } from 'react-redux';
-
+import axios from 'axios';
+import { receiveGroups } from '../actions/groups';
 
 class GroupFilters extends Component {
     state = {
@@ -31,7 +32,7 @@ class GroupFilters extends Component {
     }
 
     search = () => {
-        console.log(this.state.searchFilter);
+        this.getData();        
     }
 
     clear = () => {
@@ -48,7 +49,28 @@ class GroupFilters extends Component {
             endDateTo: ''
         };
 
-        this.setState({ searchFilter }, () => { console.log(this.state.searchFilter) });
+        this.setState({ searchFilter }, () => this.getData() );
+    }
+
+    getData = () => {
+        const searchFilter = this.state.searchFilter;
+        
+        axios.post('http://localhost:9000/groups/api/v1/groups/filter', {
+            "filters": {
+                "id": searchFilter.id ? Number(searchFilter.id) : "",
+                "name": searchFilter.name,
+                "level": searchFilter.level,
+                "status": searchFilter.status,
+                "timing": searchFilter.timing,
+                "teacher": searchFilter.teacher.toLowerCase(),
+                "startDateFrom":searchFilter.startDateFrom,
+                "startDateTo": searchFilter.startDateTo,
+                "finishDateFrom": searchFilter.endDateFrom,
+                "finishDateTo": searchFilter.endDateTo
+            }
+        })
+        .then(res =>  this.props.receiveGroups(res.data.results))
+        .catch(error => console.error(error));
     }
 
     handleChange = (event) => {
@@ -175,11 +197,16 @@ class GroupFilters extends Component {
 
 
 function mapStateToProps({ settings, groups }) {
-
     return {
         settings,
         groups
     }
 }
 
-export default connect(mapStateToProps)(GroupFilters);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        receiveGroups: (groups) => { dispatch(receiveGroups(groups)) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GroupFilters);

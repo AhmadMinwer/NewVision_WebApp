@@ -12,7 +12,8 @@ class StudentsGrid extends Component {
         this.props.history.push('/students/add');
     }
     render() {
-        const students = Object.values(this.props.students)
+        const students = Object.values(this.props.students);
+        let data = students[0];
 
         return (
             <div>
@@ -37,8 +38,8 @@ class StudentsGrid extends Component {
                         </thead>
                         <tbody>
                             {
-                                students.map((student) => (
-                                    <tr key={student.id}>
+                                data && data.map((student, index) => (
+                                    <tr key={index}>
                                         <th scope='row'><Link to={'/students/id'+student.id}>{student.id}</Link></th>
                                         <td>{student.CPA}</td>
                                         <td>{student.name}</td>
