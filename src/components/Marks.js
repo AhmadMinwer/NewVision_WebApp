@@ -30,6 +30,7 @@ class Marks extends Component {
             name: e.target.value,
         });
     }
+
     showNewExam = () => {
         this.setState((state) => {
             return { NewMarkForm: !state.NewMarkForm };
@@ -38,15 +39,13 @@ class Marks extends Component {
 
     getGroupDetails = (groups) => {
         if (this.state.groupDetails) return
-        for (var key in groups) {
-            if (groups.hasOwnProperty(key)) {
-                if (groups[key].id == this.state.groupId) {
-                    this.setState({
-                        groupDetails: groups[key]
-                    })
-                }
-            }
-        }
+        
+        let data = groups['groups'];
+        const groupDetails = data && data.find((group) => group.id == this.state.groupId);
+
+        this.setState({
+            groupDetails
+        })
     }
 
     render() {
