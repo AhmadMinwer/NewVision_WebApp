@@ -73,13 +73,13 @@ class Marks extends Component {
     }
 
     handleNote = (value, studentId) => {
-        const student = examsData.students.find(student => student.id == studentId);
+        const student = examsData.students.find(student => student.stdId == studentId);
         const index = examsData.students.indexOf(student);
         examsData.students[index]["notes"] = value.target.value;
     }
 
     handleMark = (value, studentId) => {
-        const student = examsData.students.find(student => student.id == studentId);
+        const student = examsData.students.find(student => student.stdId == studentId);
         const index = examsData.students.indexOf(student);
         examsData.students[index]["mark"] = Number(value.target.value);
     }
@@ -89,7 +89,7 @@ class Marks extends Component {
 
         Axios.post(`http://localhost:9000/studentsGroups/api/v1/exam/${this.props.match.params['id']}`, {
             ...examsData
-        }).then(res => console.log(res))
+        }).then(res => this.getMarks())
         .catch(error => console.log(error))
     }
 
@@ -105,8 +105,11 @@ class Marks extends Component {
             students.map((student, index) => {
 
                 if (examsData.students.length < students.length) {
+                    let std = this.state.marks.find(item => item.studentId == student.id);
+
                     examsData.students.push({
-                        "id": student.studentId,
+                        "id": std.id,
+                        "stdId": student.id,
                         "mark": null,
                         "notes": null
                     });

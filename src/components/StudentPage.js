@@ -164,16 +164,18 @@ class StudentPage extends Component {
 
 
 function mapStateToProps({ students, groups, studentsGroups }, props) {
-    const activeGroups = Object.values(groups).filter((group) => (group.state !== 'Finish'))
-    const id = props.match.params['id']
-    const student = Object.values(students).filter((student) => (student.id == id))[0]
+    const activeGroups = Object.values(groups).filter((group) => (group.state !== 'Finish'));
+    const id = props.match.params['id'];
+
+    const studentsData = Object.values(students)[0];
+
+    const student = studentsData && studentsData.filter((student) => (student.id == id))[0]
 
     let studentGroups = Object.values(studentsGroups).filter((link) => ( link.studentId == student.id))
-
     studentGroups = studentGroups.map((group)=>{
         return {
             ...group,
-            ...Object.values(groups).filter((groupInfo)=>(group.groupId == groupInfo.id))[0]
+            ...Object.values(groups)[0].filter((groupInfo)=>(group.groupId == groupInfo.id))[0]
         }
     })
 

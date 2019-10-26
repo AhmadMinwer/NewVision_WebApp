@@ -731,23 +731,24 @@ class GroupPage extends Component {
 
 function mapStateToProps({ students, groups, settings, studentsGroups }, props) {
 
-    const id = props.match.params['id']
-    const group = Object.values(groups).filter((group) => (group.id == id))[0]
+    const id = props.match.params['id'];
+    const groupsData = Object.values(groups)[0];
+    let group, groupStudents;
 
-    let groupStudents = Object.values(studentsGroups).filter((student) => (student.groupId === group.id))
-
-
-    groupStudents = groupStudents.map((student) => {
-
-        const studentInfo = Object.values(students).filter((std) => (student.studentId == std.id))[0]
-
-        return {
-            ...studentInfo,
-            ...student
-        }
-    })
-
-
+    if (groupsData) {
+        group = groupsData.filter((group) => (group.id == id))[0]
+        groupStudents = Object.values(studentsGroups).filter((student) => (student.groupId === group.id))
+    
+        groupStudents = groupStudents.map((student) => {
+    
+            const studentInfo = Object.values(students)[0].filter((std) => (student.studentId == std.id))[0]
+    
+            return {
+                ...studentInfo,
+                ...student
+            }
+        })
+    }
 
     return {
         group,
