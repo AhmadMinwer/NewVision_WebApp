@@ -121,7 +121,10 @@ class GroupPage extends Component {
             certification: '',
         }
 
-        this.props.dispatch(handleAddStudentGroup(data))
+        this.props.dispatch(handleAddStudentGroup(data));
+        setTimeout(() => {
+            window.location.pathname = `/groups/id${this.props.match.params['id']}`;
+        }, 500)
     }
 
 
