@@ -74,12 +74,14 @@ class NewGroup extends Component {
 
     
     handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
-        const { name, startingDate, finishingDate, level, time, status, numberOfLessons, remarks, teacher1, teacher2} = this.state
-        const { dispatch } = this.props
+        console.log(this.state);
 
-        const group = await dispatch(handleAddGroup({  name, startingDate, finishingDate, level, time, status, numberOfLessons, remarks, teacher1, teacher2 }))
+        const { name, startingDate, finishingDate, level, time, status, numberOfLessons, remarks, teacher1, teacher2} = this.state;
+        const { dispatch } = this.props;
+
+        const group = await dispatch(handleAddGroup({  name, startingDate, finishingDate, level, time, status, numberOfLessons, remarks, teacher1, teacher2 }));
 
         this.setState(() => ({
             name: '',
@@ -91,10 +93,10 @@ class NewGroup extends Component {
             remarks: '',
             teacher1: '',
             teacher2: '',
-        }))
+        }));
 
-        // console.log('group from handleAddGroupAPI return', group)
-        this.props.history.push('/groups/id'+group.id)
+        window.location.pathname = `/groups/id${group.id}`;
+        //this.props.history.push('/groups/id'+group.id);
     }
 
 

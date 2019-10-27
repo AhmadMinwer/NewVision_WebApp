@@ -120,6 +120,7 @@ class StudentPage extends Component {
                             <tbody>
 
                                 {
+                                    this.props.studentGroups &&
                                     Object.values(this.props.studentGroups).map((group) => (
                                         <tr key={group.id}>
                                             <th scope='row' key={group.id}> <Link to={'/groups/id' + group.id}>{group.id}</Link></th>
@@ -166,18 +167,21 @@ class StudentPage extends Component {
 function mapStateToProps({ students, groups, studentsGroups }, props) {
     const activeGroups = Object.values(groups).filter((group) => (group.state !== 'Finish'));
     const id = props.match.params['id'];
+    let studentGroups;
 
     const studentsData = Object.values(students)[0];
 
     const student = studentsData && studentsData.filter((student) => (student.id == id))[0]
 
-    let studentGroups = Object.values(studentsGroups).filter((link) => ( link.studentId == student.id))
-    studentGroups = studentGroups.map((group)=>{
-        return {
-            ...group,
-            ...Object.values(groups)[0].filter((groupInfo)=>(group.groupId == groupInfo.id))[0]
-        }
-    })
+    if (student) {
+        studentGroups = Object.values(studentsGroups).filter((link) => ( link.studentId == student.id))
+        studentGroups = studentGroups.map((group)=>{
+            return {
+                ...group,
+                ...Object.values(groups)[0].filter((groupInfo)=>(group.groupId == groupInfo.id))[0]
+            }
+        });
+    }
 
     // console.log('studentGroups filters',studentGroups)
     return {

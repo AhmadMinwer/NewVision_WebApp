@@ -6,6 +6,10 @@ export default function groups(state = {}, action) {
         case ADD_GROUP:
 
         case UPDATE_GROUP:
+            if (!action.data)
+                return {
+                    ...state
+                }
             let updatedGroup = Object.values(state)[0].filter((group)=>(group.id == action.data.groupId))[0];
             updatedGroup[action.data.type] = action.data.value
             const filteredGroups = Object.assign({},Object.values(state).filter((group)=>(group.id != action.data.groupId)))

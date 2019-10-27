@@ -89,7 +89,8 @@ class NewStudent extends Component {
             terms: '',
         }))
 
-        this.props.history.push('/students/id'+student.id)
+        window.location.pathname = `/students/}`;
+        //this.props.history.push('/students/id'+student.id)
     }
 
 
