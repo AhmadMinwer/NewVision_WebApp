@@ -193,8 +193,19 @@ class GroupPage extends Component {
     submitFilters = async (e) => {
         e.preventDefault()
 
-        const { filtersId, filtersName, filtersPhone, filtersDate } = this.state
-        const { dispatch } = this.props
+        const { filtersId, filtersName, filtersPhone, filtersDate } = this.state;
+        const { dispatch } = this.props;
+
+        if ( !filtersId && !filtersName && !filtersPhone && !filtersDate ) {
+            this.setState({
+                isShowError: true
+            });
+            return
+        } else {
+            this.setState({
+                isShowError: false
+            })
+        }
 
         const results = await dispatch(handleFetchStudents({ filtersId, filtersName, filtersPhone, filtersDate, filtersGroupId: this.props.group.id }))
 
@@ -688,7 +699,10 @@ class GroupPage extends Component {
                                 </div>
 
                             </div>
-
+                            {
+                                this.state.isShowError && 
+                                <p style={{ color: 'red' }}>Please fill search data before</p>
+                            }
                             <Button className=' col-2 center' color="success" onClick={this.submitFilters}>search</Button>
                             <p>select student who wants to sing up for the current group?</p>
 
