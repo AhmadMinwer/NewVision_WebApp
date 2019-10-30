@@ -68,7 +68,7 @@ class Marks extends Component {
         this.getMarks();
     }
 
-    handleTopMark = (value,) => {
+    handleTopMark = (value, ) => {
         examsData.topMark = Number(value.target.value);
     }
 
@@ -90,11 +90,11 @@ class Marks extends Component {
         Axios.post(`http://localhost:9000/studentsGroups/api/v1/exam/${this.props.match.params['id']}`, {
             ...examsData
         }).then(res => this.getMarks())
-        .catch(error => console.log(error))
+            .catch(error => console.log(error))
     }
 
     render() {
-        
+
         let group;
         let students;
 
@@ -194,16 +194,18 @@ function mapStateToProps({ students, groups, settings, studentsGroups }, props) 
 
     if (dataGroups) {
         group = dataGroups.find((group) => (group.id == id));
-        groupStudents = Object.values(studentsGroups).filter((student) => (student.groupId === group.id));
+        if (group) {
+            groupStudents = Object.values(studentsGroups).filter((student) => (student.groupId === group.id));
 
-        groupStudents = groupStudents.map((student) => {
-            const studentInfo = Object.values(students)[0].filter((std) => (student.studentId == std.id))[0]
+            groupStudents = groupStudents.map((student) => {
+                const studentInfo = Object.values(students)[0].filter((std) => (student.studentId == std.id))[0]
 
-            return {
-                ...studentInfo,
-                ...student
-            }
-        });
+                return {
+                    ...studentInfo,
+                    ...student
+                }
+            });
+        }
     }
 
     return {
