@@ -105,7 +105,7 @@ class Marks extends Component {
             students.map((student, index) => {
 
                 if (examsData.students.length < students.length) {
-                    let std = this.state.marks.find(item => item.studentId == student.id);
+                    let std = this.state.marks && this.state.marks.find(item => item.studentId == student.id);
 
                     examsData.students.push({
                         "id": std.id,

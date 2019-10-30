@@ -15,7 +15,7 @@ class GroupsGrid extends Component {
         this.props.history.push('/groups/attendance/'+id)
     }
     redircetToMarks = (id) => {
-        this.props.history.push('/groups/marks/'+id)
+        window.location.pathname = `/groups/marks/${id}`;
     }
 
     render() {
