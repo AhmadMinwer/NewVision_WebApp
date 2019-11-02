@@ -45,7 +45,7 @@ class StudentsGrid extends Component {
                                         <td>{student.name}</td>
                                         <td>{student.CPABalance}</td>
                                         <td>{student.phone}</td>
-                                        <td>{student.creationDate}</td>
+                                        <td>{student.creationDate && student.creationDate.substring(0, 10)}</td>
                                         <td>{student.specialty}</td>
                                         <td>{student.status}</td>
                                         <td>{student.lastLevel}</td>
