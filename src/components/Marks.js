@@ -27,6 +27,7 @@ class Marks extends Component {
             groupId: props.match.params.id,
             students: null,
             marks: null,
+            marksLength: null,
             examsData: null
         }
     }
@@ -57,8 +58,12 @@ class Marks extends Component {
     getMarks = () => {
         Axios.get(`http://localhost:9000/studentsGroups/api/v1/group/exam/${this.props.match.params['id']}`)
             .then(res => {
+                const data = res.data.results;
+                const length = data[0].mark.length;
+
                 this.setState({
-                    marks: res.data.results
+                    marks: data,
+                    marksLength: length
                 })
             })
             .catch(error => console.error(error))
@@ -91,6 +96,31 @@ class Marks extends Component {
             ...examsData
         }).then(res => this.getMarks())
             .catch(error => console.log(error))
+    }
+
+    renderExamsHeader = () => {
+        let exams = [];
+        for (var i = 1; i <= this.state.marksLength; i++) {
+            exams.push(<th className='fit-content'>exam {i}</th>);
+        }
+        return exams;
+    }
+
+    renderExamsValues = (studentId) => {
+        let values = [];
+        let student;
+
+        Object.keys(this.state.marks).map((item, index) => {
+            if(this.state.marks[item].studentId == studentId) {
+                student = this.state.marks[item];
+            }
+        });
+
+        Object.keys(student.mark).map((item, index) => {
+            values.push(<td>{student.mark[item]}</td>);
+        })
+
+        return values;
     }
 
     render() {
@@ -152,7 +182,7 @@ class Marks extends Component {
                             <tr>
                                 <th className='fit-content'>id</th>
                                 <th className='fit-content'>name</th>
-                                <th className='fit-content'>exams</th>
+                                {this.renderExamsHeader()}
                                 {this.state.NewMarkForm ? <th className='bg-dark text-light text-center fit-content'><p className='newMark'>top mark</p>
                                     <Input className='newMark' type="text" onChange={(e) => this.handleTopMark(e)} /></th> : ''}
                                 {this.state.NewMarkForm ? <th className='bg-dark text-light text-center fit-content'>Notes</th> : ''}
@@ -166,11 +196,10 @@ class Marks extends Component {
                                         <tr key={index}>
                                             <th scope="row">{student.id}</th>
                                             <td>{student.name}</td>
-                                            <td>{student.exams}</td>
+                                            { this.renderExamsValues(student.studentId) }
                                             {this.state.NewMarkForm ? <td className='bg-dark text-light '><Input className='newMark' type="text" onChange={(e) => this.handleMark(e, student.studentId)} /> </td> : ''}
                                             {this.state.NewMarkForm ? <td className='bg-dark text-light '><Input className='newDay' type="text" onChange={(e) => this.handleNote(e, student.studentId)} /> </td> : ''}
                                             <th></th>
-
                                         </tr>
                                     )
                                 })
