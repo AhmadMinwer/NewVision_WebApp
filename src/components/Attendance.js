@@ -42,13 +42,12 @@ class AttendancePage extends Component {
     }
 
     saveNewAttendance = () => {
-        console.log(attendanceData);
-
         axios.post(`http://localhost:9000/studentsGroups/api/v1/att/${this.props.match.params['id']}`, {
             "students": [
                 ...attendanceData
             ]
         }).then(res => {
+            this.showNewDay();
             this.getAttendance();
         })
     }
@@ -65,6 +64,44 @@ class AttendancePage extends Component {
             })
         })
         .catch(error => console.error(error))
+    }
+
+    renderAttHeader = (attendance) => {
+        attendance.map((item) => { 
+             let sortedAttendace = item.attendance.sort((a, b) => new Date(b.date) - new Date(a.date));
+             item.attendance = sortedAttendace;
+         });
+        
+         let results = [];
+         attendance[0].attendance.map((att, index) => {
+             results.push(<th className='fit-content' key={index}>{att.date}</th>)
+         });
+
+         return results;
+    }
+
+    renderAttBody = (attendance, studentId) => {
+        attendance.map((item) => { 
+            let sortedAttendace = item.attendance.sort((a, b) => new Date(b.date) - new Date(a.date));
+            item.attendance = sortedAttendace;
+        });
+
+        let student = attendance.find((att) => att.studentId == studentId);
+
+        console.log(student);
+
+        let results = [];
+
+        student.attendance.map((item, index) => {
+            if (item.attended) {
+                results.push(<td key={index} style={{backgroundColor: 'green', color: '#fff'}}>{item.notes}</td>);
+
+            } else {
+                results.push(<td key={index} style={{backgroundColor: 'red', color: '#fff'}}>{item.notes}</td>);
+            }
+        });
+
+        return results;
     }
 
     render() {
@@ -84,9 +121,6 @@ class AttendancePage extends Component {
                     "note": null,
                     "attended": null
                 });
-
-                let x = this.state.attendance && this.state.attendance.find(item => item.studentId == student.studentId);
-                student['attendance'] = x && x.attendance;
             });
         } else {
             group = {};
@@ -111,7 +145,10 @@ class AttendancePage extends Component {
                             <tr>
                                 <th className='fit-content'>id</th>
                                 <th className='fit-content'>name</th>
-                                <th className='fit-content'>attendance</th>
+                                {
+                                    this.state.attendance && this.state.attendance.length > 0 &&
+                                    this.renderAttHeader(this.state.attendance)
+                                }
 
                                 {this.state.NewDayForm ? <th className='bg-dark text-light text-center fit-content' colspan="2">new day- today class</th> : ''}
                                 {group.accumulatedLessons ? Object.values(group.accumulatedLessons).map((day) => (
@@ -127,8 +164,10 @@ class AttendancePage extends Component {
                                     <tr>
                                         <th scope="row">{student.id}</th>
                                         <td>{student.name}</td>
-                                        <td>{student.attendance}</td>
-
+                                        {
+                                            this.state.attendance && this.state.attendance.length > 0 && 
+                                            this.renderAttBody(this.state.attendance, student.id)
+                                        }
                                         {
                                             this.state.NewDayForm ? 
                                                 <td className='bg-dark text-light'>
