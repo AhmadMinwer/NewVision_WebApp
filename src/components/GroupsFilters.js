@@ -7,6 +7,7 @@ import { FaChevronDown, FaTimes } from "react-icons/fa";
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { receiveGroups } from '../actions/groups';
+import { API } from '../config';
 
 class GroupFilters extends Component {
     state = {
@@ -55,7 +56,7 @@ class GroupFilters extends Component {
     getData = () => {
         const searchFilter = this.state.searchFilter;
         
-        axios.post('http://localhost:9000/groups/api/v1/groups/filter', {
+        axios.post(`${API}/groups/api/v1/groups/filter`, {
             "filters": {
                 "id": searchFilter.id ? Number(searchFilter.id) : "",
                 "name": searchFilter.name,

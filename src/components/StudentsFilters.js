@@ -7,7 +7,7 @@ import { FaChevronDown, FaTimes } from "react-icons/fa";
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { receiveStudents } from '../actions/students';
-
+import { API } from '../config';
 
 class StudentsFilters extends Component {
     state = {
@@ -69,7 +69,7 @@ class StudentsFilters extends Component {
 
         const searchFilter = this.state.searchFilter;
 
-        axios.post('http://localhost:9000/students/api/v1/students/filter', {
+        axios.post(`${API}/students/api/v1/students/filter`, {
             "filters": {
                 "studentName": searchFilter.name,
                 "id": searchFilter.id ? Number(searchFilter.id) : "",

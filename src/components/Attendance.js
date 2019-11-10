@@ -8,6 +8,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
+import { API } from '../config';
 
 
 library.add(faThumbsUp)
@@ -42,7 +43,7 @@ class AttendancePage extends Component {
     }
 
     saveNewAttendance = () => {
-        axios.post(`http://localhost:9000/studentsGroups/api/v1/att/${this.props.match.params['id']}`, {
+        axios.post(`${API}/studentsGroups/api/v1/att/${this.props.match.params['id']}`, {
             "students": [
                 ...attendanceData
             ]
@@ -57,7 +58,7 @@ class AttendancePage extends Component {
     }
 
     getAttendance = () => {
-        axios.get(`http://localhost:9000/studentsGroups/api/v1/group/att/${this.props.match.params['id']}`)
+        axios.get(`${API}/studentsGroups/api/v1/group/att/${this.props.match.params['id']}`)
         .then(res => {
             this.setState({
                 attendance: res.data.results

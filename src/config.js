@@ -1,0 +1,1 @@
+export const API = 'http://ec2-3-15-187-146.us-east-2.compute.amazonaws.com:9000';

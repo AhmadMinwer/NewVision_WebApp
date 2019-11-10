@@ -5,6 +5,7 @@ import { Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Axios from 'axios';
+import { API } from '../config';
 
 
 class StudentPage extends Component {
@@ -46,7 +47,7 @@ class StudentPage extends Component {
     handleEdit = () => {
         console.log(this.state);
 
-        Axios.post(`http://localhost:9000/students/api/v1/students/edit/${this.props.match.params['id']}`, {
+        Axios.post(`${API}/students/api/v1/students/edit/${this.props.match.params['id']}`, {
             "student": {
                 "name": this.state.name,
                 "phone1": this.state.phone,

@@ -6,6 +6,7 @@ import { Input } from 'reactstrap';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
 import Axios from 'axios';
+import { API } from '../config';
 
 library.add(faThumbsUp)
 library.add(faThumbsDown)
@@ -56,7 +57,7 @@ class Marks extends Component {
     }
 
     getMarks = () => {
-        Axios.get(`http://localhost:9000/studentsGroups/api/v1/group/exam/${this.props.match.params['id']}`)
+        Axios.get(`${API}/studentsGroups/api/v1/group/exam/${this.props.match.params['id']}`)
             .then(res => {
                 const data = res.data.results;
                 const length = data[0].mark.length;
@@ -92,7 +93,7 @@ class Marks extends Component {
     addNewExam = () => {
         console.log(examsData);
 
-        Axios.post(`http://localhost:9000/studentsGroups/api/v1/exam/${this.props.match.params['id']}`, {
+        Axios.post(`${API}/studentsGroups/api/v1/exam/${this.props.match.params['id']}`, {
             ...examsData
         }).then(res => this.getMarks())
             .catch(error => console.log(error))

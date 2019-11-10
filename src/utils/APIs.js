@@ -4,22 +4,23 @@ import {
     _getSettings,
     _getQueries,
 } from './_DATA.js';
+import { API } from '../config.js';
 
 export async function getInitialData() {
     return await Promise.all([
-        fetch("http://localhost:9000/students/api/v1/students/active") //fetch active students
+        fetch(`${API}/students/api/v1/students/active`) //fetch active students
         .then(res => res.json())
         .then(json => json.results),
 
-        fetch("http://localhost:9000/groups/active_potential/fetch/") //fetch groups
+        fetch(`${API}/groups/active_potential/fetch/`) //fetch groups
         .then(res => res.json())
         .then(json => json.results),
 
-        fetch("http://localhost:9000/settings") //fetch settings
+        fetch(`${API}/settings`) //fetch settings
             .then(res => res.json()),
 
 
-        fetch('http://localhost:9000/studentsGroups/active_potential/fetch/')  //fetch student group links
+        fetch(`${API}/studentsGroups/active_potential/fetch/`)  //fetch student group links
             .then(res => res.json())
             .then(json => {
                 return json.results
@@ -40,7 +41,7 @@ export async function getInitialData() {
 
 export function addStudentAPI(student) {
 
-    return fetch('http://localhost:9000/students/api/v1/students/add', {
+    return fetch(`${API}/students/api/v1/students/add`, {
         method: 'POST',
         headers: {
             // 'Accept': 'application/json',
@@ -54,7 +55,7 @@ export function addStudentAPI(student) {
 }
 
 export function addStudentGroupAPI(link) {
-    return fetch('http://localhost:9000/studentsGroups/api/v1/add',{
+    return fetch(`${API}/studentsGroups/api/v1/add`,{
         method: 'POST',
         headers:{
             'Content-Type': 'application/json',
@@ -71,7 +72,7 @@ export function addStudentGroupAPI(link) {
 }
 
 export function removeStudentGroupAPI(ids){ 
-    return fetch('http://localhost:9000/studentsGroups/api/v1/remove',{
+    return fetch(`${API}/studentsGroups/api/v1/remove`,{
         method: 'POST',
         headers:{
             'Content-Type': 'application/json',
@@ -87,7 +88,7 @@ export function removeStudentGroupAPI(ids){
 
 // 
 export function updateStudentGroupAPI(data){  
-    return fetch('http://localhost:9000/studentsGroups/api/v1/update',{
+    return fetch(`${API}/studentsGroups/api/v1/update`,{
         method: 'POST',
         headers:{
             'Content-Type': 'application/json',
@@ -103,7 +104,7 @@ export function updateStudentGroupAPI(data){
 
 
 export function updateGroupAPI(data){
-    return fetch('http://localhost:9000/groups/api/v1/update',{
+    return fetch(`${API}/groups/api/v1/update`,{
         method: 'POST',
         headers:{
             'Content-Type': 'application/json',
@@ -119,7 +120,7 @@ export function updateGroupAPI(data){
 
 
 export function fetchStudentAPI(filters) {
-    return fetch('http://localhost:9000/students/api/v1/students/fetch', {
+    return fetch(`${API}/students/api/v1/students/fetch`, {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
@@ -135,7 +136,7 @@ export function fetchStudentAPI(filters) {
 
 export function addGroupAPI(group) {
 
-    return fetch('http://localhost:9000/groups/api/v1/groups/add', {
+    return fetch(`${API}/groups/api/v1/groups/add`, {
         method: 'POST',
         headers: {
             // 'Accept': 'application/json',
