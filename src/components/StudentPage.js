@@ -53,7 +53,10 @@ class StudentPage extends Component {
                 "phone1": this.state.phone,
                 "phone2": this.state.phone2,
                 "cpa": this.state.CPA, 
-                "balance": this.state.CPABalance
+                "balance": this.state.CPABalance,
+                "status": this.state.status,
+                "terms": this.state.terms,
+                "remarks": this.state.remarks
             }
         }).then(res => console.log(res))
         .catch(error => console.error(error))
@@ -91,21 +94,21 @@ class StudentPage extends Component {
                     <div className='col-12 col-md-6  mb-3'><span className='gray '>Phone 2: </span><Input className='float-left form-control-sm' id="phone2" type="text" value={this.state.phone2} onChange={(e) => this.handleChange(e)} /></div>
                     <div className='col-12 mb-3'>
                         <span className='gray'>Status:</span>
-                        <Input className='form-control-sm' type="select" name="select" id="exampleSelect">
+                        <Input className='form-control-sm' type="select" name="select" id="status" onChange={(e) => {this.handleChange(e)}}>
                             <option>Active</option>
                             <option defaultValue>finish</option>
                         </Input>
                     </div>
                     <div className='col-12 col-md-2 mb-3'><span className='gray '>CPA:</span><Input className='float-left form-control-sm' type="text" id="CPA" value={this.state.CPA} onChange={(e) => this.handleChange(e)} /></div>
                     <div className='col-12 col-md-8 mb-3'><span className='gray'>CPA Balance: </span><Input className='float-left form-control-sm' id="CPABalance" type="text" value={this.state.CPABalance} onChange={(e) => this.handleChange(e)} /></div>
-                    <div className='col-12 col-lg-3 mb-3'> <span className='gray'>sign up date: </span> <span>{student.creationDate}</span></div>
+                    <div className='col-12 col-lg-3 mb-3'> <span className='gray'>sign up date: </span> <span>{student.creationDate && student.creationDate.substring(0, 10)}</span></div>
                     <div className='col-12 col-lg-9 mb-3'><span className='gray'>last date: </span> <span>{student.lastDate}</span></div>
                     <Button className="ml-3" onClick={() => this.handleEdit()}>Edit</Button>
 
 
                     <div className='col-12 mt-4 scrollabel-container'>
                         <h4>Groups</h4>
-                        <Button className='float-right mr-1 mb-2' color="danger" onClick={this.toggle}>Sign up to a new group</Button>
+                        {/* <Button className='float-right mr-1 mb-2' color="danger" onClick={this.toggle}>Sign up to a new group</Button> */}
                         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                             <ModalHeader toggle={this.toggle}>Sign up to a new group</ModalHeader>
                             <ModalBody>
@@ -171,13 +174,13 @@ class StudentPage extends Component {
                     <div className='col-12'>
                         <span className='gray mt-4'> Terms</span>
                         <br />
-                        <Input type="textarea" rows='5' value={student.terms} className='float-left' onChange={(e) => this.handleChange(e)} />
+                        <Input type="textarea" rows='5' id="terms" value={this.state.terms} className='float-left' onChange={(e) => this.handleChange(e)} />
                     </div>
 
                     <div className='col-12'>
                         <span className='gray'> Remarks</span>
                         <br />
-                        <Input type="textarea" rows='5' value={student.remarks} className='float-left' onChange={(e) => this.handleChange(e)} />
+                        <Input type="textarea" rows='5' id="remarks" value={this.state.remarks} className='float-left' onChange={(e) => this.handleChange(e)} />
                     </div>
 
                 </div>

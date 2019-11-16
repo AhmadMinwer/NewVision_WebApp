@@ -80,12 +80,13 @@ class StudentsFilters extends Component {
                 "signUpTo": searchFilter.signupTo,
                 "lastAtFrom": searchFilter.lastDateFrom,
                 "lastAtTo": searchFilter.lastDateTo,
-                "specialty": searchFilter.specialty,
+                "specialty": searchFilter.specialty.toLowerCase(),
                 "Certificate": searchFilter.cStatus,
                 "groupName": searchFilter.groupName,
                 "groupLevel": searchFilter.groupLevel,
                 "balanceFrom": searchFilter.cpaBalanceFrom,
-                "balanceTo": searchFilter.cpaBalanceTo
+                "balanceTo": searchFilter.cpaBalanceTo,
+                "phone": searchFilter.phone
             }
         })
         .then(res =>  this.props.receiveStudents(res.data.results) )
@@ -210,7 +211,7 @@ class StudentsFilters extends Component {
                                             </Input>
                                         </FormGroup>
 
-                                        <FormGroup className="col-12 col-sm-6 my-2 col-lg-3">
+                                        {/* <FormGroup className="col-12 col-sm-6 my-2 col-lg-3">
                                             <Label for="exampleSelect">Group name</Label>
                                             <Input type="select" name="groupName" id="groupName" value={ this.state.searchFilter.groupName } onChange={ this.handleChange }>
                                             <option defaultValue>Select...</option>
@@ -221,7 +222,7 @@ class StudentsFilters extends Component {
                                                         : ''
                                                 }
                                             </Input>
-                                        </FormGroup>
+                                        </FormGroup> */}
                                         <FormGroup className="col-12 col-sm-6 my-2 col-lg-3">
                                             <Label for="exampleSelect">Group Level</Label>
                                             <Input type="select" name="groupLevel" id="groupLevel" value={ this.state.searchFilter.groupLevel } onChange={ this.handleChange }>
