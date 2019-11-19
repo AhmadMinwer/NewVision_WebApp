@@ -74,7 +74,7 @@ class StudentsFilters extends Component {
                 "studentName": searchFilter.name,
                 "id": searchFilter.id ? Number(searchFilter.id) : "",
                 "cpa": searchFilter.cpa,
-                "status": searchFilter.status,
+                "status": searchFilter.status.toLowerCase(),
                 "lastLevel": searchFilter.lastLevel,
                 "signUpFrom": searchFilter.signupFrom,
                 "signUpTo": searchFilter.signupTo,

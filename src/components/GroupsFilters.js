@@ -61,7 +61,7 @@ class GroupFilters extends Component {
                 "id": searchFilter.id ? Number(searchFilter.id) : "",
                 "name": searchFilter.name,
                 "level": searchFilter.level,
-                "status": searchFilter.status,
+                "status": searchFilter.status.toLowerCase(),
                 "timing": searchFilter.timing,
                 "teacher": searchFilter.teacher.toLowerCase(),
                 "startDateFrom":searchFilter.startDateFrom,
