@@ -80,7 +80,7 @@ class GroupPage extends Component {
 
     handleNewGroupStatus(e) {
         this.setState({
-            newGroupStatus: e.target.value,
+            newGroupStatus: e.target.value.toLowerCase(),
         })
     }
 
@@ -480,7 +480,7 @@ class GroupPage extends Component {
                         <div className=''>
                         <Input type="select" onChange={(e) => { this.handleNewGroupLevel(e) }} name="select" >
                                 {
-                                    settings.groupLevel && settings.groupLevel.map((label) => (
+                                    settings && settings.groupLevel && settings.groupLevel.map((label) => (
                                         <option key={label} type="option" className="list-group-item list-group-item-action">{label}</option>
                                     ))
                                 }
@@ -501,7 +501,7 @@ class GroupPage extends Component {
                         <div className=''>
                             <Input type="select" onChange={(e) => { this.handleNewGroupTime(e) }} name="select" >
                                 {
-                                    settings.groupTime && settings.groupTime.map((label) => (
+                                    settings && settings.groupTime && settings.groupTime.map((label) => (
                                         <option key={label} type="option" className="list-group-item list-group-item-action">{label}</option>
                                     ))
                                 }
@@ -522,7 +522,7 @@ class GroupPage extends Component {
 
                         <Input type="select" onChange={(e) => { this.handleNewGroupStatus(e) }} name="select" >
                             {
-                                settings.groupStatus && settings.groupStatus.map((label) => (
+                                settings && settings.groupStatus && settings.groupStatus.map((label) => (
                                     <option key={label} type="option" className="list-group-item list-group-item-action">{label}</option>
                                 ))
                             }
@@ -543,7 +543,7 @@ class GroupPage extends Component {
                         <div className=''>
                             <Input onChange={(e) => { this.handleNewGroupTeachers(e) }} type="select" name="select" multiple >
                                 {
-                                    settings.groupTeacher ? settings.groupTeacher.map((label) => (
+                                    settings && settings.groupTeacher ? settings.groupTeacher.map((label) => (
                                         <option key={label} >{label}</option>
                                     ))
                                         : ''
@@ -647,7 +647,7 @@ class GroupPage extends Component {
                                 {console.log('inside studentGroup edit modal & itemOnActionId=', this.state.itemOnActionId)}
                                 {
                                     // studentStatus = 
-                                    settings.studentStatus && this.state.itemOnActionId && this.state.itemOnActionId !== -1 && settings.studentStatus.map((label) => (
+                                    settings && settings.studentStatus && this.state.itemOnActionId && this.state.itemOnActionId !== -1 && settings.studentStatus.map((label) => (
                                         Object.values(this.props.groupStudents).filter((link) => link.studentId === this.state.itemOnActionId)[0].status === label.toLowerCase() ? <option defaultValue>{label}</option> : <option>{label}</option>
                                     ))
 
@@ -747,13 +747,17 @@ class GroupPage extends Component {
 
 
 function mapStateToProps({ students, groups, settings, studentsGroups }, props) {
-
     const id = props.match.params['id'];
     const groupsData = Object.values(groups)[0];
     let group, groupStudents;
 
     if (groupsData) {
-        group = groupsData.filter((group) => (group.id == id))[0]
+        group = groupsData.filter((group) => (group.id == id))[0];
+
+        if (!group) {
+            window.location.pathname = "/groups/";
+        }
+
         groupStudents = Object.values(studentsGroups).filter((student) => (student.groupId === group.id))
     
         groupStudents = groupStudents.map((student) => {
