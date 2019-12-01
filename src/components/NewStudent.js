@@ -130,15 +130,8 @@ class NewStudent extends Component {
 
                                 <FormGroup className="col-6 col-lg-3 my-2 col-lg-3 ">
                                     <Label >specialty</Label>
-                                    <Input type="select" name="select" id='specialty' value={this.state.specialty} onChange={(e) => this.onSpecialtyChange(e)}>
-                                        <option defaultValue vlaue='' key='0'>Select...</option>
-                                        {
-                                            settings.studentSpecialty ? settings.studentSpecialty.map((label) => (
-                                                <option key={label}>{label}</option>
-                                            ))
-                                                : ''
-                                        }
-                                    </Input>
+                                    <Input type="text" name="select" id='specialty' value={this.state.specialty} onChange={(e) => this.onSpecialtyChange(e)} />
+ 
                                 </FormGroup>
 
                                 <div className="col-12  mb-2 row">

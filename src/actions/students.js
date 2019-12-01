@@ -62,6 +62,8 @@ export function handleFetchStudents(filters){
     return () => {
         return fetchStudentAPI(filters)
         .then((results)=> {
+
+            console.log('results of handleFetchStudents = ',results)
             return results
         })
     }

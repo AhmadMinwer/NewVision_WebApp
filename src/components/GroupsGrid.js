@@ -56,8 +56,8 @@ class GroupsGrid extends Component {
                                         <td>{group.status}</td>
                                         <td>{group.teacher}</td>
                                         <td>{group.teacher2}</td>
-                                        <td>{group.startDate}</td>
-                                        <td>{group.endDate}</td>
+                                        <td>{group.startDate.substring(0,10)}</td>
+                                        <td>{group.endDate.substring(0,10)}</td>
                                         {/* <td>{Object.values(group.accumulatedLessons).length}/{group.commitLessons}</td> */}
                                         {/* <td>{group.students.length}</td> */}
                                         <td></td>

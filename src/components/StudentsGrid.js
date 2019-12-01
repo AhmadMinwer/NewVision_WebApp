@@ -25,12 +25,11 @@ class StudentsGrid extends Component {
                                 <th>CPA ID</th>
                                 <th>Name</th>
                                 <th>CPA Balance</th>
-                                <th>TN</th>
+                                <th>Phone</th>
                                 <th>Sign up date</th>
                                 <th>specialty</th>
                                 <th>Status</th>
                                 <th>Last level</th>
-                                <th>Last date</th>
                                 <th>Remarks</th>
                                 <th>Terms</th>
                             </tr>
@@ -44,11 +43,11 @@ class StudentsGrid extends Component {
                                         <td>{student.name}</td>
                                         <td>{student.CPABalance}</td>
                                         <td>{student.phone}</td>
-                                        <td>{student.creationDate}</td>
+                                        {/* <td> </td> */}
+                                        <td>{student.creationDate.substring(0,10)}</td>
                                         <td>{student.specialty}</td>
                                         <td>{student.status}</td>
                                         <td>{student.lastLevel}</td>
-                                        <td>{student.lastDate}</td>
                                         <td data-toggle="tooltip" title={student.remarks}>{
                                             
                                             student.remarks.length > 30 ?

@@ -9,7 +9,7 @@ export default function students(state = {}, action) {
             }
         case RECEIVE_STUDENTS:
             return {
-                ...state,
+                // ...state,
                 ...action.students
             }
         case RECEIVE_STUDENT:

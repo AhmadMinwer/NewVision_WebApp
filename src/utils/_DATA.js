@@ -264,10 +264,10 @@ let attendance={
 }
 
 let settings = {
-    studentStatus: ['Active', 'Finish', 'Freez'],
+    studentStatus: ['active', 'finish', 'freez','potential','register','quit'],
     studentSpecialty: ['IT', 'Medicine', 'Journalism'],
     certificationStatus: ['given', 'not yet',],
-    groupStatus: ['Active', 'Finish',],
+    groupStatus: ['active', 'finish','potential','register', ],
     groupLevel: ['א', 'ב', 'ג', 'ד'],
     groupTime: ['morning', 'noon', 'evening'],
     groupTeacher: ['Shoshi', 'Mira', 'Zeev'],
