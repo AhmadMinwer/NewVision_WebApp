@@ -1,5 +1,5 @@
 import { showLoading, hideLoading } from 'react-redux-loading'
-import { addGroupAPI, updateGroupAPI } from '../utils/APIs'
+import { addGroupAPI, updateGroupAPI, fetchGroupAPI } from '../utils/APIs'
 
 export const ADD_GROUP = 'ADD_GROUP'
 export const UPDATE_GROUP = 'UPDATE_GROUP'
@@ -42,6 +42,18 @@ export function handleAddGroup(group) {
     }
 }
 
+
+export function handleFetchGroups(filters){
+    return () => {
+        return fetchGroupAPI(filters)
+        .then((results)=> {
+
+            console.log('results of handleFetchGroups = ',results)
+            return results
+        })
+    }
+}
+
 export function receiveGroups(groups) {
     return {
         type: RECEIVE_GROUPS,
@@ -59,6 +71,7 @@ export function receiveGroupId(id) {
 
 export function updateGroup(data){
     console.log('updateGroup groups actions data = ',data)
+    console.log('from Groups action data = ',data)
     return{
         type: UPDATE_GROUP,
         data,
@@ -66,6 +79,7 @@ export function updateGroup(data){
 }
 
 export function handleUpdateGroup(data) {
+    console.log('from Groups handleUpdateGroup',data)
     return (dispatch) => {
         dispatch(showLoading())
 

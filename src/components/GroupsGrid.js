@@ -47,7 +47,14 @@ class GroupsGrid extends Component {
                         <tbody>
 
                             {
-                                groups.map((group) => (
+                                //sort groups depend on group.startDate "decending order"
+                                groups.sort((groupA, groupB)=> { 
+                                    if (groupA.startDate < groupB.startDate)
+                                        return 1;
+                                    else if (groupA.startDate > groupB.startDate)
+                                        return -1;
+                                    else return 0;
+                                }).map((group) => (
                                     <tr key={group.id}>
                                         <th scope="row"><Link to={'/groups/id'+group.id}>{group.id}</Link></th>
                                         <td>{group.name}</td>

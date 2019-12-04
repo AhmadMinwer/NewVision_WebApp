@@ -28,7 +28,7 @@ class StudentsFilters extends Component {
             lastDateFrom: '',
             lastDateTo: '',
             specialty: '',
-        }
+        },
     }
 
     toggleShowFilters = () => {

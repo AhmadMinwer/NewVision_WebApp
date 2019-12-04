@@ -32,6 +32,8 @@ class GroupPage extends Component {
         newGroupStatus: '',
         newGroupTime: '',
         newGroupLevel: '',
+        newGroupTeacher1:'',
+        newGroupTeacher2:'',
     }
 
     componentDidMount() {
@@ -54,7 +56,11 @@ class GroupPage extends Component {
                 newGroupName: this.props.group.name,
                 newGroupStatus: this.props.group.status,
                 newGroupTime: this.props.group.Time,
-                newGroupLevel: this.props.group.level
+                newGroupLevel: this.props.group.level,
+                newGroupTeacher1: this.props.group.teacher,
+                newGroupTeacher2: this.props.group.teacher2,
+
+
             })
     }
 
@@ -100,6 +106,18 @@ class GroupPage extends Component {
             newGroupLevel: e.target.value,
         })
     }
+    
+    handleNewGroupTeacher1(e){
+        this.setState({
+            newGroupTeacher1: e.target.value,
+        })
+    }
+
+    handleNewGroupTeacher2(e){
+        this.setState({
+            newGroupTeacher2: e.target.value,
+        })
+    }
 
     // end modal new values handler functions
 
@@ -139,7 +157,8 @@ class GroupPage extends Component {
             value,
         }
 
-        this.props.dispatch(handleUpdateStudentGroup(data))
+        if(value !== 'select...' && value !== 'Select...' && value !== '')
+            this.props.dispatch(handleUpdateStudentGroup(data))
     }
 
 
@@ -151,7 +170,9 @@ class GroupPage extends Component {
             value,
         }
 
-        this.props.dispatch(handleUpdateGroup(data))
+        console.log('from Groups reducer data handleUpdateGroupValue data= ',data)
+        if(value !== 'select...' && value !== 'Select...' && value !== '')
+            this.props.dispatch(handleUpdateGroup(data))
     }
 
 
@@ -225,7 +246,8 @@ class GroupPage extends Component {
             groupLevelModal: false,
             groupTimeModal: false,
             groupStatusModal: false,
-            groupTeachersModal: false,
+            groupTeacher1Modal: false,
+            groupTeacher2Modal: false,
             groupEndDateModal: false,
             groupStartDateModal: false,
             groupLessonsModal: false,
@@ -241,7 +263,9 @@ class GroupPage extends Component {
         this.toggleGroupLevelModal = this.toggleGroupLevelModal.bind(this)
         this.toggleGroupTimeModal = this.toggleGroupTimeModal.bind(this)
         this.toggleGroupStatusModal = this.toggleGroupStatusModal.bind(this)
-        this.toggleGroupTeachersModal = this.toggleGroupTeachersModal.bind(this)
+        this.toggleGroupTeacher1Modal = this.toggleGroupTeacher1Modal.bind(this)
+        this.toggleGroupTeacher2Modal = this.toggleGroupTeacher2Modal.bind(this)
+
         this.toggleGroupEndDateModal = this.toggleGroupEndDateModal.bind(this)
         this.toggleGroupStartDateModal = this.toggleGroupStartDateModal.bind(this)
         this.toggleGroupLessonsModal = this.toggleGroupLessonsModal.bind(this)
@@ -278,9 +302,16 @@ class GroupPage extends Component {
         }));
     }
 
-    toggleGroupTeachersModal() {
+    toggleGroupTeacher1Modal() {
         this.setState(prevState => ({
-            groupTeachersModal: !prevState.groupTeachersModal
+            groupTeacher1Modal: !prevState.groupTeacher1Modal
+        }));
+    }
+
+    
+    toggleGroupTeacher2Modal() {
+        this.setState(prevState => ({
+            groupTeacher2Modal: !prevState.groupTeacher2Modal
         }));
     }
 
@@ -356,6 +387,7 @@ class GroupPage extends Component {
             students = {}
         }
         return (
+            group.startDate == null? <div></div> :
             <div className='group-page container my-4 py-4 shadow'>
                 <h3 className='col-12 '>{group.name} </h3>
                 <hr className=' col-11' />
@@ -368,10 +400,10 @@ class GroupPage extends Component {
                         <Button className='float-right bg-success' onClick={() => this.redircetToAttendance(group.id)}>Attendence</Button>
                         <Button className='float-right mr-1 bg-success' onClick={() => this.redircetToMarks(group.id)} >marks</Button>
                     </div>
-                    <div className='col-3'><span className='gray cursor-pointer' onClick={this.toggleGroupLevelModal}>Level: </span> <span className='ml-1'>{group.level}</span></div>
-                    <div className='col-9 col-md-3'><span className='gray cursor-pointer' onClick={this.toggleGroupTimeModal}>Time: </span><span className='ml-1'>{group.time}</span></div>
-                    <div className='col-4'>
-                        <span className='gray cursor-pointer' onClick={this.toggleGroupStatusModal}>Status:</span> <span className='ml-1'>{group.status}</span>
+                    <div className='col-12'><span className='gray cursor-pointer' onClick={this.toggleGroupLevelModal}>Level: </span> <span className='ml-1'>{group.level}</span></div>
+                    <div className='col-12 '><span className='gray cursor-pointer' onClick={this.toggleGroupTimeModal}>Time: </span><span className='ml-1'>{group.time}</span></div>
+                    <div className='col-12'>
+                        <span className='gray cursor-pointer mr-1' onClick={this.toggleGroupStatusModal}>Status:</span> <span className='ml-1'>{group.status}</span>
 
                         {/* <Input className='form-control-sm' type="select" name="select" id="exampleSelect">
                             {
@@ -383,8 +415,9 @@ class GroupPage extends Component {
                             }
                         </Input> */}
                     </div>
-                    <div className='col-12'>
-                        <span className='gray cursor-pointer' onClick={this.toggleGroupTeachersModal}>Teachers:</span> <span className='ml-1'>{group.teacher}, {group.teacher2}</span>
+                    <div className='col-12'><span className='gray cursor-pointer mr-1' onClick={this.toggleGroupTeacher1Modal}>Teacher 1:</span> {group.teacher1} </div>
+                    <div className='col-12'><span className='gray cursor-pointer mr-1' onClick={this.toggleGroupTeacher2Modal}>Teacher 2:</span> {group.teacher2} </div>
+                        
                         {/* <Input type="select" name="select" multiple >
                             {
                                 settings.groupTeacher ? settings.groupTeacher.map((label) => (
@@ -393,9 +426,8 @@ class GroupPage extends Component {
                                     : ''
                             }
                         </Input> */}
-                    </div>
-                    <div className='col-12 col-md-3'> <span className='gray cursor-pointer' onClick={this.toggleGroupStartDateModal}>Starting date: </span>{group.startDate}</div>
-                    <div className='col-12 col-md-9'><span className='gray cursor-pointer' onClick={this.toggleGroupEndDateModal}>Finishing date: </span>{group.endDate}</div>
+                    <div className='col-12 '> <span className='gray cursor-pointer' onClick={this.toggleGroupStartDateModal}>Starting date: </span>{group.startDate.substring(0,10)}</div>
+                    <div className='col-12'><span className='gray cursor-pointer' onClick={this.toggleGroupEndDateModal}>Finishing date: </span>{group.endDate.substring(0,10)}</div>
                     <div className='col-6'><span className='gray' onClick={this.toggleGroupLessonsModal}>Lessons: </span> <span className='ml-1'>{group.accumulatedLessons ? Object.values(group.accumulatedLessons).length : ''}/{group.commitLessons}</span></div>
 
 
@@ -497,6 +529,7 @@ class GroupPage extends Component {
                     <ModalBody>
                         <div className=''>
                             <Input type="select" onChange={(e) => { this.handleNewGroupTime(e) }} name="select" >
+                                <option>select...</option>
                                 {
                                     settings.groupTime && settings.groupTime.map((label) => (
                                         <option key={label} type="option" className="list-group-item list-group-item-action">{label}</option>
@@ -518,6 +551,7 @@ class GroupPage extends Component {
                     <ModalBody>
 
                         <Input type="select" onChange={(e) => { this.handleNewGroupStatus(e) }} name="select" >
+                            <option>select...</option>
                             {
                                 settings.groupStatus && settings.groupStatus.map((label) => (
                                     <option key={label} type="option" className="list-group-item list-group-item-action">{label}</option>
@@ -533,24 +567,50 @@ class GroupPage extends Component {
                 </Modal>
 
 
-                {/* update group Teachers modal */}
-                <Modal isOpen={this.state.groupTeachersModal} toggle={this.toggleGroupTeachersModal} className={this.props.className}>
-                    <ModalHeader toggle={this.toggleGroupTeachersModal}>update group Teachers</ModalHeader>
+                {/* update group Teacher1 modal */}
+                <Modal isOpen={this.state.groupTeacher1Modal} toggle={this.toggleGroupTeacher1Modal} className={this.props.className}>
+                    <ModalHeader toggle={this.toggleGroupTeacher1Modal}>update group Teacher1</ModalHeader>
                     <ModalBody>
                         <div className=''>
-                            <Input onChange={(e) => { this.handleNewGroupTeachers(e) }} type="select" name="select" multiple >
+                            {/* <Input onChange={(e) => { this.handleNewGroupTeachers(e) }} type="select" name="select" multiple >
                                 {
                                     settings.groupTeacher ? settings.groupTeacher.map((label) => (
                                         <option key={label} >{label}</option>
                                     ))
                                         : ''
                                 }
-                            </Input>
+                            </Input> */}
+                            
+                            <Input type="text" placeholder="teacher1" onChange={(e) => { this.handleNewGroupTeacher1(e) }} className="col-12 "  name="teacher1" id="teacher1" />
                         </div>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={(event) => { this.toggleGroupTeachersModal(event); this.handleUpdateGroupValue(group.id, 'teachers', this.state.newGroupTeachers) }} >Updatet</Button>{' '}
-                        <Button color="secondary" onClick={this.toggleGroupTeachersModal}>Cancel</Button>
+                        <Button color="primary" onClick={(event) => { this.toggleGroupTeacher1Modal(event); this.handleUpdateGroupValue(group.id, 'teacher1', this.state.newGroupTeacher1) }} >Updatet</Button>{' '}
+                        <Button color="secondary" onClick={this.toggleGroupTeacher1Modal}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
+
+                
+                {/* update group Teacher2 modal */}
+                <Modal isOpen={this.state.groupTeacher2Modal} toggle={this.toggleGroupTeacher2Modal} className={this.props.className}>
+                    <ModalHeader toggle={this.toggleGroupTeacher2Modal}>update group Teacher2</ModalHeader>
+                    <ModalBody>
+                        <div className=''>
+                            {/* <Input onChange={(e) => { this.handleNewGroupTeachers(e) }} type="select" name="select" multiple >
+                                {
+                                    settings.groupTeacher ? settings.groupTeacher.map((label) => (
+                                        <option key={label} >{label}</option>
+                                    ))
+                                        : ''
+                                }
+                            </Input> */}
+                            
+                            <Input type="text" placeholder="teacher2" onChange={(e) => { this.handleNewGroupTeacher2(e) }} className="col-12 mb-2"  name="teacher2" id="teacher2" />
+                        </div>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={(event) => { this.toggleGroupTeacher2Modal(event); this.handleUpdateGroupValue(group.id, 'teacher2', this.state.newGroupTeacher2) }} >Updatet</Button>{' '}
+                        <Button color="secondary" onClick={this.toggleGroupTeacher2Modal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
 
@@ -646,7 +706,7 @@ class GroupPage extends Component {
                                 {
                                     // studentStatus = 
                                     settings.studentStatus && this.state.itemOnActionId && this.state.itemOnActionId !== -1 && settings.studentStatus.map((label) => (
-                                        Object.values(this.props.groupStudents).filter((link) => link.studentId === this.state.itemOnActionId)[0].status === label.toLowerCase() ? <option defaultValue>{label}</option> : <option>{label}</option>
+                                        Object.values(this.props.groupStudents).filter((link) => link.studentId === this.state.itemOnActionId)[0].status === label.toLowerCase() ? <option key={label} defaultValue>{label}</option> : <option key={label}>{label}</option>
                                     ))
 
                                 }
@@ -656,16 +716,16 @@ class GroupPage extends Component {
                             <Input type="select" name="select">
                                 <option defaultValue>Select...</option>
                                 {
-                                    // settings.certificationStatus && this.state.itemOnActionId !== -1 && settings.certificationStatus.map((label) => (
-                                    //     Object.values(Object.values(students)[this.state.itemOnActionId].groups[group.id])[5] === label ? <option defaultValue>{label}</option> : <option>{label}</option>
-                                    // ))
-
+                                    // certification status = 
+                                    settings.certificationStatus && this.state.itemOnActionId && this.state.itemOnActionId !== -1 && settings.certificationStatus.map((label) => (
+                                        Object.values(this.props.groupStudents).filter((link) => link.studentId === this.state.itemOnActionId)[0].status === label.toLowerCase() ? <option defaultValue>{label}</option> : <option>{label}</option>
+                                    ))
                                 }
                             </Input>
                         </div>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.toggleEditStudentModal}>Updatet</Button>{' '}
+                        <Button color="primary" onClick={()=> {this.toggleEditStudentModal(); this.handle }}>Updatet</Button>{' '}
                         <Button color="secondary" onClick={this.toggleEditStudentModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>

@@ -131,6 +131,18 @@ export function fetchStudentAPI(filters) {
         .then(body => body.results)
 }
 
+export function fetchGroupAPI(filters) {
+    return fetch('http://localhost:9000/groups/api/v1/groups/fetch', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+            filters,
+        })
+    }).then(response => response.json())
+        .then(body => body.results)
+}
 
 
 export function addGroupAPI(group) {

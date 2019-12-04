@@ -269,7 +269,7 @@ let settings = {
     certificationStatus: ['given', 'not yet',],
     groupStatus: ['active', 'finish','potential','register', ],
     groupLevel: ['א', 'ב', 'ג', 'ד'],
-    groupTime: ['morning', 'noon', 'evening'],
+    groupTime: ['morning', 'noon', 'evning'],
     groupTeacher: ['Shoshi', 'Mira', 'Zeev'],
 }
 

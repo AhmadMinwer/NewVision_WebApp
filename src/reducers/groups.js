@@ -6,6 +6,9 @@ export default function groups(state = {}, action) {
         case ADD_GROUP:
 
         case UPDATE_GROUP:
+            
+        console.log('from Groups reducer data= ', action.data)
+
             let updatedGroup = Object.values(state).filter((group)=>(group.id == action.data.groupId))[0]
             updatedGroup[action.data.type] = action.data.value
             const filteredGroups = Object.assign({},Object.values(state).filter((group)=>(group.id != action.data.groupId)))
@@ -22,7 +25,7 @@ export default function groups(state = {}, action) {
             }
         case RECEIVE_GROUPS:
             return {
-                ...state,
+                // ...state,
                 ...action.groups
             }
         default:
