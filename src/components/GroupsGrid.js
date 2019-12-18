@@ -61,13 +61,13 @@ class GroupsGrid extends Component {
                                         <td>{group.level}</td>
                                         <td>{group.time}</td>
                                         <td>{group.status}</td>
-                                        <td>{group.teacher}</td>
+                                        <td>{group.teacher1}</td>
                                         <td>{group.teacher2}</td>
                                         <td>{group.startDate.substring(0,10)}</td>
                                         <td>{group.endDate.substring(0,10)}</td>
                                         {/* <td>{Object.values(group.accumulatedLessons).length}/{group.commitLessons}</td> */}
-                                        {/* <td>{group.students.length}</td> */}
                                         <td></td>
+                                        <td>{group.numberOfStudents}</td>
                                         <td></td>
                                         <td className='text-center'>
                                             <Button onClick={() => (this.redircetToAttendance(group.id))}>Attendence</Button>

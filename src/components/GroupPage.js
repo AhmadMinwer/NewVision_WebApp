@@ -4,9 +4,12 @@ import { Table } from 'reactstrap';
 import { Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Label } from 'reactstrap';
-import { handleFetchStudents } from '../actions/students'
+import { handleSearchStudents } from '../actions/students'
 import { handleUpdateGroup } from '../actions/groups'
-import { handleAddStudentGroup, handleRemoveStudentGroup, handleUpdateStudentGroup } from '../actions/studentsGroups'
+import { handleAddStudentGroup, handleRemoveStudentGroup, handleUpdateStudentGroup, receiveStudentGroupLinks, handleFetchStudentGroup } from '../actions/studentsGroups'
+import { receiveStudents, handleFetchStudents } from '../actions/students'
+
+
 
 
 
@@ -14,7 +17,7 @@ import { handleAddStudentGroup, handleRemoveStudentGroup, handleUpdateStudentGro
 class GroupPage extends Component {
 
     state = {
-
+        students:[],
         addStudentFiltersResults: [],
 
         filtersId: '',
@@ -36,10 +39,10 @@ class GroupPage extends Component {
         newGroupTeacher2:'',
     }
 
-    componentDidMount() {
+    async componentDidMount() {
 
         console.log('i am componentDidMount and groups =', this.props)
-        if (this.groups)
+        if (this.groups){
             this.setState({
                 addStudentFiltersResults: [],
                 filtersId: '',
@@ -62,6 +65,41 @@ class GroupPage extends Component {
 
 
             })
+        }
+
+        let searchFilters
+
+        console.log('this.props.id =',this.props.id)
+        if(this.props.id){
+            const { dispatch } = this.props
+
+            searchFilters = {groupId: this.props.id}
+        
+            const filtersResults = await dispatch(handleFetchStudents(searchFilters))
+            dispatch(receiveStudents(filtersResults))
+            console.log('filtersResults in groupPage', filtersResults)
+
+            let fetchedGroupStudents = await dispatch(handleFetchStudentGroup(searchFilters))
+            dispatch(receiveStudentGroupLinks(filtersResults))
+
+            console.log('filtersResults in groupPage', fetchedGroupStudents)
+
+
+            fetchedGroupStudents = fetchedGroupStudents.map((student) => {
+
+                const studentInfo = filtersResults.filter((std) => (student.studentId == std.id))[0]
+
+                return {
+                    ...studentInfo,
+                    ...student
+                }
+            })
+
+            this.setState({
+                students: fetchedGroupStudents,
+            })
+
+        }
     }
 
     // modal new values handler functions
@@ -141,10 +179,11 @@ class GroupPage extends Component {
             mark1: '',
             mark2: '',
             mark3: '',
-            certification: '',
+            certification: 'no',
         }
 
         this.props.dispatch(handleAddStudentGroup(data))
+        window.location.reload();
     }
 
 
@@ -221,8 +260,10 @@ class GroupPage extends Component {
         const { filtersId, filtersName, filtersPhone, filtersDate } = this.state
         const { dispatch } = this.props
 
-        const results = await dispatch(handleFetchStudents({ filtersId, filtersName, filtersPhone, filtersDate, filtersGroupId: this.props.group.id }))
-
+        const results = await dispatch(handleSearchStudents({ filtersId, filtersName, filtersPhone, filtersDate, filtersGroupId: this.props.group.id }))
+        
+        console.log('filters results = ', results)
+        
         this.setState({
             addStudentFiltersResults: results
         })
@@ -378,9 +419,10 @@ class GroupPage extends Component {
         let students
         const settings = this.props.settings
 
-        if (this.props.group) {
+        if (this.props.group && this.state.students) {
             group = this.props.group
-            students = this.props.groupStudents
+            // students = this.props.groupStudents
+            students = this.state.students
             console.log('students within group! => ', students)
         } else {
             group = {}
@@ -400,7 +442,9 @@ class GroupPage extends Component {
                         <Button className='float-right bg-success' onClick={() => this.redircetToAttendance(group.id)}>Attendence</Button>
                         <Button className='float-right mr-1 bg-success' onClick={() => this.redircetToMarks(group.id)} >marks</Button>
                     </div>
-                    <div className='col-12'><span className='gray cursor-pointer' onClick={this.toggleGroupLevelModal}>Level: </span> <span className='ml-1'>{group.level}</span></div>
+                    <div className='col-2'><span className='gray cursor-pointer' onClick={this.toggleGroupLevelModal}>Level: </span> <span className='ml-1'>{group.level}</span></div>
+                    <div className='col-4'><span className='gray' onClick={this.toggleGroupLessonsModal}>number of students: </span> <span className='ml-1'>{group.numberOfStudents}</span></div>
+                    
                     <div className='col-12 '><span className='gray cursor-pointer' onClick={this.toggleGroupTimeModal}>Time: </span><span className='ml-1'>{group.time}</span></div>
                     <div className='col-12'>
                         <span className='gray cursor-pointer mr-1' onClick={this.toggleGroupStatusModal}>Status:</span> <span className='ml-1'>{group.status}</span>
@@ -428,7 +472,7 @@ class GroupPage extends Component {
                         </Input> */}
                     <div className='col-12 '> <span className='gray cursor-pointer' onClick={this.toggleGroupStartDateModal}>Starting date: </span>{group.startDate.substring(0,10)}</div>
                     <div className='col-12'><span className='gray cursor-pointer' onClick={this.toggleGroupEndDateModal}>Finishing date: </span>{group.endDate.substring(0,10)}</div>
-                    <div className='col-6'><span className='gray' onClick={this.toggleGroupLessonsModal}>Lessons: </span> <span className='ml-1'>{group.accumulatedLessons ? Object.values(group.accumulatedLessons).length : ''}/{group.commitLessons}</span></div>
+                    <div className='col-12'><span className='gray' onClick={this.toggleGroupLessonsModal}>Lessons: </span> <span className='ml-1'>{group.accumulatedLessons ? Object.values(group.accumulatedLessons).length : ''}/{group.commitLessons}</span></div>
 
 
 
@@ -725,7 +769,7 @@ class GroupPage extends Component {
                         </div>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={()=> {this.toggleEditStudentModal(); this.handle }}>Updatet</Button>{' '}
+                        <Button color="primary" onClick={()=> {this.toggleEditStudentModal(); }}>Updatet</Button>{' '}
                         <Button color="secondary" onClick={this.toggleEditStudentModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
@@ -781,7 +825,7 @@ class GroupPage extends Component {
                                                 <th scope='row' key={student.id}> <Link to={'/students/id' + student.id}>{student.id}</Link></th>
                                                 <td>{student.name}</td>
                                                 <td>{student.phone}</td>
-                                                <td>{student.creationDate}</td>
+                                                <td>{student.signup_date.substring(0,10)}</td>
                                                 <td> <Button color="success" onClick={() => { this.toggleAddStudentModal(); this.handleAddStudent(student.id) }}  >Add</Button></td>
                                             </tr>
                                         ))
@@ -806,25 +850,26 @@ function mapStateToProps({ students, groups, settings, studentsGroups }, props) 
     const id = props.match.params['id']
     const group = Object.values(groups).filter((group) => (group.id == id))[0]
 
-    let groupStudents = Object.values(studentsGroups).filter((student) => (student.groupId === group.id))
+    // let groupStudents = Object.values(studentsGroups).filter((student) => (student.groupId === group.id))
 
 
-    groupStudents = groupStudents.map((student) => {
+    // groupStudents = groupStudents.map((student) => {
 
-        const studentInfo = Object.values(students).filter((std) => (student.studentId == std.id))[0]
+    //     const studentInfo = Object.values(students).filter((std) => (student.studentId == std.id))[0]
 
-        return {
-            ...studentInfo,
-            ...student
-        }
-    })
+    //     return {
+    //         ...studentInfo,
+    //         ...student
+    //     }
+    // })
 
 
 
     return {
         group,
-        groupStudents,
+        // groupStudents,
         settings,
+        id,
     }
 }
 

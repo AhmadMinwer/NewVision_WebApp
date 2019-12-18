@@ -1,5 +1,5 @@
 import { showLoading, hideLoading } from 'react-redux-loading'
-import { addStudentAPI, fetchStudentAPI } from '../utils/APIs'
+import { addStudentAPI, fetchStudentAPI, searchStudentAPI, updateStudentAPI } from '../utils/APIs'
 
 export const ADD_STUDENT = 'ADD_STUDENT'
 export const UPDATE_STUDENT = 'UPDATE_STUDENT'
@@ -69,6 +69,17 @@ export function handleFetchStudents(filters){
     }
 }
 
+export function handleSearchStudents(filters){
+    return () => {
+        return searchStudentAPI(filters)
+        .then((results)=> {
+
+            console.log('results of handleFetchStudents = ',results)
+            return results
+        })
+    }
+}
+
 //you need 2 action creators => you need one for fillters and one as default for active students
 export function receiveStudents(students) {
     return {
@@ -84,23 +95,23 @@ export function receiveStudentId(id) {
 }
 
 
-
-export function updateStudent(student) {
-    return {
+export function updateStudent(data){
+    return{
         type: UPDATE_STUDENT,
-        student
+        data,
     }
 }
 
-// export function handleUpdateStudent(info) {
-//     return (dispatch) => {
-//         dispatch(updateStudent(info))
+export function handleUpdateStudent(data) {
+    console.log('from Students handleUpdateStudent',data)
+    return (dispatch) => {
+        dispatch(showLoading())
 
-//         return updateStudentAPI(info)
-//             .catch((e) => {
-//                 console.warn('Error in updating a student: ', e)
-//                 dispatch(updateStudent(info))
-//                 alert('There was an error in updating a student. Try again.')
-//             })
-//     }
-// }
+        return updateStudentAPI(data)
+            .then((data) => dispatch(updateStudent(data)))
+            .then((action) => {
+                dispatch(hideLoading())
+                return action.data
+            })
+    }
+}

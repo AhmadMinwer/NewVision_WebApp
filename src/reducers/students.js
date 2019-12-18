@@ -18,12 +18,19 @@ export default function students(state = {}, action) {
                 ...state,
                 ...action.students
             }
+
         case UPDATE_STUDENT:
+
+            console.log('from Students reducer data= ', action.data)
+
+            let updatedStudent = Object.values(state).filter((student) => (student.id == action.data.studentId))[0]
+            updatedStudent[action.data.type] = action.data.value
+            const filteredStudents = Object.assign({}, Object.values(state).filter((student) => (student.id != action.data.studentId)))
+
+            console.log('updatedStudent = ', updatedStudent)
             return {
-                ...state,
-                [action.student.id]: {
-                    // TODO: modify it to edit changed values  
-                }
+                ...filteredStudents,
+                updatedStudent,
             }
         default:
             return state

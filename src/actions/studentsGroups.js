@@ -1,5 +1,5 @@
 import { showLoading, hideLoading } from 'react-redux-loading'
-import { addStudentGroupAPI, removeStudentGroupAPI, updateStudentGroupAPI } from '../utils/APIs'
+import { addStudentGroupAPI, removeStudentGroupAPI, updateStudentGroupAPI, fetchStudentGroupAPI } from '../utils/APIs'
 
 export const ADD_STUDENT_GROUP_LINK = 'ADD_STUDENT_GROUP'
 export const REMOVE_STUDENT_GROUP = 'REMOVE_STUDENT_GROUP'
@@ -78,6 +78,18 @@ export function receiveStudentGroupLinks(links) {
         links,
     }
 }
+
+export function handleFetchStudentGroup(filters){
+    return () => {
+        return fetchStudentGroupAPI(filters)
+        .then((results)=> {
+
+            console.log('results of handleFetchStudentGroup = ',results)
+            return results
+        })
+    }
+}
+
 
 // export function receiveGroupId(id) {
 //     return {

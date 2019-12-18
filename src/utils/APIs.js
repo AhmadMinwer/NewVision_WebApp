@@ -117,7 +117,38 @@ export function updateGroupAPI(data){
         })
 }
 
+export function updateStudentAPI(data){
+    return fetch('http://localhost:9000/students/api/v1/update',{
+        method: 'POST',
+        headers:{
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            data,
+        })
+    }).then(response => response.json())
+        .then(json => {
+            return json.data
+        })
+}
 
+
+//used by groupPage  -> add student to group -> students search
+export function searchStudentAPI(filters) {
+    return fetch('http://localhost:9000/students/api/v1/students/search/fetch', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+            filters,
+        })
+    }).then(response => response.json())
+        .then(body => body.results)
+}
+
+
+//used by add studentToGroup filters
 export function fetchStudentAPI(filters) {
     return fetch('http://localhost:9000/students/api/v1/students/fetch', {
         method: 'POST',
@@ -130,6 +161,21 @@ export function fetchStudentAPI(filters) {
     }).then(response => response.json())
         .then(body => body.results)
 }
+
+//used by group page fetch missing students
+export function fetchStudentGroupAPI(filters) {
+    return fetch('http://localhost:9000/studentsGroups/api/v1/studentsGroups/fetch', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+            filters,
+        })
+    }).then(response => response.json())
+        .then(body => body.results)
+}
+
 
 export function fetchGroupAPI(filters) {
     return fetch('http://localhost:9000/groups/api/v1/groups/fetch', {

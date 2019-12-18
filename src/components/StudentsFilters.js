@@ -68,9 +68,6 @@ class StudentsFilters extends Component {
             lastDateFrom: '',
             lastDateTo: '',
             specialty: '',
-            cStatus: '',
-            groupName: '',
-            groupLevel: ''
         };
 
         this.setState({ 
